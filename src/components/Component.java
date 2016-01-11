@@ -1,45 +1,16 @@
 package components;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
+import javafx.scene.Group;
 
-import java.util.ArrayList;
+public class Component {
+    private Group componentGroup;
 
-public class Component extends Rectangle {
-    private Anchor[] anchors;
-    private static final int N_ANCHORS = 2;
-    private static final double DEFAULT_XY = 90.0;
-    public Component(double posX, double posY){
-        super(posX, posY, DEFAULT_XY, DEFAULT_XY);
-        this.setFill(Color.TRANSPARENT);
-        this.setStroke(Color.BLACK);
-        anchors = new Anchor[2];
+    protected Component(Group group){
+        componentGroup = group;
     }
 
-    public void moveToFront(){
-        this.toFront();
-        for(Anchor a : anchors){
-            a.toFront();
-        }
+    public Group getGroup(){
+        return componentGroup;
     }
-
-    public int getNAnchors(){return N_ANCHORS;}
-
-    public void addAnchor(int i, Anchor anchor){
-        anchors[i] = anchor;
-        anchor.toFront();
-    }
-    public void updateAnchors(){
-        for(Anchor a : anchors){
-            a.update();
-        }
-    }
-    public double getDefaultXY(){
-        return DEFAULT_XY;
-    }
-
-
 
 }

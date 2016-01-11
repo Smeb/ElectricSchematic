@@ -1,9 +1,7 @@
 package components;
 
-import Controllers.WireController;
-import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class AnchorFactory {
@@ -16,34 +14,28 @@ public class AnchorFactory {
         return instance;
     }
 
-    public void addAnchors(Group root, Component parent){
-        for(int i = 0; i < parent.getNAnchors(); i++){
-            Anchor anchor = newAnchor(parent, i);
-            root.getChildren().add(anchor);
+    public void addAnchor(Group root, Orientation orientation){
+        Bounds bounds = root.getBoundsInParent();
+        Anchor anchor;
+        if(orientation == Orientation.UP){
+            anchor = new Anchor(bounds.getMaxX() / 2, bounds.getMinY());
         }
-    }
-
-    private Anchor newAnchor(Component parent, int i){
-        Anchor anchor = new Anchor(parent, i);
-        parent.addAnchor(i, anchor);
+        else if(orientation == Orientation.RIGHT){
+            anchor = new Anchor(bounds.getMaxX(), bounds.getMaxY() / 2);
+        }
+        else if(orientation == Orientation.DOWN){
+            anchor = new Anchor(bounds.getMaxX() / 2, bounds.getMaxY());
+        }
+        else {
+            anchor = new Anchor(bounds.getMinX(), bounds.getMaxY() / 2);
+        }
         setInteractions(anchor);
-        return anchor;
+        root.getChildren().add(anchor);
     }
 
     private void setInteractions(Anchor anchor){
-        anchor.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                anchor.setStroke(Color.RED);
-            }
-        });
-
-        anchor.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                anchor.setStroke(Color.TRANSPARENT);
-            }
-        });
+        anchor.setOnMouseEntered((event) -> anchor.setStroke(Color.RED));
+        anchor.setOnMouseExited((event) -> anchor.setStroke(Color.TRANSPARENT));
 
         /*
         anchor.setOnMouseClicked(new EventHandler<MouseEvent> {
