@@ -19,6 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Group root = new Group();
+        ComponentFactory.assignGroup(root);
         Button button = new Button("New component");
         button.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
