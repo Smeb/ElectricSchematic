@@ -2,6 +2,7 @@ package components;
 
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 
 public class ComponentFactory {
@@ -17,13 +18,21 @@ public class ComponentFactory {
 
     protected ComponentFactory(){}
 
-    public Component newComponent(Class classType, double posX, double posY){
+    public void newComponent(Group root, Class classType, double posX, double posY){
         if(classType == Component.class){
             Component component = new Component(posX, posY);
             enableDrag(component);
-            return component;
+            addAnchors(root, component);
+            root.getChildren().add(component);
         }
-        return null;
+    }
+
+    private void addAnchors(Group root, Component component){
+        for(int i = 0; i < 2; i++){
+            Anchor anchor = new Anchor(component, i);
+            component.addAnchor(i, anchor);
+            root.getChildren().add(anchor);
+        }
     }
 
     private void enableDrag(Component component){
@@ -41,7 +50,7 @@ public class ComponentFactory {
                 component.toFront();
             }
         });
-        component.setOnMouseDragged(new EventHandler<MouseEvent>() {
+        component.setOnMouseDragged(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
                 double dragX = event.getSceneX();
@@ -50,10 +59,10 @@ public class ComponentFactory {
                 double newYPosition = dragDelta.y + dragY - component.getDefaultXY() / 2;
                 component.setX(newXPosition);
                 component.setY(newYPosition);
+                component.updateAnchors();
             }
         });
     }
-
 
     private class Delta { double x, y;}
 }

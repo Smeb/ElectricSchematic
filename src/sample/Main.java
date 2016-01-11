@@ -23,7 +23,7 @@ public class Main extends Application {
         button.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event){
-                root.getChildren().add(ComponentFactory.getInstance().newComponent(Component.class, 50, 50));
+                ComponentFactory.getInstance().newComponent(root, Component.class, 50, 50);
             }
         });
         root.getChildren().addAll(button);
