@@ -5,8 +5,6 @@ import javafx.scene.shape.Circle;
 
 public class Anchor extends Circle {
     private static final double ANCHOR_SIZE = 5.0;
-    Orientation orientation;
-
     public Anchor(double posX, double posY){
         super(ANCHOR_SIZE);
         this.setCenterX(posX);
