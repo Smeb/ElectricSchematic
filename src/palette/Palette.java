@@ -1,4 +1,4 @@
-package sample;
+package palette;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
@@ -6,6 +6,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import components.Component;
+
 import java.util.ArrayList;
 
 
