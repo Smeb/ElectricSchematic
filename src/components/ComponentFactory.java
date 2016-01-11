@@ -58,6 +58,7 @@ public class ComponentFactory {
                 dragDelta.y = component.getTranslateY();
             }
         });
+
         component.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event){
