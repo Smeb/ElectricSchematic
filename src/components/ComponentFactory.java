@@ -1,22 +1,38 @@
 package components;
 
 import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 
 public class ComponentFactory {
 
     private static ComponentFactory instance = null;
+    private static Group root = null;
 
     public static ComponentFactory getInstance() {
         if(instance == null){
             instance = new ComponentFactory();
         }
+        if(root == null){
+            System.out.println("Fatal error : canvas not assigned");
+            System.exit(0);
+        }
         return instance;
     }
 
-    protected ComponentFactory(){}
+    private ComponentFactory() {
+        ;
+    }
+
+    public static void assignGroup(Group root) throws Exception {
+        if(instance == null){
+            instance = new ComponentFactory();
+        }
+        if(ComponentFactory.root != null){
+            throw(new Exception("Root already initialized"));
+        }
+        ComponentFactory.root = root;
+    }
 
     public void newComponent(Group root, Class classType, double posX, double posY){
         if(classType == Component.class){
@@ -24,15 +40,13 @@ public class ComponentFactory {
             enableDrag(component);
             addAnchors(root, component);
             root.getChildren().add(component);
+            ComponentRegistry.getInstance().addComponent(component);
         }
     }
 
     private void addAnchors(Group root, Component component){
-        for(int i = 0; i < 2; i++){
-            Anchor anchor = new Anchor(component, i);
-            component.addAnchor(i, anchor);
-            root.getChildren().add(anchor);
-        }
+        AnchorFactory factory = AnchorFactory.getInstance();
+        factory.addAnchors(root, component);
     }
 
     private void enableDrag(Component component){
@@ -47,7 +61,7 @@ public class ComponentFactory {
         component.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event){
-                component.toFront();
+                component.moveToFront();
             }
         });
         component.setOnMouseDragged(new EventHandler<MouseEvent>(){
