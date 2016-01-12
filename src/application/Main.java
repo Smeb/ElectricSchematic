@@ -17,15 +17,15 @@ import palette.Palette;
 import java.util.ArrayList;
 
 public class Main extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     private Palette createPalette() {
         ArrayList<Class> tools = new ArrayList<>();
         tools.add(Lamp.class);
         tools.add(Battery.class);
         return new Palette(30,50,200,40,4,tools);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     @Override
@@ -55,7 +55,6 @@ public class Main extends Application {
                 wireController.setDormant();
             }
         });
-
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(programScene);
         primaryStage.show();

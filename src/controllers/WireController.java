@@ -44,7 +44,6 @@ public class WireController {
         Wire wire = makeWire(parent, end);
         parent.addWire(wire, Anchor.Direction.send);
         end.addWire(wire, Anchor.Direction.recv);
-
     }
 
     public void setInteractions(Wire wire){}
