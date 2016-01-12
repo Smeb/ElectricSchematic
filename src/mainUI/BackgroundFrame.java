@@ -1,9 +1,13 @@
 package mainUI;
 
+import com.sun.deploy.uitoolkit.DragContext;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -11,50 +15,51 @@ import javafx.scene.shape.Rectangle;
  */
 public class BackgroundFrame {
 
-    double originSceneX, originSceneY, originSceneTranslateX, originSceneTranslateY;
+//    double originSceneX, originSceneY, originSceneTranslateX, originSceneTranslateY;
 
-    public BackgroundFrame(){
+    public Group makeFrame(){
         Rectangle r = new Rectangle();
-        r.setX(10);
-        r.setY(10);
-        r.setWidth(10);
-        r.setHeight(10);
+        r.setWidth(1000);
+        r.setHeight(1000);
+        r.prefHeight(10000);
+        r.prefWidth(10000);
+        r.setFill(Color.WHITE);
 
-        //BACKGROUND FRAME
+        Group backgroundFrame = new Group();
 
-        final VBox backgroundFrame = new VBox();
-
-        backgroundFrame.setAlignment(Pos.CENTER);
-        backgroundFrame.setStyle("-fx-background-color: pink;");
-        backgroundFrame.setMinSize(10000,10000);
+       // backgroundFrame.setAlignment(Pos.CENTER);
+//        backgroundFrame.setStyle("-fx-background-color: pink;");
+        backgroundFrame.isResizable();
+       // backgroundFrame.setMinSize(10000,10000);
         backgroundFrame.getChildren().add(r);
 
+        enableDrag(backgroundFrame);
+        return backgroundFrame;
+    }
 
-        backgroundFrame.setOnDragDetected(new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent event) {
-                backgroundFrame.startFullDrag();
-            }
-        });
-        backgroundFrame.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                originSceneX = event.getSceneX();
-                originSceneY = event.getSceneY();
-                originSceneTranslateX = ((VBox) event.getSource()).getTranslateX();
-                originSceneTranslateY = ((VBox) event.getSource()).getTranslateY();
-            }
-        });
-        backgroundFrame.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                double offsetX = event.getSceneX() - originSceneX;
-                double offsetY = event.getSceneY() - originSceneY;
-                double newTranslateX = originSceneTranslateX + offsetX;
-                double newTranslateY = originSceneTranslateY + offsetY;
+    private void enableDrag(Group group) {
+        final DragContext dragContext = new DragContext();
 
-                ((VBox)(event.getSource())).setTranslateX(newTranslateX);
-                ((VBox)(event.getSource())).setTranslateY(newTranslateY);
-            }
+        group.setOnMousePressed((event) -> {
+            // Centers the group onto the mouse
+            group.toFront();
+            dragContext.deltaX = group.getLayoutX() - event.getSceneX();
+            dragContext.deltaY = group.getLayoutY() - event.getSceneY();
+            group.setCursor(Cursor.CLOSED_HAND);
         });
+
+        group.setOnMouseEntered((event) -> group.setCursor(Cursor.HAND));
+
+        group.setOnMouseDragged((event) -> {
+            group.setLayoutX(event.getSceneX() + dragContext.deltaX);
+            group.setLayoutY(event.getSceneY() + dragContext.deltaY);
+        });
+
+        group.setOnMouseExited((event) -> group.setCursor(Cursor.DEFAULT));
+    }
+
+    private static final class DragContext {
+        public double deltaX;
+        public double deltaY;
     }
 }

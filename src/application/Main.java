@@ -4,6 +4,9 @@ import components.infrastructure.ComponentGroupFactory;
 import components.parts.Battery;
 import components.parts.ComponentFactory;
 import components.parts.Lamp;
+import javafx.scene.control.MenuBar;
+import javafx.scene.layout.VBox;
+import mainUI.*;
 import controllers.WireController;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -14,10 +17,6 @@ import palette.Palette;
 import java.util.ArrayList;
 
 public class Main extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     private Palette createPalette() {
         ArrayList<Class> tools = new ArrayList<>();
         tools.add(Lamp.class);
@@ -25,10 +24,15 @@ public class Main extends Application {
         return new Palette(30,50,200,40,4,tools);
     }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         Group workspace = new Group();
+        VBox outerFrame = new VBox();
         ComponentGroupFactory.setWorkspace(workspace);
         ComponentFactory.setWorkspace(workspace);
         WireController.setWorkspace(workspace);
@@ -40,8 +44,11 @@ public class Main extends Application {
 
         */
         Palette pal = createPalette();
+        MenuBar menuBar = new TopMenu().makeMenu();
+
         workspace.getChildren().addAll(pal);
-        Scene programScene = new Scene(workspace, 1000, 700);
+        outerFrame.getChildren().addAll(menuBar,workspace);
+        Scene programScene = new Scene(outerFrame, 1000, 700);
         programScene.setOnMouseDragExited(event -> {
             WireController wireController = WireController.getInstance();
             if(wireController.active()) {
