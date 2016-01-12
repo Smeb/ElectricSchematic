@@ -3,11 +3,13 @@ package Controllers;
 import components.Anchor;
 import javafx.scene.Group;
 import tools.Wire;
+import datastructures.CoordinatePair;
 
 public class WireController {
 
     private static WireController instance;
-    private Wire wire = null;
+    private boolean active = false;
+    private CoordinatePair coordinates;
 
     public static WireController getInstance() {
         if (instance == null) {
@@ -31,4 +33,8 @@ public class WireController {
         root.getChildren().add(aWire);
     }
 
+
+    public void setActive(){active = true;}
+    public void setDormant(){active = false;}
+    public void setCoordinatePair(CoordinatePair coordinates){this.coordinates = coordinates;}
 }
