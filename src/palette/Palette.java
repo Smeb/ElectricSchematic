@@ -31,8 +31,7 @@ public class Palette extends FlowPane {
         }
     }
 
-    public Palette(double x, double y, double height, int iconsPerRow, int iconSize, ArrayList<Component> tools) {
-        //super(x,y,width,height);
+    public Palette(double x, double y, double height, int iconsPerRow, int iconSize, ArrayList<Class> tools) {
         int hgap = 5;
         this.iconSize = iconSize;
         this.setLayoutX(x);
@@ -49,7 +48,7 @@ public class Palette extends FlowPane {
 
         //this.setStroke(Color.BLACK);
         this.contents = new ArrayList<PaletteIcon>();
-        for (Component comp: tools) {
+        for (Class comp: tools) {
             contents.add(new PaletteIcon(comp,30));
         }
         arrangeTools();

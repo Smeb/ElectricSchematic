@@ -16,7 +16,7 @@ public class ComponentFactory {
 
     public Component newComponent(Class componentClass, double posX, double posY){
         Component component = null;
-        if(componentClass == Component.class){
+        if (Component.class.isAssignableFrom(componentClass)) { //if(componentClass == Component.class){
             Group group = ComponentGroupFactory.getInstance().buildComponentGroup(componentClass, posX, posY);
             component = new Component(group);
         }

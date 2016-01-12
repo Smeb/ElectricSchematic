@@ -4,6 +4,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import sample.ComponentColorMap;
 
 public class ComponentGroupFactory {
 
@@ -14,16 +15,17 @@ public class ComponentGroupFactory {
         return instance;
     }
 
+
     public static void setWorkspace(Group group){
         workspace = group;
     }
 
     public Group buildComponentGroup(Class classType, double posX, double posY){
         Group group = null;
-        if(classType == Component.class){
+        if(Component.class.isAssignableFrom(classType)) { // == Component.class){
             group = new Group();
             Rectangle rectangle = new Rectangle(posX, posY);
-            rectangle.setFill(Color.TRANSPARENT);
+            rectangle.setFill(ComponentColorMap.getInstance().getColor(classType));
             rectangle.setStroke(Color.BLACK);
             group.getChildren().add(rectangle);
             enableDrag(group);
