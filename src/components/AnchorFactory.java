@@ -44,19 +44,17 @@ public class AnchorFactory {
             WireController wireController = WireController.getInstance();
             if(!wireController.active()){
                 wireController.setActive();
-                wireController.setParent(anchor.getPosition());
+                wireController.setParent(anchor);
             }
             event.consume();
         });
 
-        anchor.setOnMouseDragged((event) -> {
-            event.consume();
-        });
+        anchor.setOnMouseDragged((event) -> event.consume());
 
         anchor.setOnMouseReleased((event) -> {
             WireController wireController = WireController.getInstance();
             if(wireController.active()){
-                wireController.completeWire(anchor.getPosition());
+                wireController.completeWire(anchor);
                 wireController.setDormant();
             }
         });

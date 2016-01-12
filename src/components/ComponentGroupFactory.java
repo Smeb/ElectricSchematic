@@ -34,7 +34,9 @@ public class ComponentGroupFactory {
         }
 
         /* Fail condition, currently returning null
-        TODO: Add enum to limit possible group types*/
+        TODO: Add enum to limit possible group types
+        */
+
         return group;
     }
 

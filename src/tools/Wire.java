@@ -1,11 +1,9 @@
 package tools;
 
 import components.*;
+import datastructures.CoordinatePair;
 import javafx.scene.shape.Line;
 
-/**
- * Created by henrymortimer on 12/01/2016.
- */
 public class Wire extends Line
 {
     private Anchor start;
@@ -13,7 +11,8 @@ public class Wire extends Line
 
     public Wire(Anchor start, Anchor end)
     {
-        super(start.getCenterX(), start.getCenterY(), end.getCenterX(), end.getCenterY());
+        super(start.getPosition().getX(), start.getPosition().getY(), end.getPosition().getX(), end.getPosition().getY());
+        this.setStrokeWidth(2);
         this.start = start;
         this.end = end;
     }
