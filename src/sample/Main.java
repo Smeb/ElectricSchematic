@@ -1,13 +1,14 @@
 package sample;
 
-import components.Component;
-import components.ComponentFactory;
-import components.ComponentGroupFactory;
+import components.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -15,8 +16,19 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import palette.Palette;
+
+import java.util.ArrayList;
 
 public class Main extends Application {
+    private Palette createPalette() {
+        ArrayList<Class> tools = new ArrayList<Class>();
+        tools.add(Lamp.class);
+        //tools.add(Component.class);
+        tools.add(Battery.class);
+        Palette pal = new Palette(30,50,200,40,4,tools);
+        return pal;
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -36,9 +48,9 @@ public class Main extends Application {
             workspace.getChildren().add(line);
         }
 
-        Button button = new Button("New component");
-        button.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(Component.class, 50, 50));
-        workspace.getChildren().addAll(button);
+        Palette pal = createPalette();
+
+        workspace.getChildren().addAll(pal);
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(new Scene(workspace, 1000, 700));
         primaryStage.show();
