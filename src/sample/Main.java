@@ -24,13 +24,8 @@ public class Main extends Application {
     private Palette createPalette() {
         ArrayList<Class> tools = new ArrayList<Class>();
         tools.add(Lamp.class);
-        tools.add(Component.class);
+        //tools.add(Component.class);
         tools.add(Battery.class);
-        /*for (int i = 0; i < 5; ++i) {
-            tools.add(new Component(30,50, Color.YELLOW));
-            tools.add(new Component(30,50, Color.BLUE));
-            tools.add(new Component(30,50, Color.GREEN));
-        }*/
         Palette pal = new Palette(30,50,200,40,4,tools);
         return pal;
     }
@@ -54,15 +49,8 @@ public class Main extends Application {
         }
 
         Palette pal = createPalette();
-        //Button button = new Button("New component");
-        //button.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(Component.class, 50, 50));
-        /*Button lampButton = new Button("New lamp");
-        lampButton.setLayoutX(150);
-        lampButton.setLayoutY(0);
-        lampButton.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(Lamp.class, 150, 150));
-        root.getChildren().addAll(lampButton);
-        *///root.getChildren().addAll(button);
-        root.getChildren().addAll(pal);
+
+        workspace.getChildren().addAll(pal);
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(new Scene(workspace, 1000, 700));
         primaryStage.show();

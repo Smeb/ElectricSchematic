@@ -18,6 +18,6 @@ public class PaletteIcon extends Rectangle {
         this.setFill(ComponentColorMap.getInstance().getColor(componentType));
         this.setWidth(size);
         this.setHeight(size);
-        this.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(componentType, 50, 50));
+        this.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(componentType, this.getLayoutX()+size/2, this.getLayoutY()+size/2));
     }
 }

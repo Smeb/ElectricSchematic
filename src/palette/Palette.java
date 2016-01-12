@@ -19,15 +19,9 @@ public class Palette extends FlowPane {
     private int iconSize;
 
     private void arrangeTools() {
-        double topLeftX = this.getLayoutX();
-        double topLeftY = this.getLayoutY();
         for (int i = 0 ; i < contents.size(); ++i) {
             PaletteIcon icon = contents.get(i);
-            //icon.setLayoutX(40);
-            //icon.setLayoutY(40);
             this.getChildren().add(icon);
-            //icon.setLayoutX(topLeftX+10*(i+1));
-            //icon.setLayoutY(topLeftY+10*(i/4+1));
         }
     }
 
