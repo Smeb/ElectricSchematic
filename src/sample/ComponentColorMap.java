@@ -1,5 +1,6 @@
 package sample;
 
+import components.Battery;
 import components.Component;
 import components.Lamp;
 import javafx.scene.paint.Color;
@@ -21,6 +22,8 @@ public class ComponentColorMap {
     private ComponentColorMap(){
         colorMap = new HashMap<>();
         colorMap.put(Lamp.class, Color.YELLOW);
+        colorMap.put(Battery.class, Color.GREEN);
+        colorMap.put(Component.class, Color.TRANSPARENT);
     }
     public Color getColor(Class componentType) {
         return colorMap.get(componentType);
