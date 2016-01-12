@@ -10,4 +10,9 @@ public class CoordinatePair {
 
     public double getX(){return posX;}
     public double getY(){return posY;}
+
+    @Override
+    public String toString(){
+        return "(" + posX + " " + posY + ")";
+    }
 }

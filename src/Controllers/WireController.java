@@ -6,7 +6,7 @@ public class WireController {
 
     private static WireController instance;
     private boolean active = false;
-    private CoordinatePair coordinates;
+    private CoordinatePair parent;
 
     public static WireController getInstance() {
         if (instance == null) {
@@ -18,7 +18,13 @@ public class WireController {
     private WireController() {
     }
 
+    public boolean active(){return active;}
     public void setActive(){active = true;}
     public void setDormant(){active = false;}
-    public void setCoordinatePair(CoordinatePair coordinates){this.coordinates = coordinates;}
+    public void setParent(CoordinatePair coordinates){this.parent = coordinates;
+        System.out.println(coordinates.toString());}
+    public void completeWire(CoordinatePair coordinates){
+        System.out.println(coordinates.toString());
+        //TODO : Add application code to manage wire creation
+    }
 }
