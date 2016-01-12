@@ -1,5 +1,6 @@
 package sample;
 
+import Controllers.WireController;
 import components.Component;
 import components.ComponentFactory;
 import components.ComponentGroupFactory;
@@ -31,16 +32,27 @@ public class Main extends Application {
         // borderBox.setPrefSize(1000, 700);
         ComponentGroupFactory.setWorkspace(workspace);
         ComponentFactory.setWorkspace(workspace);
+        WireController.setWorkspace(workspace);
+        /*
         for(int i = 0; i < 10; i++){
             Line line = new Line(i * 100, 0, i * 100, 700);
             workspace.getChildren().add(line);
         }
+        */
 
         Button button = new Button("New component");
         button.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(Component.class, 50, 50));
         workspace.getChildren().addAll(button);
+        Scene programScene = new Scene(workspace, 1000, 700);
+        programScene.setOnMouseDragExited(event -> {
+            WireController wireController = WireController.getInstance();
+            if(wireController.active()) {
+                wireController.setDormant();
+            }
+        });
+
         primaryStage.setTitle("Electric Schematic");
-        primaryStage.setScene(new Scene(workspace, 1000, 700));
+        primaryStage.setScene(programScene);
         primaryStage.show();
     }
 

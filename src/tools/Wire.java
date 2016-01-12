@@ -17,11 +17,16 @@ public class Wire extends Line
         this.end = end;
     }
 
-    public void updateWire()
+    public void update(Anchor anchor)
     {
-        setStartX(start.getCenterX());
-        setStartY(start.getCenterY());
-        setEndX(end.getCenterX());
-        setEndY(end.getCenterY());
+        if(anchor.getDirection() == Anchor.Direction.send){
+            this.setStartX(anchor.getPosition().getX());
+            this.setStartY(anchor.getPosition().getY());
+        } else if (anchor.getDirection() == Anchor.Direction.recv){
+            this.setEndX(anchor.getPosition().getX());
+            this.setEndY(anchor.getPosition().getY());
+        } else {
+            System.out.println("What the fuck");
+        }
     }
 }

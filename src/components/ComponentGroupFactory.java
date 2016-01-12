@@ -1,8 +1,11 @@
 package components;
 
+import datastructures.ComponentGroup;
+import datastructures.CoordinatePair;
 import datastructures.Orientation;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -19,10 +22,10 @@ public class ComponentGroupFactory {
         workspace = group;
     }
 
-    public Group buildComponentGroup(Class classType, double posX, double posY){
-        Group group = null;
+    public ComponentGroup buildComponentGroup(Class classType, double posX, double posY){
+        ComponentGroup group = null;
         if(classType == Component.class){
-            group = new Group();
+            group = new ComponentGroup();
             Rectangle rectangle = new Rectangle(posX, posY);
             rectangle.setFill(Color.TRANSPARENT);
             rectangle.setStroke(Color.BLACK);
@@ -47,29 +50,31 @@ public class ComponentGroupFactory {
         }
     }
 
-    private void enableDrag(Group group){
-        final DragContext dragContext = new DragContext();
+    private void enableDrag(ComponentGroup group){
+        final CoordinatePair dragContext = new CoordinatePair();
 
         group.setOnMousePressed((event)->{
             // Centers the group onto the mouse
             group.toFront();
-            dragContext.deltaX = group.getLayoutX() - event.getSceneX();
-            dragContext.deltaY = group.getLayoutY() - event.getSceneY();
+            dragContext.setXY(group.getLayoutX() - event.getSceneX(),
+                    group.getLayoutY() - event.getSceneY());
             group.setCursor(Cursor.CLOSED_HAND);
         });
 
         group.setOnMouseEntered((event) -> group.setCursor(Cursor.HAND));
 
+        // TODO: Refactor anchor wire handling coupling
         group.setOnMouseDragged((event) -> {
-            group.setLayoutX(event.getSceneX() + dragContext.deltaX);
-            group.setLayoutY(event.getSceneY() + dragContext.deltaY);
+            group.setLayoutX(event.getSceneX() + dragContext.getX());
+            group.setLayoutY(event.getSceneY() + dragContext.getY());
+            for(Node n : group.getChildren()){
+                if(n.getClass() == Anchor.class){
+                    Anchor a = (Anchor)n;
+                    a.updateWire();
+                }
+            }
         });
 
         group.setOnMouseExited((event) -> group.setCursor(Cursor.DEFAULT));
-    }
-
-    private static final class DragContext {
-        public double deltaX;
-        public double deltaY;
     }
 }

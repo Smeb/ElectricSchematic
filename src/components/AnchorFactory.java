@@ -5,6 +5,8 @@ import datastructures.CoordinatePair;
 import datastructures.Orientation;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.paint.Color;
 
 public class AnchorFactory {
@@ -37,23 +39,29 @@ public class AnchorFactory {
     }
 
     private void setInteractions(Anchor anchor){
-        anchor.setOnMouseEntered((event) -> anchor.setStroke(Color.RED));
-        anchor.setOnMouseExited((event) -> anchor.setStroke(Color.TRANSPARENT));
+        anchor.setOnMouseEntered(event -> anchor.setStroke(Color.RED));
+        anchor.setOnMouseExited(event -> anchor.setStroke(Color.TRANSPARENT));
+        anchor.setOnMouseDragEntered(event -> anchor.setStroke(Color.RED));
+        anchor.setOnMouseDragExited(event -> anchor.setStroke(Color.TRANSPARENT));
 
-        anchor.setOnMouseClicked((event) -> {
+        anchor.setOnDragDetected(event -> {
             WireController wireController = WireController.getInstance();
-            if(!wireController.active()){
+            if(!wireController.active() &&
+                    anchor.getDirection() == Anchor.Direction.unset){
                 wireController.setActive();
                 wireController.setParent(anchor);
             }
+            anchor.startFullDrag();
             event.consume();
         });
 
-        anchor.setOnMouseDragged((event) -> event.consume());
+        anchor.setOnMouseDragged(event -> event.consume());
 
-        anchor.setOnMouseReleased((event) -> {
+        anchor.setOnMouseDragReleased((event) -> {
             WireController wireController = WireController.getInstance();
-            if(wireController.active()){
+            if(wireController.active() &&
+                    wireController.getParentAnchor().getParent() != anchor.getParent() &&
+                    anchor.getDirection() == Anchor.Direction.unset) {
                 wireController.completeWire(anchor);
                 wireController.setDormant();
             }

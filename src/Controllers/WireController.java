@@ -6,7 +6,7 @@ import tools.Wire;
 
 public class WireController {
 
-    private Group workspace;
+    private static Group workspace;
     private static WireController instance;
     private boolean active = false;
     private Anchor parent;
@@ -21,24 +21,33 @@ public class WireController {
     private WireController() {
     }
 
-    public void setWorkspace(Group workspace){
-        this.workspace = workspace;
+    public static void setWorkspace(Group group){
+        workspace = group;
     }
 
-    public void addWire(Anchor start, Anchor end)
+    public Wire makeWire(Anchor start, Anchor end)
     {
-        Wire aWire = new Wire(start, end);
-        workspace.getChildren().add(aWire);
+        Wire wire = new Wire(start, end);
+        workspace.getChildren().add(wire);
+        setInteractions(wire);
+        return wire;
     }
 
+    public Anchor getParentAnchor(){return parent;}
 
     public boolean active(){return active;}
     public void setActive(){active = true;}
     public void setDormant(){active = false;}
-    public void setParent(Anchor start){this.parent = start;
-        System.out.println(start.getPosition().toString());}
+    public void setParent(Anchor start){this.parent = start;}
     public void completeWire(Anchor end){
-        System.out.println(end.getPosition().toString());
-        //TODO : Add application code to manage wire creation
+        System.out.println("Drawing wire: " + parent.getPosition().toString() + " " + end.getPosition().toString());
+        Wire wire = makeWire(parent, end);
+        parent.addWire(wire, Anchor.Direction.send);
+        end.addWire(wire, Anchor.Direction.recv);
+
+    }
+
+    public void setInteractions(Wire wire){
+        return;
     }
 }
