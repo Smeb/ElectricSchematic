@@ -26,7 +26,6 @@ public class Anchor extends Circle {
     }
 
     public void addWire(Wire wire, Direction direction){
-        ComponentGroup group = (ComponentGroup)this.getParent();
         this.wire = wire;
         this.direction = direction;
     }

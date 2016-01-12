@@ -9,10 +9,13 @@ import java.util.LinkedList;
 public abstract class Component {
     public static final Color OUTLINE = Color.BLACK;
     public static final double OFFSET = 30.0;
+    protected static int id = 0;
+    private final int thisId;
     private ComponentGroup componentGroup;
     private LinkedList<Component> componentsNext;
     private LinkedList<Component> componentsPrev;
     protected Component(ComponentGroup group){
+        thisId = id++;
         componentGroup = group;
         group.setParentComponent(this);
     }
