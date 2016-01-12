@@ -18,6 +18,14 @@ public class WireController {
     private WireController() {
     }
 
+    public void addWire(Group root, Anchor start, Anchor end)
+    {
+        Wire aWire = new Wire(start, end);
+        aWire.setStrokeWidth(2);
+        root.getChildren().add(aWire);
+    }
+
+
     public boolean active(){return active;}
     public void setActive(){active = true;}
     public void setDormant(){active = false;}
