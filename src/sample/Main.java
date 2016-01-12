@@ -2,12 +2,19 @@ package sample;
 
 import components.*;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import palette.Palette;
 
@@ -34,10 +41,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Group root = new Group();
 
-        ComponentGroupFactory.setWorkspace(root);
-        ComponentFactory.setWorkspace(root);
+        // BorderPane borderBox = new BorderPane();
+        Group workspace = new Group();
+        // borderBox.setCenter(workspace);
+        // borderBox.setPrefSize(1000, 700);
+        ComponentGroupFactory.setWorkspace(workspace);
+        ComponentFactory.setWorkspace(workspace);
+        for(int i = 0; i < 10; i++){
+            Line line = new Line(i * 100, 0, i * 100, 700);
+            workspace.getChildren().add(line);
+        }
 
         Palette pal = createPalette();
         //Button button = new Button("New component");
@@ -50,9 +64,8 @@ public class Main extends Application {
         *///root.getChildren().addAll(button);
         root.getChildren().addAll(pal);
         primaryStage.setTitle("Electric Schematic");
-        primaryStage.setScene(new Scene(root, 1000, 700));
+        primaryStage.setScene(new Scene(workspace, 1000, 700));
         primaryStage.show();
     }
-
 
 }

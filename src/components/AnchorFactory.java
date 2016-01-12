@@ -1,5 +1,8 @@
 package components;
 
+import Controllers.WireController;
+import datastructures.CoordinatePair;
+import datastructures.Orientation;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -37,13 +40,23 @@ public class AnchorFactory {
         anchor.setOnMouseEntered((event) -> anchor.setStroke(Color.RED));
         anchor.setOnMouseExited((event) -> anchor.setStroke(Color.TRANSPARENT));
 
-        /*
-        anchor.setOnMouseClicked(new EventHandler<MouseEvent> {
-            if(WireController.getInstance().holdingWire()){
-                Wire wire = WireController.getInstance().getWire();
-                anchor.attach(Wire);
+        anchor.setOnMouseClicked((event) -> {
+            WireController wireController = WireController.getInstance();
+            if(!wireController.active()){
+                wireController.setActive();
+                wireController.setParent(anchor);
+            }
+            event.consume();
+        });
+
+        anchor.setOnMouseDragged((event) -> event.consume());
+
+        anchor.setOnMouseReleased((event) -> {
+            WireController wireController = WireController.getInstance();
+            if(wireController.active()){
+                wireController.completeWire(anchor);
+                wireController.setDormant();
             }
         });
-        */
     }
 }

@@ -1,5 +1,6 @@
 package components;
 
+import datastructures.Orientation;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -35,7 +36,9 @@ public class ComponentGroupFactory {
         }
 
         /* Fail condition, currently returning null
-        TODO: Add enum to limit possible group types*/
+        TODO: Add enum to limit possible group types
+        */
+
         return group;
     }
 
