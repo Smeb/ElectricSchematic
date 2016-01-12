@@ -40,7 +40,6 @@ public class Main extends Application {
 
         */
         Palette pal = createPalette();
-
         workspace.getChildren().addAll(pal);
         Scene programScene = new Scene(workspace, 1000, 700);
         programScene.setOnMouseDragExited(event -> {
@@ -49,7 +48,6 @@ public class Main extends Application {
                 wireController.setDormant();
             }
         });
-
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(programScene);
         primaryStage.show();
