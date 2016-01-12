@@ -1,6 +1,6 @@
 package components.parts;
 
-import javafx.scene.Group;
+import components.infrastructure.ComponentGroup;
 import javafx.scene.paint.Color;
 
 public class Battery extends Component {
@@ -8,7 +8,7 @@ public class Battery extends Component {
     public static final double height = 30.0;
     public static final Color iconColor = Color.GREEN;
 
-    protected Battery(Group group) {
+    protected Battery(ComponentGroup group) {
         super(group);
     }
 }

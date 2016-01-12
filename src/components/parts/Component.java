@@ -1,20 +1,38 @@
 package components.parts;
 
+import components.infrastructure.ComponentGroup;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+
+import java.util.LinkedList;
 
 public abstract class Component {
     public static final Color OUTLINE = Color.BLACK;
     public static final double OFFSET = 30.0;
-    private Group componentGroup;
-    private Component[] componentsIn;
-    private Component[] componentsOut;
-    protected Component(Group group){
+    private ComponentGroup componentGroup;
+    private LinkedList<Component> componentsNext;
+    private LinkedList<Component> componentsPrev;
+    protected Component(ComponentGroup group){
         componentGroup = group;
+        group.setParentComponent(this);
     }
 
     public Group getGroup(){
         return componentGroup;
+    }
+
+    public void addNextComponent(Component component){
+        if(componentsNext == null){
+            componentsNext = new LinkedList<>();
+        }
+        componentsNext.add(component);
+    }
+
+    public void addPrevComponent(Component component){
+        if(componentsPrev == null){
+            componentsPrev = new LinkedList<>();
+        }
+        componentsPrev.add(component);
     }
 
 }

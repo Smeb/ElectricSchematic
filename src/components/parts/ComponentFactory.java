@@ -1,5 +1,6 @@
 package components.parts;
 
+import components.infrastructure.ComponentGroup;
 import components.infrastructure.ComponentGroupFactory;
 import javafx.scene.Group;
 
@@ -18,11 +19,11 @@ public class ComponentFactory {
     public Component newComponent(Class componentClass, double posX, double posY){
         Component component = null;
         if (Lamp.class.isAssignableFrom(componentClass)) {
-            Group group = ComponentGroupFactory.getInstance().buildComponentGroup(componentClass, posX, posY);
+            ComponentGroup group = ComponentGroupFactory.getInstance().buildComponentGroup(componentClass, posX, posY);
             component = new Lamp(group);
         }
         else if (Battery.class.isAssignableFrom(componentClass)){
-            Group group = ComponentGroupFactory.getInstance().buildComponentGroup(componentClass, posX, posY);
+            ComponentGroup group = ComponentGroupFactory.getInstance().buildComponentGroup(componentClass, posX, posY);
             component = new Battery(group);
         }
         return component;
