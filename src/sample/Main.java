@@ -2,6 +2,7 @@ package sample;
 
 import components.Component;
 import components.ComponentFactory;
+import components.ComponentGroupFactory;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -26,27 +27,26 @@ public class Main extends Application {
         return pal;
     }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Group root = new Group();
+
+        ComponentGroupFactory.setWorkspace(root);
+        ComponentFactory.setWorkspace(root);
+
         Palette pal = createPalette();
         Button button = new Button("New component");
-        button.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event){
-                ComponentFactory.getInstance().newComponent(root, Component.class, 50, 50);
-            }
-        });
+        button.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(Component.class, 50, 50));
         root.getChildren().addAll(button);
         root.getChildren().add(pal);
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
 
