@@ -25,7 +25,8 @@ public class ComponentGroupFactory {
         Group group = null;
         if(Component.class.isAssignableFrom(classType)) {
             group = new Group();
-            Rectangle rectangle = new Rectangle(posX,posY,50,50);
+            int size = 50;
+            Rectangle rectangle = new Rectangle(posX,posY+size/2,50,50);
             rectangle.setFill(ComponentColorMap.getInstance().getColor(classType));
             rectangle.setStroke(Color.BLACK);
             group.getChildren().add(rectangle);
