@@ -1,5 +1,5 @@
 package datastructures;
 
 public enum Orientation {
-    UP, RIGHT, DOWN, LEFT
+    RIGHT, LEFT
 }

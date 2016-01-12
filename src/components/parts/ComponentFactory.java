@@ -17,9 +17,13 @@ public class ComponentFactory {
 
     public Component newComponent(Class componentClass, double posX, double posY){
         Component component = null;
-        if (Component.class.isAssignableFrom(componentClass)) {
+        if (Lamp.class.isAssignableFrom(componentClass)) {
             Group group = ComponentGroupFactory.getInstance().buildComponentGroup(componentClass, posX, posY);
-            component = new Component(group);
+            component = new Lamp(group);
+        }
+        else if (Battery.class.isAssignableFrom(componentClass)){
+            Group group = ComponentGroupFactory.getInstance().buildComponentGroup(componentClass, posX, posY);
+            component = new Battery(group);
         }
         return component;
     }
