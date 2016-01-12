@@ -2,6 +2,7 @@ package components.parts;
 
 import components.infrastructure.ComponentGroup;
 import components.infrastructure.ComponentGroupFactory;
+import components.infrastructure.ComponentRegistry;
 import javafx.scene.Group;
 
 public class ComponentFactory {
@@ -26,6 +27,7 @@ public class ComponentFactory {
             ComponentGroup group = ComponentGroupFactory.getInstance().buildComponentGroup(componentClass, posX, posY);
             component = new Battery(group);
         }
+        ComponentRegistry.getInstance().addComponent(component);
         return component;
     }
 

@@ -1,9 +1,9 @@
 package IO;
 
-import java.io.FileInputStream;
 import org.apache.commons.io.IOUtils;
-
 import org.json.JSONObject;
+
+import java.io.FileInputStream;
 
 /**
  * Created by henrymortimer on 12/01/2016.
@@ -36,5 +36,4 @@ public class Reader
         }
         return input;
     }
-
 }
