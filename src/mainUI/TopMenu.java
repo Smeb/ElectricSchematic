@@ -1,6 +1,7 @@
 package mainUI;
 
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -11,7 +12,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class TopMenu {
 
-    public TopMenu() {
+    public MenuBar makeMenu() {
 
         //MENU MenuBar > Menus > MenuItems
 
@@ -51,6 +52,7 @@ public class TopMenu {
         });
 
         menuBar.getMenus().addAll(menuNew, menuOpen, menuSave);
+        return menuBar;
     }
 
 }

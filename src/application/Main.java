@@ -7,6 +7,9 @@ import components.infrastructure.ComponentGroupFactory;
 import components.parts.Battery;
 import components.parts.Component;
 import components.parts.Lamp;
+import javafx.scene.control.MenuBar;
+import javafx.scene.layout.VBox;
+import mainUI.*;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -33,6 +36,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Group workspace = new Group();
+        VBox outerFrame = new VBox();
         AnchorFactory.getInstance().setStyle(AnchorFactory.Style.MickeyMouse);
         ComponentGroupFactory.setWorkspace(workspace);
         ComponentFactory.setWorkspace(workspace);
@@ -45,12 +49,15 @@ public class Main extends Application {
 
         */
         Palette pal = createPalette();
+        MenuBar menuBar = new TopMenu().makeMenu();
 
         workspace.getChildren().addAll(pal);
+        outerFrame.getChildren().addAll(menuBar,workspace);
+
         Button button = new Button("New component");
         button.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(Component.class, 50, 50));
         workspace.getChildren().addAll(button);
-        Scene programScene = new Scene(workspace, 1000, 700);
+        Scene programScene = new Scene(outerFrame, 1000, 700);
         programScene.setOnMouseDragExited(event -> {
             WireController wireController = WireController.getInstance();
             if(wireController.active()) {
