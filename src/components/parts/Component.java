@@ -1,4 +1,4 @@
-package components;
+package components.parts;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 public class Component {
     private Group componentGroup;
     public Color iconColor;
-
     protected Component(Group group){
         componentGroup = group;
     }

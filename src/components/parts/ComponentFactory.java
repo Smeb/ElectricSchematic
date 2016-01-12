@@ -1,5 +1,6 @@
-package components;
+package components.parts;
 
+import components.infrastructure.ComponentGroupFactory;
 import javafx.scene.Group;
 
 public class ComponentFactory {

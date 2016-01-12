@@ -1,4 +1,4 @@
-package components;
+package components.infrastructure;
 
 import datastructures.ComponentGroup;
 import datastructures.CoordinatePair;

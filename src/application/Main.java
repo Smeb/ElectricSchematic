@@ -1,23 +1,16 @@
-package sample;
+package application;
 
 import Controllers.WireController;
-import components.Component;
-import components.ComponentFactory;
-import components.ComponentGroupFactory;
+import components.infrastructure.AnchorFactory;
+import components.parts.ComponentFactory;
+import components.infrastructure.ComponentGroupFactory;
+import components.parts.Battery;
+import components.parts.Component;
+import components.parts.Lamp;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Line;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import palette.Palette;
 
@@ -29,8 +22,7 @@ public class Main extends Application {
         tools.add(Lamp.class);
         //tools.add(Component.class);
         tools.add(Battery.class);
-        Palette pal = new Palette(30,50,200,40,4,tools);
-        return pal;
+        return new Palette(30,50,200,40,4,tools);
     }
 
     public static void main(String[] args) {
@@ -40,10 +32,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        // BorderPane borderBox = new BorderPane();
         Group workspace = new Group();
-        // borderBox.setCenter(workspace);
-        // borderBox.setPrefSize(1000, 700);
+        AnchorFactory.getInstance().setStyle(AnchorFactory.Style.MickeyMouse);
         ComponentGroupFactory.setWorkspace(workspace);
         ComponentFactory.setWorkspace(workspace);
         WireController.setWorkspace(workspace);
@@ -69,7 +59,7 @@ public class Main extends Application {
         });
 
         primaryStage.setTitle("Electric Schematic");
-        primaryStage.setScene(new Scene(workspace, 1000, 700));
+        primaryStage.setScene(programScene);
         primaryStage.show();
     }
 

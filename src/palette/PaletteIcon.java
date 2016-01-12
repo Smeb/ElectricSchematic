@@ -1,15 +1,9 @@
 package palette;
 
-import components.ComponentFactory;
-import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
+import components.parts.ComponentFactory;
 import javafx.scene.shape.Rectangle;
-import components.Component;
-import sample.ComponentColorMap;
+import application.ComponentColorMap;
 
-/**
- * Created by minttu on 11/01/2016.
- */
 public class PaletteIcon extends Rectangle {
     private Class componentType;
 

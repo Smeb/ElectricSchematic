@@ -1,6 +1,7 @@
-package components;
+package components.infrastructure;
 
-import java.lang.reflect.Array;
+import components.parts.Component;
+
 import java.util.ArrayList;
 
 public class ComponentRegistry {
@@ -14,7 +15,7 @@ public class ComponentRegistry {
     }
 
     private ComponentRegistry(){
-        components = new ArrayList<Component>();
+        components = new ArrayList<>();
     }
 
     public void addComponent(Component component){

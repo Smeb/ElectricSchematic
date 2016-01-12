@@ -1,15 +1,12 @@
-package sample;
+package application;
 
-import components.Battery;
-import components.Component;
-import components.Lamp;
+import components.parts.Battery;
+import components.parts.Component;
+import components.parts.Lamp;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 
-/**
- * Created by minttu on 12/01/2016.
- */
 public class ComponentColorMap {
     private static ComponentColorMap instance = null;
     private static HashMap<Class, Color> colorMap;

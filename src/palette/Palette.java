@@ -6,21 +6,15 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
-import components.Component;
 
 import java.util.ArrayList;
 
-
-/**
- * Created by minttu on 11/01/2016.
- */
 public class Palette extends FlowPane {
     private ArrayList<PaletteIcon> contents;
     private int iconSize;
 
     private void arrangeTools() {
-        for (int i = 0 ; i < contents.size(); ++i) {
-            PaletteIcon icon = contents.get(i);
+        for(PaletteIcon icon : contents) {
             this.getChildren().add(icon);
         }
     }
@@ -41,7 +35,7 @@ public class Palette extends FlowPane {
         //this.setFill(Color.rgb(190,190,190));
 
         //this.setStroke(Color.BLACK);
-        this.contents = new ArrayList<PaletteIcon>();
+        this.contents = new ArrayList<>();
         for (Class comp: tools) {
             contents.add(new PaletteIcon(comp,30));
         }

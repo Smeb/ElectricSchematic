@@ -1,7 +1,6 @@
 package tools;
 
-import components.*;
-import datastructures.CoordinatePair;
+import components.infrastructure.Anchor;
 import javafx.scene.shape.Line;
 
 public class Wire extends Line
@@ -22,11 +21,9 @@ public class Wire extends Line
         if(anchor.getDirection() == Anchor.Direction.send){
             this.setStartX(anchor.getPosition().getX());
             this.setStartY(anchor.getPosition().getY());
-        } else if (anchor.getDirection() == Anchor.Direction.recv){
+        } else if (anchor.getDirection() == Anchor.Direction.recv) {
             this.setEndX(anchor.getPosition().getX());
             this.setEndY(anchor.getPosition().getY());
-        } else {
-            System.out.println("What the fuck");
-        }
+        } this.toFront();
     }
 }

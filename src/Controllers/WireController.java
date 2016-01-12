@@ -1,6 +1,6 @@
 package Controllers;
 
-import components.Anchor;
+import components.infrastructure.Anchor;
 import javafx.scene.Group;
 import tools.Wire;
 
@@ -48,6 +48,6 @@ public class WireController {
     }
 
     public void setInteractions(Wire wire){
-        return;
+        ;
     }
 }
