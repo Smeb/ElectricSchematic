@@ -1,6 +1,8 @@
 package components.infrastructure;
 
+import components.parts.Battery;
 import components.parts.Component;
+import components.parts.Lamp;
 import datastructures.ComponentGroup;
 import datastructures.CoordinatePair;
 import datastructures.Orientation;
@@ -8,9 +10,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import application.ComponentColorMap;
+import palette.PaletteIcon;
 
 public class ComponentGroupFactory {
 
@@ -26,34 +27,40 @@ public class ComponentGroupFactory {
     }
 
     public ComponentGroup buildComponentGroup(Class classType, double posX, double posY){
-        ComponentGroup group = null;
+        ComponentGroup componentGroup;
         if(Component.class.isAssignableFrom(classType)) {
-            group = new ComponentGroup();
-            int size = 50;
-            Rectangle rectangle = new Rectangle(50.0, 50.0);
-            rectangle.setFill(ComponentColorMap.getInstance().getColor(classType));
-            rectangle.setStroke(Color.BLACK);
-            group.getChildren().add(rectangle);
-            enableDrag(group);
-            addAnchors(group, Orientation.LEFT, Orientation.UP);
-            group.setLayoutX(posX);
-            group.setLayoutY(posY + size / 2);
-            workspace.getChildren().add(group);
-            return group;
-        }
+            componentGroup = new ComponentGroup();
+            if (classType == Lamp.class) {
+                Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
+                rectangle.setFill(Lamp.iconColor);
+                rectangle.setStroke(Component.OUTLINE);
+                componentGroup.getChildren().add(rectangle);
 
+            } else if (classType == Battery.class) {
+                Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
+                rectangle.setFill(Battery.iconColor);
+                rectangle.setStroke(Component.OUTLINE);
+                componentGroup.getChildren().add(rectangle);
+            }
+            enableDrag(componentGroup);
+            addAnchors(componentGroup, Orientation.LEFT, Orientation.RIGHT);
+            componentGroup.setLayoutX(posX);
+            componentGroup.setLayoutY(posY + PaletteIcon.size / 2);
+            workspace.getChildren().add(componentGroup);
+            return componentGroup;
+        }
         /* Fail condition, currently returning null
         TODO: Add enum to limit possible group types
         */
 
-        return group;
+        return null;
     }
 
     private void addAnchors(Group group, Orientation... orientations){
         AnchorFactory factory = AnchorFactory.getInstance();
         Bounds bounds = group.getBoundsInParent();
         for(Orientation o : orientations) {
-            factory.addAnchor(group, o, bounds.getMaxX(), bounds.getMaxY(), bounds.getMinX(), bounds.getMinY());
+            factory.addAnchor(group, o, bounds.getMaxX(), bounds.getMaxY(), bounds.getMinX());
         }
     }
 

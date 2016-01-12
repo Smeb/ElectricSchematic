@@ -1,14 +1,15 @@
 package components.infrastructure;
 
-import Controllers.WireController;
+import components.parts.Component;
+import controllers.WireController;
 import datastructures.Orientation;
+import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 public class AnchorFactory {
 
-    public enum Style {Boring, MickeyMouse}
-    private static Style style;
     private static AnchorFactory instance = null;
     public static AnchorFactory getInstance(){
         if(instance == null){
@@ -17,36 +18,25 @@ public class AnchorFactory {
         return instance;
     }
 
-    public void setStyle(Style s){
-        style = s;
-    }
+    public void addAnchor(Group root, Orientation orientation, double maxX, double maxY, double minX){
+        double anchorX, anchorY;
+        double componentEdgeX, componentEdgeY;
+        if (orientation == Orientation.RIGHT) {
+            componentEdgeX = maxX;
+            componentEdgeY = maxY / 2;
+            anchorX = componentEdgeX + Component.OFFSET;
+            anchorY = componentEdgeY;
 
-    public void addAnchor(Group root, Orientation orientation, double MaxX, double MaxY, double MinX, double MinY){
-        Anchor anchor;
-        if(style == Style.MickeyMouse){
-            if (orientation == Orientation.UP) {
-                anchor = new Anchor(MaxX, MinY - 10.0);
-            } else if (orientation == Orientation.RIGHT) {
-                anchor = new Anchor(MaxX, MaxY + 10.0);
-            } else if (orientation == Orientation.DOWN) {
-                anchor = new Anchor(MinX, MaxY + 10.0);
-            } else {
-                anchor = new Anchor(MinX, MinY - 10.0);
-            }
+        } else {
+            componentEdgeX = minX;
+            componentEdgeY = maxY / 2;
+            anchorX = componentEdgeX - Component.OFFSET;
+            anchorY = componentEdgeY;
         }
-        else{
-            if (orientation == Orientation.UP) {
-                anchor = new Anchor(MaxX / 2, MinY);
-            } else if (orientation == Orientation.RIGHT) {
-                anchor = new Anchor(MaxX, MaxY / 2);
-            } else if (orientation == Orientation.DOWN) {
-                anchor = new Anchor(MaxX / 2, MaxY);
-            } else {
-                anchor = new Anchor(MinX, MaxY / 2);
-            }
-        }
+        Anchor anchor = new Anchor(anchorX, anchorY);
+        Line line = new Line(componentEdgeX, componentEdgeY, anchorX, anchorY);
         setInteractions(anchor);
-        root.getChildren().add(anchor);
+        root.getChildren().addAll(anchor, line);
     }
 
     private void setInteractions(Anchor anchor){
@@ -63,10 +53,9 @@ public class AnchorFactory {
                 wireController.setParent(anchor);
             }
             anchor.startFullDrag();
-            event.consume();
         });
 
-        anchor.setOnMouseDragged(event -> event.consume());
+        anchor.setOnMouseDragged(Event::consume);
 
         anchor.setOnMouseDragReleased((event) -> {
             WireController wireController = WireController.getInstance();

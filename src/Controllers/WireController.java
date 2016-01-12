@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import components.infrastructure.Anchor;
 import javafx.scene.Group;
@@ -11,14 +11,14 @@ public class WireController {
     private boolean active = false;
     private Anchor parent;
 
+    private WireController() {
+    }
+
     public static WireController getInstance() {
         if (instance == null) {
             instance = new WireController();
         }
         return instance;
-    }
-
-    private WireController() {
     }
 
     public static void setWorkspace(Group group){
@@ -47,7 +47,5 @@ public class WireController {
 
     }
 
-    public void setInteractions(Wire wire){
-        ;
-    }
+    public void setInteractions(Wire wire){}
 }
