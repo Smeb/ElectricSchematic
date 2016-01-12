@@ -1,6 +1,8 @@
 package controllers;
 
 import components.infrastructure.Anchor;
+import components.infrastructure.ComponentGroup;
+import components.parts.Component;
 import javafx.scene.Group;
 import tools.Wire;
 
@@ -44,6 +46,10 @@ public class WireController {
         Wire wire = makeWire(parent, end);
         parent.addWire(wire, Anchor.Direction.send);
         end.addWire(wire, Anchor.Direction.recv);
+        Component sendComponent = ((ComponentGroup) parent.getParent()).getParentComponent();
+        Component recvComponent = ((ComponentGroup) parent.getParent()).getParentComponent();
+        sendComponent.addNextComponent(recvComponent);
+        recvComponent.addPrevComponent(sendComponent);
     }
 
     public void setInteractions(Wire wire){}
