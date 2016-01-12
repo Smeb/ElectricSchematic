@@ -1,11 +1,8 @@
 package components;
 
-import datastructures.ComponentGroup;
-import datastructures.CoordinatePair;
 import datastructures.Orientation;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -24,10 +21,11 @@ public class ComponentGroupFactory {
 
     public ComponentGroup buildComponentGroup(Class classType, double posX, double posY){
         ComponentGroup group = null;
-        if(classType == Component.class){
+        if(Component.class.isAssignableFrom(classType)) {
             group = new ComponentGroup();
-            Rectangle rectangle = new Rectangle(posX, posY);
-            rectangle.setFill(Color.TRANSPARENT);
+            int size = 50;
+            Rectangle rectangle = new Rectangle(posX,posY+size/2,50,50);
+            rectangle.setFill(ComponentColorMap.getInstance().getColor(classType));
             rectangle.setStroke(Color.BLACK);
             group.getChildren().add(rectangle);
             enableDrag(group);
@@ -76,5 +74,10 @@ public class ComponentGroupFactory {
         });
 
         group.setOnMouseExited((event) -> group.setCursor(Cursor.DEFAULT));
+    }
+
+    private static final class DragContext {
+        public double deltaX;
+        public double deltaY;
     }
 }
