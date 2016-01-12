@@ -1,9 +1,12 @@
 package Controllers;
 
+import datastructures.CoordinatePair;
+
 public class WireController {
-    /*
+
     private static WireController instance;
-    private Wire wire = null;
+    private boolean active = false;
+    private CoordinatePair coordinates;
 
     public static WireController getInstance() {
         if (instance == null) {
@@ -13,16 +16,9 @@ public class WireController {
     }
 
     private WireController() {
-        ;
     }
 
-    public WireController(Wire wire){
-        this.wire = wire;
-    }
-
-    public WireController(
-            wire = null;
-    )
-    */
-
+    public void setActive(){active = true;}
+    public void setDormant(){active = false;}
+    public void setCoordinatePair(CoordinatePair coordinates){this.coordinates = coordinates;}
 }

@@ -1,5 +1,6 @@
 package components;
 
+import datastructures.Orientation;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
