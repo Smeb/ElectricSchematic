@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class Main extends Application {
     private Palette createPalette() {
-        ArrayList<Class> tools = new ArrayList<Class>();
+        ArrayList<Class> tools = new ArrayList<>();
         tools.add(Lamp.class);
         //tools.add(Component.class);
         tools.add(Battery.class);
