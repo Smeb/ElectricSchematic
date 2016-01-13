@@ -38,6 +38,10 @@ public class Evaluator {
             rTotal += current.getResistance();
             vTotal += current.getVoltage();
         }
+        if(current != c){
+            // If didn't arrive at final component, then the circuit is not complete and current is 0
+            return;
+        }
         current = c;
         visitedComponents = new HashSet<>();
         double aTotal = vTotal / rTotal;
