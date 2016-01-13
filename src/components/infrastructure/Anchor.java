@@ -47,7 +47,6 @@ public class Anchor extends Circle {
             wire.update(this);
         }
     }
-    public Wire getWire() { return wire; }
 
     public void clearWire() {
         if (wire != null) {
