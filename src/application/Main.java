@@ -41,8 +41,6 @@ public class Main extends Application {
         return new Palette(30,50,iconSize,toolsPerRow,tools);
     }
 
-
-
     @Override
     public void start(Stage primaryStage) throws Exception{
 

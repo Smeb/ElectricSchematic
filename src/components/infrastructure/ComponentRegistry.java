@@ -6,6 +6,7 @@ import javafx.scene.Node;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class ComponentRegistry {
     private ArrayList<Component> components;
@@ -34,14 +35,17 @@ public class ComponentRegistry {
             if (c.thisId == thisId) {
                 Group workspace = c.getGroup();
 
-                /*if (c.getNextNodes() != null) {
-                    System.out.println(c.getNextNodes().size());
-                    c.getNextNodes().getFirst().removePrevNode();
+                // Remove references to c from neighbours
+                for (Component neighbour : c.getConnectedComponents()) {
+                    LinkedList<Component> neighbourConnections = neighbour.getConnectedComponents();
+                    for (Component neighboursNeighbour : neighbourConnections) {
+                        if (neighboursNeighbour == c) {
+                            neighbourConnections.remove(neighboursNeighbour);
+                            System.out.println("Removed connection from " + c.thisId + " to " + neighbour.thisId);
+                            break;
+                        }
+                    }
                 }
-                if (c.getPrevNodes() != null) {
-                    System.out.println(c.getPrevNodes().size());
-                    c.getPrevNodes().getFirst().removeNextNode();
-                }*/
                 for(Node n : c.getGroup().getChildren()){
                     if(n.getClass() == Anchor.class){
                         Anchor a = (Anchor)n;

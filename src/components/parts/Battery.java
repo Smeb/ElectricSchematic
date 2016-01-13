@@ -10,5 +10,6 @@ public class Battery extends Component {
 
     protected Battery(ComponentGroup group) {
         super(group);
+        this.name = "Battery";
     }
 }

@@ -42,6 +42,7 @@ public class Anchor extends Circle {
         if (wire != null) {
             Wire toBeDeleted = wire;
             WireController.getInstance().eraseWire(wire);
+            this.direction = Direction.unset;
             wire = null;
             if (toBeDeleted.getOtherEnd(this).getWire() != null) {
                 toBeDeleted.getOtherEnd(this).clearWire();

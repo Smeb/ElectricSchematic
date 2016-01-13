@@ -105,7 +105,6 @@ public class ComponentGroupFactory {
         group.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton() == MouseButton.SECONDARY) {
                 group.setCursor(Cursor.HAND);
-                System.out.println("Right click");
                 RightClickMenuFactory.getInstance().buildRightClickMenu(group,event);
             }
         });
