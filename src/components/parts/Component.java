@@ -12,6 +12,7 @@ import java.util.LinkedList;
 public abstract class Component {
 
     public static final Color OUTLINE = Color.BLACK;
+    public static final double PARALLELOFFSET = 15.0;
     public static final double OFFSET = 30.0;
 
     private static int id = 0;
@@ -56,7 +57,7 @@ public abstract class Component {
 
     @Override
     public String toString(){
-        return name + ": " + thisId;
+        return ComponentValueMap.getInstance().get(this.getClass()).getName() + ": " + thisId;
     }
 
     public void setIcon(Rectangle icon) { this.icon = icon; }
