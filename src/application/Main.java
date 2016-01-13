@@ -53,8 +53,17 @@ public class Main extends Application {
         Palette pal = createPalette();
         MenuBar menuBar = new TopMenu().makeMenu();
         Button button = new Button("Evaluate");
+
         button.setOnAction(event -> new Evaluator().evaluate());
-        workspace.getChildren().addAll(pal, button);
+
+        Button pictures = new Button("Pictures");
+        pictures.setLayoutX(100);
+        pictures.setOnAction(event -> {
+            Globals.schematicIcons = !Globals.schematicIcons;
+            if (Globals.schematicIcons) { pictures.setText("Pictures"); }
+            else { pictures.setText("Schematic"); }
+        });
+        workspace.getChildren().addAll(pal,button,pictures);
         outerFrame.getChildren().addAll(menuBar,workspace);
         Scene programScene = new Scene(outerFrame, 1000, 700);
         programScene.setOnMouseDragExited(event -> {
