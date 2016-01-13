@@ -9,5 +9,6 @@ public class Lamp extends Component {
     public static final Color iconColor = Color.YELLOW;
     protected Lamp(ComponentGroup group) {
         super(group);
+        this.name = "Lamp";
     }
 }

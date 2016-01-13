@@ -30,13 +30,16 @@ public class Evaluator {
     public void evaluateGraph(Component c){
         Component root = c;
         System.out.println("Evaluating");
-        if(c.getNextNodes() != null){
-            Component current = c.getNextNodes().getFirst();
+        int i = 0;
+        if(c.getConnectedComponents() != null){
+            System.out.println("Inner Loop");
+            Component current = c.getConnectedComponents().getFirst();
             while(current != c){
-                System.out.println(current.getClass().toString());
-                current = current.getNextNodes().getFirst();
-                if(c.getNextNodes().isEmpty()){
+                System.out.println(i++);
+                if(c.getConnectedComponents().isEmpty()){
                     break;
+                } else {
+                    current = current.getConnectedComponents().getFirst();
                 }
             }
         }

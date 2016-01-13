@@ -11,12 +11,13 @@ public abstract class Component {
     public static final double OFFSET = 30.0;
     protected static int id = 0;
     private final int thisId;
+    protected String name;
     private ComponentGroup componentGroup;
-    private LinkedList<Component> componentsNext;
-    private LinkedList<Component> componentsPrev;
+    private LinkedList<Component> connectedComponents;
     protected Component(ComponentGroup group){
         thisId = id++;
         componentGroup = group;
+        connectedComponents = new LinkedList<>();
         group.setParentComponent(this);
     }
 
@@ -24,21 +25,15 @@ public abstract class Component {
         return componentGroup;
     }
 
-    public void addNextComponent(Component component){
-        if(componentsNext == null){
-            componentsNext = new LinkedList<>();
-        }
-        componentsNext.add(component);
+    public void addConnectedComponent(Component component){
+        connectedComponents.add(component);
     }
 
-    public void addPrevComponent(Component component){
-        if(componentsPrev == null){
-            componentsPrev = new LinkedList<>();
-        }
-        componentsPrev.add(component);
-    }
+    public LinkedList<Component> getConnectedComponents(){return connectedComponents;}
 
-    public LinkedList<Component> getNextNodes(){return componentsNext;}
-    public LinkedList<Component> getPrevNodes(){return componentsPrev;}
+    @Override
+    public String toString(){
+        return name + ": " + thisId;
+    }
 
 }

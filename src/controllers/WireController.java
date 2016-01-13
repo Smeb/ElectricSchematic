@@ -47,9 +47,9 @@ public class WireController {
         parent.addWire(wire, Anchor.Direction.send);
         end.addWire(wire, Anchor.Direction.recv);
         Component sendComponent = ((ComponentGroup) parent.getParent()).getParentComponent();
-        Component recvComponent = ((ComponentGroup) parent.getParent()).getParentComponent();
-        sendComponent.addNextComponent(recvComponent);
-        recvComponent.addPrevComponent(sendComponent);
+        Component recvComponent = ((ComponentGroup) end.getParent()).getParentComponent();
+        sendComponent.addConnectedComponent(recvComponent);
+        recvComponent.addConnectedComponent(sendComponent);
     }
 
     public void setInteractions(Wire wire){}

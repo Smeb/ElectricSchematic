@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import mainUI.TopMenu;
 import palette.Palette;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 // import org.json.JSONObject;
@@ -65,9 +64,10 @@ public class Main extends Application {
         primaryStage.setScene(programScene);
         primaryStage.show();
 
+
+        /*
         URL url = getClass().getResource("test.txt");
         System.out.println(url.getPath());
-        /*
         JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));
         System.out.println(object.getJSONArray("components").getJSONObject(0).get("id"));
         */
