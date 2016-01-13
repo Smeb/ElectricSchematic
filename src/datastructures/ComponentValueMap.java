@@ -3,6 +3,7 @@ package datastructures;
 import components.parts.Battery;
 import components.parts.Lamp;
 import components.parts.ParallelComponent;
+import components.parts.Resistor;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
@@ -28,6 +29,14 @@ public class ComponentValueMap {
                 new ImagePattern(new Image("file:img/battery-colour.png")),
                 new ImagePattern(new Image("file:img/battery-icon.png")),
                 "Battery"
+        ));
+
+        valueMap.put(Resistor.class, new DefaultComponentValues(
+                50.0,
+                80.0,
+                new ImagePattern(new Image("file:img/resistor-colour.png")),
+                new ImagePattern(new Image("file:img/resistor-icon.png")),
+                "Resistor"
         ));
 
         valueMap.put(ParallelComponent.class, new DefaultComponentValues(
