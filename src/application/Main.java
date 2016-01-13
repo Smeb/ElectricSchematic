@@ -62,6 +62,7 @@ public class Main extends Application {
             Globals.schematicIcons = !Globals.schematicIcons;
             if (Globals.schematicIcons) { pictures.setText("Pictures"); }
             else { pictures.setText("Schematic"); }
+            ComponentRegistry.getInstance().changeIcons();
         });
         workspace.getChildren().addAll(pal,button,pictures);
         outerFrame.getChildren().addAll(menuBar,workspace);

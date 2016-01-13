@@ -1,6 +1,9 @@
 package components.infrastructure;
 
+import application.Globals;
+import components.parts.Battery;
 import components.parts.Component;
+import components.parts.Lamp;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
@@ -70,6 +73,16 @@ public class ComponentRegistry {
             }
             group.getChildren().clear();
             it.remove();
+        }
+    }
+    public void changeIcons() {
+        for (Component c : components) {
+            if (c instanceof Battery) {
+                ((Battery)c).changeIcon(Globals.schematicIcons);
+            }
+            else if (c instanceof Lamp) {
+                ((Lamp)c).changeIcon(Globals.schematicIcons);
+            }
         }
     }
 }

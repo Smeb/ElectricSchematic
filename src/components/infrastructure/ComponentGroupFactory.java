@@ -29,21 +29,19 @@ public class ComponentGroupFactory {
         workspace = group;
     }
 
-    public static void changeIcons() { schematicIcons = !schematicIcons; }
-
     public ComponentGroup buildComponentGroup(Component component, double posX, double posY) {
         ComponentGroup componentGroup = new ComponentGroup();
         componentGroup.setParentComponent(component);
         if (component instanceof Lamp) {
             Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
             if (schematicIcons) {
-                System.out.println("Schematic is on");
                 rectangle.setFill(Lamp.schematic);
             } else {
                 rectangle.setFill(Lamp.iconColor);
             }
             rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
+            component.setIcon(rectangle);
 
         } else if (component instanceof Battery) {
             Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
@@ -53,6 +51,7 @@ public class ComponentGroupFactory {
                 rectangle.setFill(Battery.iconColor);
             }            rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
+            component.setIcon(rectangle);
         } else {
             return null;
         }

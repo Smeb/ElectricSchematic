@@ -3,6 +3,8 @@ package components.parts;
 import components.infrastructure.ComponentGroup;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 
 import java.util.LinkedList;
 
@@ -17,13 +19,18 @@ public abstract class Component {
     protected double resistance;
 
     protected String name;
+    protected Rectangle icon;
+
     private ComponentGroup componentGroup;
     private LinkedList<Component> connectedComponents;
+    protected static Color iconColor;
+    protected static ImagePattern schematic;
 
     protected Component(){
         thisId = id++;
         connectedComponents = new LinkedList<>();
     }
+
 
     public Group getGroup(){
         return componentGroup;
@@ -43,4 +50,6 @@ public abstract class Component {
     public String toString(){
         return name + ": " + thisId;
     }
+
+    public void setIcon(Rectangle icon) { this.icon = icon; }
 }
