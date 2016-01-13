@@ -11,12 +11,14 @@ public class Lamp extends Component {
     public static final ImagePattern schematic = new ImagePattern(new Image("file:img/lamp-icon.png"));
     public static final String name = "Lamp";
 
-    protected Lamp() {
+    protected Lamp(boolean composite) {
+        super(composite);
         voltage = 0.0;
         resistance = 1.0;
     }
 
-    protected Lamp(double voltage, double resistance){
+    protected Lamp(double voltage, double resistance, boolean composite){
+        super(composite);
         this.voltage = voltage;
         this.resistance = resistance;
     }

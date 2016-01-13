@@ -17,18 +17,19 @@ public class ComponentFactory {
         workspace = group;
     }
 
-    public Component newComponent(Class componentClass, double posX, double posY){
+    public Component newComponent(Class componentClass, double posX, double posY, boolean composite){
         Component component = null;
         if (Lamp.class.isAssignableFrom(componentClass)) {
-            component = new Lamp();
+            component = new Lamp(composite);
         }
         else if (Battery.class.isAssignableFrom(componentClass)){
-            component = new Battery();
+            component = new Battery(composite);
         }
-        ComponentGroup componentGroup = ComponentGroupFactory.getInstance().buildComponentGroup(component);
-        ComponentGroupFactory.getInstance().buildInteractions(componentGroup, posX, posY);
-        component.setComponentGroup(componentGroup);
-
+        if(!composite) {
+            ComponentGroup componentGroup = ComponentGroupFactory.getInstance().buildComponentGroup(component);
+            ComponentGroupFactory.getInstance().buildInteractions(componentGroup, posX, posY);
+            component.setComponentGroup(componentGroup);
+        }
         ComponentRegistry.getInstance().addComponent(component);
         return component;
     }

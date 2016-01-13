@@ -1,5 +1,6 @@
 package components.parts;
 
+import components.infrastructure.ComponentGroup;
 import components.infrastructure.ComponentGroupFactory;
 
 /**
@@ -16,10 +17,12 @@ public class ParallelComponentFactory {
     public ParallelComponent newParallelComponent(Class... classType){
         ComponentGroupFactory factory = ComponentGroupFactory.getInstance();
         ParallelComponent parallelComponent = new ParallelComponent();
+        ComponentGroup current;
         for(Class c : classType){
             if(!c.isAssignableFrom(Component.class)){
                 return null;
             }
+            current = factory.buildComponentGroup(c);
         }
     }
 }
