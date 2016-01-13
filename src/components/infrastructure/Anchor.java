@@ -1,5 +1,6 @@
 package components.infrastructure;
 
+import components.parts.Component;
 import controllers.WireController;
 import datastructures.CoordinatePair;
 import javafx.scene.paint.Color;
@@ -8,16 +9,27 @@ import tools.Wire;
 
 public class Anchor extends Circle {
     private static final double ANCHOR_SIZE = 5.0;
+    private static int id = 0;
     private Direction direction = Direction.unset;
     private Wire wire;
+    private Component parentComponent;
+    private int thisId;
 
-    public Anchor(double posX, double posY){
+    protected Anchor(Component component, double posX, double posY){
         super(ANCHOR_SIZE);
+        thisId = id++;
+        parentComponent = component;
         this.setCenterX(posX);
         this.setCenterY(posY);
         this.setFill(Color.BLACK);
         this.setStrokeWidth(3.0);
         this.setStroke(Color.TRANSPARENT);
+    }
+
+    public int getAnchorId(){return thisId;}
+
+    public Component getParentComponent(){
+        return parentComponent;
     }
 
     public CoordinatePair getPosition(){

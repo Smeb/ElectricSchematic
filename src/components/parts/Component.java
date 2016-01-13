@@ -14,15 +14,17 @@ public abstract class Component {
     protected String name;
     private ComponentGroup componentGroup;
     private LinkedList<Component> connectedComponents;
-    protected Component(ComponentGroup group){
+    protected Component(){
         thisId = id++;
-        componentGroup = group;
         connectedComponents = new LinkedList<>();
-        group.setParentComponent(this);
     }
 
     public Group getGroup(){
         return componentGroup;
+    }
+
+    public void setComponentGroup(final ComponentGroup group){
+        this.componentGroup = group;
     }
 
     public void addConnectedComponent(Component component){
