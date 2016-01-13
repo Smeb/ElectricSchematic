@@ -70,7 +70,7 @@ public class ComponentGroupFactory {
             // Centers the group onto the mouse
             group.toFront();
             for(Node n : group.getChildren()){
-                if(n.getClass() == Anchor.class){
+                if(n instanceof Anchor){
                     Anchor a = (Anchor)n;
                     a.updateWire();
                 }
