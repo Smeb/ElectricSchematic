@@ -9,7 +9,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 public class Evaluator {
-    ComponentRegistry registry;
+    private ComponentRegistry registry;
+
     public Evaluator(){
         registry = ComponentRegistry.getInstance();
     }
@@ -29,11 +30,23 @@ public class Evaluator {
     public void evaluateGraph(Component c){
         Component current = c;
         HashSet<Integer> visitedComponents = new HashSet<>();
-        System.out.println(current.toString());
-        visitedComponents.add(c.thisId);
-        while((current = getUnvisitedComponent(c.getConnectedComponents(), visitedComponents)) != null){
-            System.out.println(current.toString());
+        double rTotal = 0.0;
+        double vTotal = 0.0;
+
+        // Iterate once and find the resistance
+        while((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) != null){
+            rTotal += current.getResistance();
+            vTotal += current.getVoltage();
         }
+        current = c;
+        visitedComponents = new HashSet<>();
+        double aTotal = vTotal / rTotal;
+
+        // Iterate a second time and set the current of all components
+        while((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) != null){
+            current.setCurrent(aTotal);
+        }
+        System.out.println("V: " + vTotal + " R: " + rTotal + " A: " + aTotal);
     }
 
     private Component getUnvisitedComponent(LinkedList<Component> connectedComponents, HashSet<Integer> visitedComponents){
