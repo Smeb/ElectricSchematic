@@ -61,8 +61,14 @@ public class ComponentRegistry {
     public void deleteAll() {
         for (Iterator<Component> it = components.iterator(); it.hasNext();) {
             Component next = it.next();
-            Group workspace = next.getGroup();
-            workspace.getChildren().clear();
+            Group group = next.getGroup();
+            for(Node n : group.getChildren()){
+                if(n.getClass() == Anchor.class){
+                    Anchor a = (Anchor)n;
+                    a.clearWire();
+                }
+            }
+            group.getChildren().clear();
             it.remove();
         }
     }

@@ -1,6 +1,5 @@
 package components.controls;
 
-import components.infrastructure.ComponentGroup;
 import components.infrastructure.ComponentRegistry;
 import components.parts.Component;
 import javafx.event.ActionEvent;
