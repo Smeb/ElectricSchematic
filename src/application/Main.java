@@ -71,10 +71,11 @@ public class Main extends Application {
         System.out.println(url.getPath());
 
         JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));
-        System.out.println(object.getJSONArray("components").getJSONObject(0).get("id"));
+        System.out.println(object.getJSONArray("components"));
         JSONObject test = object.getJSONArray("components").getJSONObject(0);
         Loader.getInstance().loadComponents(object.getJSONArray("components"));
         */
+
     }
 
 }

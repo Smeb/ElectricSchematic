@@ -19,12 +19,13 @@ public class ComponentGroupFactory {
 
     private static final ComponentGroupFactory instance = new ComponentGroupFactory();
     private static Group workspace;
+    private static boolean schematicIcons = true;
 
     public static ComponentGroupFactory getInstance() {
         return instance;
     }
 
-    public static void setWorkspace(Group group) {
+    public static void setWorkspace(Group group){
         workspace = group;
     }
 
@@ -33,14 +34,22 @@ public class ComponentGroupFactory {
         componentGroup.setParentComponent(component);
         if (component.getClass() == Lamp.class) {
             Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
-            rectangle.setFill(Lamp.iconColor);
+            if (schematicIcons) {
+                System.out.println("Schematic is on");
+                rectangle.setFill(Lamp.schematic);
+            } else {
+                rectangle.setFill(Lamp.iconColor);
+            }
             rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
 
         } else if (component.getClass() == Battery.class) {
             Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
-            rectangle.setFill(Battery.iconColor);
-            rectangle.setStroke(Component.OUTLINE);
+            if (schematicIcons) {
+                rectangle.setFill(Battery.schematic);
+            } else {
+                rectangle.setFill(Battery.iconColor);
+            }            rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
         } else {
             return null;
@@ -55,6 +64,8 @@ public class ComponentGroupFactory {
         /* Fail condition, currently returning null
         TODO: Add enum to limit possible group types
         */
+
+        return null;
     }
 
     private void addAnchors(ComponentGroup group, Orientation... orientations){
@@ -108,8 +119,8 @@ public class ComponentGroupFactory {
         });
     }
 
-private static final class DragContext {
-    public double deltaX;
-    public double deltaY;
-}
+    private static final class DragContext {
+        public double deltaX;
+        public double deltaY;
+    }
 }
