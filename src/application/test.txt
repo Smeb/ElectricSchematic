@@ -1,32 +1,32 @@
 {"components":[
   {
-    "id":0,
+    "id":2,
     "type":"Lamp",
     "xPos":100,
     "yPos":50,
     "orientation":"vertical",
     "connections":[
-      1
+      3
     ]
   },
   {
-    "id":1,
+    "id":3,
     "type":"Battery",
     "xPos":200.0,
     "yPos":100.0,
     "orientation":"horizontal",
     "connections":[
-      2
+      4
     ]
   },
   {
-      "id":2,
+      "id":4,
       "type":"Lamp",
       "xPos":300.0,
       "yPos":100.0,
       "orientation":"horizontal",
       "connections":[
-        0
+        2
       ]
   }
 ] 
