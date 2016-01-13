@@ -9,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class AnchorFactory {
-
     private static AnchorFactory instance = null;
     public static AnchorFactory getInstance(){
         if(instance == null){
@@ -47,8 +46,7 @@ public class AnchorFactory {
 
         anchor.setOnDragDetected(event -> {
             WireController wireController = WireController.getInstance();
-            if(!wireController.active() &&
-                    anchor.getDirection() == Anchor.Direction.unset){
+            if(!wireController.active()){
                 wireController.setActive();
                 wireController.setParent(anchor);
                 anchor.startFullDrag();

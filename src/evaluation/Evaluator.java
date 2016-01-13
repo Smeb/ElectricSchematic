@@ -3,8 +3,11 @@ package evaluation;
 import components.infrastructure.ComponentRegistry;
 import components.parts.Battery;
 import components.parts.Component;
+import javafx.scene.Node;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 
 /**
  * Created by archie on 12/01/16.
@@ -29,20 +32,31 @@ public class Evaluator {
 
     public void evaluateGraph(Component c){
         Component root = c;
-        System.out.println("Evaluating");
+        HashSet<Integer> visitedComponents = new HashSet<>();
+        visitedComponents.add(c.thisId);
         int i = 0;
         if(c.getConnectedComponents() != null){
-            System.out.println("Inner Loop");
-            Component current = c.getConnectedComponents().getFirst();
-            while(current != c){
-                System.out.println(i++);
-                if(c.getConnectedComponents().isEmpty()){
+            Component current = getUnvisitedComponent(c.getConnectedComponents(), visitedComponents);
+            while(true){
+                System.out.println(current.thisId);
+                for(Node n : c.getGroup().getChildren()) {
+                    ;
+                }
+                if((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) == null){
                     break;
-                } else {
-                    current = current.getConnectedComponents().getFirst();
                 }
             }
+            System.out.println("Search completed");
         }
-        System.out.println("Finished");
+    }
+
+    private Component getUnvisitedComponent(LinkedList<Component> connectedComponent, HashSet<Integer> visitedComponents){
+        for(Component c : connectedComponent){
+            if(!visitedComponents.contains(c.thisId)){
+                visitedComponents.add(c.thisId);
+                return c;
+            }
+        }
+        return null;
     }
 }

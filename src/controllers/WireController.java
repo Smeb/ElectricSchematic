@@ -1,8 +1,6 @@
 package controllers;
 
 import components.infrastructure.Anchor;
-import components.infrastructure.ComponentGroup;
-import components.parts.Component;
 import javafx.scene.Group;
 import tools.Wire;
 
@@ -42,14 +40,22 @@ public class WireController {
     public void setDormant(){active = false;}
     public void setParent(Anchor start){this.parent = start;}
     public void completeWire(Anchor end){
-        System.out.println("Drawing wire: " + parent.getPosition().toString() + " " + end.getPosition().toString());
-        Wire wire = makeWire(parent, end);
-        parent.addWire(wire, Anchor.Direction.send);
-        end.addWire(wire, Anchor.Direction.recv);
-        Component sendComponent = ((ComponentGroup) parent.getParent()).getParentComponent();
-        Component recvComponent = ((ComponentGroup) end.getParent()).getParentComponent();
-        sendComponent.addConnectedComponent(recvComponent);
-        recvComponent.addConnectedComponent(sendComponent);
+//        System.out.println("Drawing wire: " + parent.getPosition().toString() + ", " + end.getPosition().toString());
+        Wire wire;
+        if(parent.getWire() != null){
+            // Then we update the original wire
+            wire = parent.getWire();
+            Anchor oldEndAnchor = wire.getEndAnchor();
+            oldEndAnchor.removeWire();
+            wire.setEndAnchor(end);
+            end.addWire(wire, Anchor.Direction.end);
+            wire.update(end);
+        } else {
+            // Otherwise we create a new wire
+            wire = makeWire(parent, end);
+            parent.addWire(wire, Anchor.Direction.parent);
+            end.addWire(wire, Anchor.Direction.end);
+        }
     }
 
     public void setInteractions(Wire wire){}

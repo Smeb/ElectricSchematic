@@ -16,12 +16,15 @@ public class Wire extends Line
         this.end = end;
     }
 
+    public Anchor getParentAnchor(){return start;}
+    public Anchor getEndAnchor(){return end;}
+
     public void update(Anchor anchor)
     {
-        if(anchor.getDirection() == Anchor.Direction.send){
+        if(anchor.getDirection() == Anchor.Direction.parent){
             this.setStartX(anchor.getPosition().getX());
             this.setStartY(anchor.getPosition().getY());
-        } else if (anchor.getDirection() == Anchor.Direction.recv) {
+        } else if (anchor.getDirection() == Anchor.Direction.end) {
             this.setEndX(anchor.getPosition().getX());
             this.setEndY(anchor.getPosition().getY());
         } this.toFront();
@@ -30,4 +33,13 @@ public class Wire extends Line
         if (this.end == a) { return start; }
         else { return end; }
     }
+
+    public void setParentAnchor(Anchor start){
+        this.start = start;
+    }
+
+    public void setEndAnchor(Anchor end){
+        this.end = end;
+    }
+
 }
