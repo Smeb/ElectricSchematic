@@ -1,10 +1,16 @@
 package IO;
 
+import components.infrastructure.Anchor;
 import components.parts.Battery;
+import components.parts.Component;
 import components.parts.ComponentFactory;
 import components.parts.Lamp;
+import datastructures.ComponentConnections;
+import javafx.scene.Node;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by henrymortimer on 13/01/2016.
@@ -12,7 +18,7 @@ import org.json.JSONObject;
 public class Loader
 {
     private static Loader instance = null;
-
+    private ArrayList<ComponentConnections> allConnections = new ArrayList<>();
     protected Loader() {}
 
     public static Loader getInstance()
@@ -33,25 +39,54 @@ public class Loader
                 return null;
         }
     }
+    private ArrayList<Integer> parseConnectionsArray(JSONArray connections)
+    {
+        String connectionsString = connections.toString();
+        connectionsString = connectionsString.replace("[","");
+        connectionsString = connectionsString.replace("]","");
+        String[] connectionsStringList = connectionsString.split(",");
+        ArrayList<Integer> a = new ArrayList<>();
+        for(String s:connectionsStringList)
+            a.add(Integer.parseInt(s));
+        return a;
+    }
 
     public void loadComponent(JSONObject component)
     {
         String type = null;
         double x = 0.0,y = 0.0;
+        ArrayList<Integer> connections;
+        int id;
         try
         {
             type = component.get("type").toString();
-            x = Double.parseDouble(component.get("xPos").toString());
-            y = Double.parseDouble(component.get("yPos").toString());
-
+            x = Double.parseDouble(component.getString("xPos"));
+            y = Double.parseDouble(component.getString("yPos"));
+            connections = parseConnectionsArray(component.getJSONArray("connections"));
+            id = Integer.parseInt(component.getString("id"));
+            allConnections.add(new ComponentConnections(id, connections));
             Class componentClass = parseClass(type);
-            ComponentFactory.getInstance().newComponent(componentClass, x, y);
+            Component componentObj = ComponentFactory.getInstance().newComponent(componentClass, x, y);
+            for(Node n :componentObj.getGroup().getChildren()){
+                if(n instanceof Anchor){
+
+                }
+            }
         }
         catch(Exception e)
         {
             System.err.print(e);
         }
     }
+
+    public void loadWires()
+    {
+        for(ComponentConnections c: allConnections)
+        {
+
+        }
+    }
+
 
     public void loadComponents(JSONArray components)
     {
