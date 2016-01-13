@@ -26,4 +26,8 @@ public class Wire extends Line
             this.setEndY(anchor.getPosition().getY());
         } this.toFront();
     }
+    public Anchor getOtherEnd(Anchor a) {
+        if (this.end == a) { return start; }
+        else { return end; }
+    }
 }

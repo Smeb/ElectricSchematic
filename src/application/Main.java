@@ -68,8 +68,8 @@ public class Main extends Application {
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(programScene);
         primaryStage.show();
-        /*
-        URL url = getClass().getResource("test.txt");
+
+        /*URL url = getClass().getResource("test.txt");
         System.out.println(url.getPath());
 
         JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));

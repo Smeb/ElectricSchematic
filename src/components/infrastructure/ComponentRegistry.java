@@ -2,6 +2,7 @@ package components.infrastructure;
 
 import components.parts.Component;
 import javafx.scene.Group;
+import javafx.scene.Node;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,13 +33,22 @@ public class ComponentRegistry {
         for (Component c : components) {
             if (c.thisId == thisId) {
                 Group workspace = c.getGroup();
-                workspace.getChildren().clear();
+
                 /*if (c.getNextNodes() != null) {
+                    System.out.println(c.getNextNodes().size());
                     c.getNextNodes().getFirst().removePrevNode();
                 }
                 if (c.getPrevNodes() != null) {
+                    System.out.println(c.getPrevNodes().size());
                     c.getPrevNodes().getFirst().removeNextNode();
                 }*/
+                for(Node n : c.getGroup().getChildren()){
+                    if(n.getClass() == Anchor.class){
+                        Anchor a = (Anchor)n;
+                        a.clearWire();
+                    }
+                }
+                workspace.getChildren().clear();
                 components.remove(c);
                 break;
             }
@@ -51,6 +61,5 @@ public class ComponentRegistry {
             workspace.getChildren().clear();
             it.remove();
         }
-        System.out.println("Cleared");
     }
 }
