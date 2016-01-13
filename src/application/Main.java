@@ -2,6 +2,7 @@ package application;
 
 import IO.Reader;
 import components.infrastructure.ComponentGroupFactory;
+import components.infrastructure.ComponentRegistry;
 import components.parts.Battery;
 import components.parts.ComponentFactory;
 import components.parts.Lamp;
@@ -24,15 +25,8 @@ public class Main extends Application {
         ArrayList<Class> tools = new ArrayList<>();
         tools.add(Lamp.class);
         tools.add(Battery.class);
-        tools.add(Lamp.class);
-        tools.add(Battery.class);
-        tools.add(Lamp.class);
-        tools.add(Battery.class);
-        tools.add(Lamp.class);
-        tools.add(Battery.class);
         int toolsPerRow = 3;
-        int height = 20;
-        int iconSize = 40;
+        int iconSize = 50;
         return new Palette(30,50,iconSize,toolsPerRow,tools);
     }
 
@@ -48,13 +42,7 @@ public class Main extends Application {
         ComponentGroupFactory.setWorkspace(workspace);
         ComponentFactory.setWorkspace(workspace);
         WireController.setWorkspace(workspace);
-        /*
-        for(int i = 0; i < 10; i++){
-            Line line = new Line(i * 100, 0, i * 100, 700);
-            workspace.getChildren().add(line);
-        }
 
-        */
         Palette pal = createPalette();
         MenuBar menuBar = new TopMenu().makeMenu();
 

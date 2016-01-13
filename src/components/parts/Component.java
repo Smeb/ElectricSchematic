@@ -10,7 +10,7 @@ public abstract class Component {
     public static final Color OUTLINE = Color.BLACK;
     public static final double OFFSET = 30.0;
     protected static int id = 0;
-    private final int thisId;
+    public final int thisId;
     private ComponentGroup componentGroup;
     private LinkedList<Component> componentsNext;
     private LinkedList<Component> componentsPrev;
@@ -37,5 +37,4 @@ public abstract class Component {
         }
         componentsPrev.add(component);
     }
-
 }

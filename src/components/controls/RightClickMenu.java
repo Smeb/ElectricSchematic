@@ -1,6 +1,8 @@
 package components.controls;
 
 import components.infrastructure.ComponentGroup;
+import components.infrastructure.ComponentRegistry;
+import components.parts.Component;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
@@ -11,10 +13,10 @@ import java.util.ArrayList;
  * Created by minttu on 13/01/2016.
  */
 public class RightClickMenu extends ContextMenu {
-    ComponentGroup clickedComponent;
+    Component clickedComponent;
     ArrayList<Menu> options;
 
-    public RightClickMenu(ComponentGroup clicked) {
+    public RightClickMenu(Component clicked) {
         clickedComponent = clicked;
         addOptions();
     }
@@ -28,14 +30,16 @@ public class RightClickMenu extends ContextMenu {
         MenuItem item2 = new MenuItem("Delete");
         item2.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                System.out.println("Delete");
+                System.out.println("Delete " + clickedComponent.thisId);
+                ComponentRegistry.getInstance().deleteComponent(clickedComponent.thisId);
             }
         });
-        this.getItems().addAll(item1, item2);
 
-        final TextField textField = new TextField("Type Something");
-        textField.setContextMenu(this);
-        //this.getMenus().addAll(menu1, menu2, menu3);
+
+        /*final TextField textField = new TextField("Type Something");
+        textField.setContextMenu(this);*/
+        this.getItems().addAll(item1,item2);
+
         //TODO: custom options
         // addMenus(clicked.getParentComponent().customOptions);
     }
