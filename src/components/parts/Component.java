@@ -15,18 +15,18 @@ public abstract class Component {
 
     private static int id = 0;
     public final int thisId;
-
+    public final boolean composite;
     protected double voltage = 0.0;
     protected double resistance;
     protected double current = 0.0;
-
     protected String name;
     private ComponentGroup componentGroup;
     private LinkedList<Component> connectedComponents;
 
-    protected Component(){
+    protected Component(boolean composite){
         thisId = id++;
         connectedComponents = new LinkedList<>();
+        this.composite = composite;
     }
 
     public Group getGroup(){
