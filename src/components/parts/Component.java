@@ -9,20 +9,28 @@ import java.util.LinkedList;
 public abstract class Component {
     public static final Color OUTLINE = Color.BLACK;
     public static final double OFFSET = 30.0;
-    protected static int id = 0;
+
+    private static int id = 0;
     public final int thisId;
+
+    protected double voltage = 0.0;
+    protected double resistance;
+
     protected String name;
     private ComponentGroup componentGroup;
     private LinkedList<Component> connectedComponents;
-    protected Component(ComponentGroup group){
+
+    protected Component(){
         thisId = id++;
-        componentGroup = group;
         connectedComponents = new LinkedList<>();
-        group.setParentComponent(this);
     }
 
     public Group getGroup(){
         return componentGroup;
+    }
+
+    public void setComponentGroup(final ComponentGroup group){
+        this.componentGroup = group;
     }
 
     public void addConnectedComponent(Component component){

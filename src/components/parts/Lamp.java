@@ -1,6 +1,5 @@
 package components.parts;
 
-import components.infrastructure.ComponentGroup;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -11,8 +10,8 @@ public class Lamp extends Component {
     public static final Color iconColor = Color.YELLOW;
     public static final ImagePattern schematic = new ImagePattern(new Image("file:img/lamp-icon.png"));
 
-    protected Lamp(ComponentGroup group) {
-        super(group);
+
+    protected Lamp() {
         this.name = "Lamp";
     }
 }

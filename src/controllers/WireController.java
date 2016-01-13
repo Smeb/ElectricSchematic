@@ -1,6 +1,7 @@
 package controllers;
 
 import components.infrastructure.Anchor;
+import components.parts.Component;
 import javafx.scene.Group;
 import tools.Wire;
 
@@ -9,7 +10,7 @@ public class WireController {
     private static Group workspace;
     private static WireController instance;
     private boolean active = false;
-    private Anchor parent;
+    private Anchor start;
 
     private WireController() {
     }
@@ -33,18 +34,18 @@ public class WireController {
         return wire;
     }
 
-    public Anchor getParentAnchor(){return parent;}
+    public Anchor getStartAnchor(){return start;}
 
     public boolean active(){return active;}
     public void setActive(){active = true;}
     public void setDormant(){active = false;}
-    public void setParent(Anchor start){this.parent = start;}
+    public void setStart(Anchor start){this.start = start;}
     public void completeWire(Anchor end){
 //        System.out.println("Drawing wire: " + parent.getPosition().toString() + ", " + end.getPosition().toString());
         Wire wire;
-        if(parent.getWire() != null){
+        if(start.getWire() != null){
             // Then we update the original wire
-            wire = parent.getWire();
+            wire = start.getWire();
             Anchor oldEndAnchor = wire.getEndAnchor();
             oldEndAnchor.removeWire();
             wire.setEndAnchor(end);
@@ -52,13 +53,19 @@ public class WireController {
             wire.update(end);
         } else {
             // Otherwise we create a new wire
-            wire = makeWire(parent, end);
-            parent.addWire(wire, Anchor.Direction.parent);
+            wire = makeWire(start, end);
+            start.addWire(wire, Anchor.Direction.parent);
             end.addWire(wire, Anchor.Direction.end);
+            connectComponents(start.getParentComponent(), end.getParentComponent());
         }
     }
 
-    public void setInteractions(Wire wire){}
+    private void connectComponents(Component componentA, Component componentB){
+        componentA.addConnectedComponent(componentB);
+        componentB.addConnectedComponent(componentA);
+    }
+
+    private void setInteractions(Wire wire){}
 
     public void eraseWire(Wire wire) {
         workspace.getChildren().remove(wire);
