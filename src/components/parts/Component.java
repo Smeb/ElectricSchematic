@@ -38,4 +38,7 @@ public abstract class Component {
         componentsPrev.add(component);
     }
 
+    public LinkedList<Component> getNextNodes(){return componentsNext;}
+    public LinkedList<Component> getPrevNodes(){return componentsPrev;}
+
 }

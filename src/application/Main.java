@@ -10,17 +10,27 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.VBox;
 import mainUI.*;
 import controllers.WireController;
+import evaluation.Evaluator;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.json.JSONObject;
+import mainUI.TopMenu;
 import palette.Palette;
 
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 public class Main extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     private Palette createPalette() {
         ArrayList<Class> tools = new ArrayList<>();
         tools.add(Lamp.class);
@@ -28,9 +38,7 @@ public class Main extends Application {
         return new Palette(30,50,200,40,4,tools);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -49,8 +57,9 @@ public class Main extends Application {
         */
         Palette pal = createPalette();
         MenuBar menuBar = new TopMenu().makeMenu();
-
-        workspace.getChildren().addAll(pal);
+        Button button = new Button("Evaluate");
+        button.setOnAction(event -> new Evaluator().evaluate());
+        workspace.getChildren().addAll(pal, button);
         outerFrame.getChildren().addAll(menuBar,workspace);
         Scene programScene = new Scene(outerFrame, 1000, 700);
         programScene.setOnMouseDragExited(event -> {
@@ -62,12 +71,15 @@ public class Main extends Application {
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(programScene);
         primaryStage.show();
-
+        /*
         URL url = getClass().getResource("test.txt");
         System.out.println(url.getPath());
+
         JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));
+        System.out.println(object.getJSONArray("components").getJSONObject(0).get("id"));
         JSONObject test = object.getJSONArray("components").getJSONObject(0);
         Loader.getInstance().loadComponents(object.getJSONArray("components"));
+        */
     }
 
 }
