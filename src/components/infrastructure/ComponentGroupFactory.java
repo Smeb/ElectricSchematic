@@ -19,6 +19,7 @@ public class ComponentGroupFactory {
 
     private static final ComponentGroupFactory instance = new ComponentGroupFactory();
     private static Group workspace;
+    private static boolean schematicIcons = true;
 
     public static ComponentGroupFactory getInstance() {
         return instance;
@@ -28,19 +29,30 @@ public class ComponentGroupFactory {
         workspace = group;
     }
 
+    public static void changeIcons() { schematicIcons = !schematicIcons; }
+
     public ComponentGroup buildComponentGroup(Class classType, double posX, double posY){
         ComponentGroup componentGroup;
         if(Component.class.isAssignableFrom(classType)) {
             componentGroup = new ComponentGroup();
             if (classType == Lamp.class) {
                 Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
-                rectangle.setFill(Lamp.iconColor);
+                if (schematicIcons) {
+                    System.out.println("Schematic is on");
+                    rectangle.setFill(Lamp.schematic);
+                } else {
+                    rectangle.setFill(Lamp.iconColor);
+                }
                 rectangle.setStroke(Component.OUTLINE);
                 componentGroup.getChildren().add(rectangle);
 
             } else if (classType == Battery.class) {
                 Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
-                rectangle.setFill(Battery.iconColor);
+                if (schematicIcons) {
+                    rectangle.setFill(Battery.schematic);
+                } else {
+                    rectangle.setFill(Battery.iconColor);
+                }
                 rectangle.setStroke(Component.OUTLINE);
                 componentGroup.getChildren().add(rectangle);
             }
