@@ -46,9 +46,9 @@ public class WireController {
             // Then we update the original wire
             wire = start.getWire();
 
+            //Remove old anchors
             Anchor oldParentAnchor = wire.getParentAnchor();
             oldParentAnchor.removeWire();
-
             Anchor oldEndAnchor = wire.getEndAnchor();
             oldEndAnchor.removeWire();
             wire.setParentAnchor(start);

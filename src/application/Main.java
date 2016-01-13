@@ -25,6 +25,7 @@ public class Main extends Application {
         ArrayList<Component> tools = new ArrayList<>();
         tools.add(new Lamp());
         tools.add(new Battery());
+        tools.add(new Resistor());
         tools.add(new ParallelComponent());
         int toolsPerRow = 3;
         int iconSize = 50;

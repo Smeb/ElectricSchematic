@@ -1,7 +1,10 @@
 package components.infrastructure;
 
 import components.controls.RightClickMenuFactory;
+import components.parts.Battery;
 import components.parts.Component;
+import components.parts.Lamp;
+import components.parts.Resistor;
 import datastructures.ComponentValueMap;
 import datastructures.CoordinatePair;
 import datastructures.DefaultComponentValues;
