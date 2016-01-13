@@ -1,9 +1,6 @@
 package components.infrastructure;
 
-import application.Globals;
-import components.parts.Battery;
 import components.parts.Component;
-import components.parts.Lamp;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
@@ -12,17 +9,16 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ComponentRegistry {
-    private ArrayList<Component> components;
-
     private static ComponentRegistry instance = null;
+    private ArrayList<Component> components;
+    private ComponentRegistry(){
+        components = new ArrayList<>();
+    }
+
     public static ComponentRegistry getInstance(){
         if(instance == null)
             instance = new ComponentRegistry();
         return instance;
-    }
-
-    private ComponentRegistry(){
-        components = new ArrayList<>();
     }
 
     public void addComponent(Component component){

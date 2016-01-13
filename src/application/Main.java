@@ -1,7 +1,5 @@
 package application;
 
-import IO.Loader;
-import IO.Reader;
 import components.infrastructure.ComponentViewFactory;
 import components.parts.Battery;
 import components.parts.Component;
@@ -17,10 +15,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mainUI.TopMenu;
-import org.json.JSONObject;
 import palette.Palette;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 public class Main extends Application {

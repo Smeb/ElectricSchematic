@@ -1,6 +1,5 @@
 package components.infrastructure;
 
-import application.Globals;
 import components.controls.RightClickMenuFactory;
 import components.parts.Battery;
 import components.parts.Component;
