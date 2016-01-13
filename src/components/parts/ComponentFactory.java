@@ -1,8 +1,8 @@
 package components.parts;
 
-import components.infrastructure.ComponentGroup;
-import components.infrastructure.ComponentGroupFactory;
 import components.infrastructure.ComponentRegistry;
+import components.infrastructure.ComponentView;
+import components.infrastructure.ComponentViewFactory;
 import javafx.scene.Group;
 
 public class ComponentFactory {
@@ -17,7 +17,7 @@ public class ComponentFactory {
         workspace = group;
     }
 
-    public Component newComponent(Class componentClass, double posX, double posY, boolean composite){
+    public Component newComponent(final Class componentClass, double posX, double posY, boolean composite){
         Component component = null;
         if (Lamp.class.isAssignableFrom(componentClass)) {
             component = new Lamp(composite);
@@ -25,10 +25,13 @@ public class ComponentFactory {
         else if (Battery.class.isAssignableFrom(componentClass)){
             component = new Battery(composite);
         }
+        else {
+            return null;
+        }
         if(!composite) {
-            ComponentGroup componentGroup = ComponentGroupFactory.getInstance().buildComponentGroup(component);
-            ComponentGroupFactory.getInstance().buildInteractions(componentGroup, posX, posY);
-            component.setComponentGroup(componentGroup);
+            ComponentView componentView = ComponentViewFactory.getInstance().buildComponentGroup(component);
+            ComponentViewFactory.getInstance().buildInteractions(componentView, posX, posY);
+            component.setComponentView(componentView);
         }
         ComponentRegistry.getInstance().addComponent(component);
         return component;

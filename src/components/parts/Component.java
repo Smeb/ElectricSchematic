@@ -1,6 +1,6 @@
 package components.parts;
 
-import components.infrastructure.ComponentGroup;
+import components.infrastructure.ComponentView;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
@@ -20,7 +20,7 @@ public abstract class Component {
     protected double resistance;
     protected double current = 0.0;
     protected String name;
-    private ComponentGroup componentGroup;
+    private ComponentView componentView;
     private LinkedList<Component> connectedComponents;
 
     protected Component(boolean composite){
@@ -30,10 +30,10 @@ public abstract class Component {
     }
 
     public Group getGroup(){
-        return componentGroup;
+        return componentView;
     }
-    public void setComponentGroup(final ComponentGroup group){
-        this.componentGroup = group;
+    public void setComponentView(final ComponentView group){
+        this.componentView = group;
     }
     public void addConnectedComponent(Component component){
         connectedComponents.add(component);

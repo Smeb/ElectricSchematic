@@ -12,9 +12,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by henrymortimer on 13/01/2016.
- */
 public class Loader
 {
     private static Loader instance = null;
@@ -66,7 +63,8 @@ public class Loader
             id = Integer.parseInt(component.getString("id"));
             allConnections.add(new ComponentConnections(id, connections));
             Class componentClass = parseClass(type);
-            Component componentObj = ComponentFactory.getInstance().newComponent(componentClass, x, y);
+            // TODO: Temp false value needs to be checked against parallel component type
+            Component componentObj = ComponentFactory.getInstance().newComponent(componentClass, x, y, false);
             for(Node n :componentObj.getGroup().getChildren()){
                 if(n instanceof Anchor){
 
