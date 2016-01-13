@@ -9,6 +9,7 @@ public class Anchor extends Circle {
     private static final double ANCHOR_SIZE = 5.0;
     private Direction direction = Direction.unset;
     private Wire wire;
+
     public Anchor(double posX, double posY){
         super(ANCHOR_SIZE);
         this.setCenterX(posX);
