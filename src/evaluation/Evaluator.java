@@ -37,10 +37,10 @@ public class Evaluator {
         while((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) != null){
             rTotal += current.getResistance();
             vTotal += current.getVoltage();
-        }
-        if(current != c){
-            // If didn't arrive at final component, then the circuit is not complete and current is 0
-            return;
+            if(current.getConnectedComponents().size() != 2) {
+                // For components in series all components should have two connected components
+                return;
+            }
         }
         current = c;
         visitedComponents = new HashSet<>();
