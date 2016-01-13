@@ -29,10 +29,12 @@ public class ComponentGroupFactory {
         workspace = group;
     }
 
+    public static void changeIcons() { schematicIcons = !schematicIcons; }
+
     public ComponentGroup buildComponentGroup(Component component, double posX, double posY) {
         ComponentGroup componentGroup = new ComponentGroup();
         componentGroup.setParentComponent(component);
-        if (component.getClass() == Lamp.class) {
+        if (component instanceof Lamp) {
             Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
             if (schematicIcons) {
                 System.out.println("Schematic is on");
@@ -43,7 +45,7 @@ public class ComponentGroupFactory {
             rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
 
-        } else if (component.getClass() == Battery.class) {
+        } else if (component instanceof Battery) {
             Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
             if (schematicIcons) {
                 rectangle.setFill(Battery.schematic);
@@ -61,11 +63,10 @@ public class ComponentGroupFactory {
         componentGroup.setLayoutY(posY + PaletteIcon.size / 2);
         workspace.getChildren().add(componentGroup);
         return componentGroup;
+
         /* Fail condition, currently returning null
         TODO: Add enum to limit possible group types
         */
-
-        return null;
     }
 
     private void addAnchors(ComponentGroup group, Orientation... orientations){
