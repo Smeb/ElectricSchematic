@@ -1,5 +1,6 @@
 package components.infrastructure;
 
+import components.controls.RightClickMenuFactory;
 import components.parts.Battery;
 import components.parts.Component;
 import components.parts.Lamp;
@@ -9,6 +10,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import palette.PaletteIcon;
 
@@ -42,6 +45,7 @@ public class ComponentGroupFactory {
                 componentGroup.getChildren().add(rectangle);
             }
             enableDrag(componentGroup);
+            enableRightClick(componentGroup);
             addAnchors(componentGroup, Orientation.LEFT, Orientation.RIGHT);
             componentGroup.setLayoutX(posX);
             componentGroup.setLayoutY(posY + PaletteIcon.size / 2);
@@ -95,6 +99,15 @@ public class ComponentGroupFactory {
         });
 
         group.setOnMouseExited((event) -> group.setCursor(Cursor.DEFAULT));
+    }
+
+    private void enableRightClick(ComponentGroup group) {
+        group.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getButton() == MouseButton.SECONDARY) {
+                group.setCursor(Cursor.HAND);
+                RightClickMenuFactory.getInstance().buildRightClickMenu(group,event);
+            }
+        });
     }
 
     private static final class DragContext {

@@ -1,5 +1,6 @@
 package components.infrastructure;
 
+import controllers.WireController;
 import datastructures.CoordinatePair;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -44,6 +45,18 @@ public class Anchor extends Circle {
     public void updateWire(){
         if(wire != null){
             wire.update(this);
+        }
+    }
+
+    public void clearWire() {
+        if (wire != null) {
+            Wire toBeDeleted = wire;
+            WireController.getInstance().eraseWire(wire);
+            this.direction = Direction.unset;
+            wire = null;
+            if (toBeDeleted.getOtherEnd(this).getWire() != null) {
+                toBeDeleted.getOtherEnd(this).clearWire();
+            }
         }
     }
 

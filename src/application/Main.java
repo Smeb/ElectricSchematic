@@ -3,6 +3,7 @@ package application;
 import IO.Loader;
 import IO.Reader;
 import components.infrastructure.ComponentGroupFactory;
+import components.infrastructure.ComponentRegistry;
 import components.parts.Battery;
 import components.parts.ComponentFactory;
 import components.parts.Lamp;
@@ -35,7 +36,9 @@ public class Main extends Application {
         ArrayList<Class> tools = new ArrayList<>();
         tools.add(Lamp.class);
         tools.add(Battery.class);
-        return new Palette(30,50,200,40,4,tools);
+        int toolsPerRow = 3;
+        int iconSize = 50;
+        return new Palette(30,50,iconSize,toolsPerRow,tools);
     }
 
     @Override
@@ -46,13 +49,7 @@ public class Main extends Application {
         ComponentGroupFactory.setWorkspace(workspace);
         ComponentFactory.setWorkspace(workspace);
         WireController.setWorkspace(workspace);
-        /*
-        for(int i = 0; i < 10; i++){
-            Line line = new Line(i * 100, 0, i * 100, 700);
-            workspace.getChildren().add(line);
-        }
 
-        */
         Palette pal = createPalette();
         MenuBar menuBar = new TopMenu().makeMenu();
         Button button = new Button("Evaluate");
@@ -69,8 +66,8 @@ public class Main extends Application {
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(programScene);
         primaryStage.show();
-        /*
-        URL url = getClass().getResource("test.txt");
+
+        /*URL url = getClass().getResource("test.txt");
         System.out.println(url.getPath());
 
         JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));

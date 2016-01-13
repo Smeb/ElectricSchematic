@@ -59,4 +59,8 @@ public class WireController {
     }
 
     public void setInteractions(Wire wire){}
+
+    public void eraseWire(Wire wire) {
+        workspace.getChildren().remove(wire);
+    }
 }
