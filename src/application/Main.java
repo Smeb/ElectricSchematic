@@ -24,7 +24,16 @@ public class Main extends Application {
         ArrayList<Class> tools = new ArrayList<>();
         tools.add(Lamp.class);
         tools.add(Battery.class);
-        return new Palette(30,50,200,40,4,tools);
+        tools.add(Lamp.class);
+        tools.add(Battery.class);
+        tools.add(Lamp.class);
+        tools.add(Battery.class);
+        tools.add(Lamp.class);
+        tools.add(Battery.class);
+        int toolsPerRow = 3;
+        int height = 20;
+        int iconSize = 40;
+        return new Palette(30,50,iconSize,toolsPerRow,tools);
     }
 
     public static void main(String[] args) {
