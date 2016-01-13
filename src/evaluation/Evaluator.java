@@ -4,11 +4,12 @@ import components.infrastructure.ComponentRegistry;
 import components.parts.Battery;
 import components.parts.Component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Evaluator {
+    ConcurrentLinkedQueue<Component> registryCopy = new ConcurrentLinkedQueue<>();
     private ComponentRegistry registry;
 
     public Evaluator(){
@@ -16,18 +17,21 @@ public class Evaluator {
     }
 
     public void evaluate(){
-        ArrayList<Component> registryCopy = new ArrayList<>();
         for(Component c : registry.getComponents()){
             registryCopy.add(c);
         }
+
         for(Component c : registryCopy){
             if(c instanceof Battery){
-                evaluateGraph(c);
+                evaluateGraph(c, registryCopy);
+            }
+            if(registryCopy.isEmpty()){
+                break;
             }
         }
     }
 
-    public void evaluateGraph(Component c){
+    public void evaluateGraph(Component c, ConcurrentLinkedQueue<Component> r){
         Component current = c;
         HashSet<Integer> visitedComponents = new HashSet<>();
         double rTotal = 0.0;
@@ -39,6 +43,7 @@ public class Evaluator {
 
         // Iterate once and find the resistance
         while((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) != null){
+            r.remove(current);
             rTotal += current.getResistance();
             vTotal += current.getVoltage();
             if(current.getConnectedComponents().size() != 2) {

@@ -15,6 +15,7 @@ public abstract class Component {
 
     protected double voltage = 0.0;
     protected double resistance;
+    protected double current = 0.0;
 
     protected String name;
     private ComponentGroup componentGroup;
@@ -28,16 +29,19 @@ public abstract class Component {
     public Group getGroup(){
         return componentGroup;
     }
-
     public void setComponentGroup(final ComponentGroup group){
         this.componentGroup = group;
     }
-
     public void addConnectedComponent(Component component){
         connectedComponents.add(component);
     }
-
     public LinkedList<Component> getConnectedComponents(){return connectedComponents;}
+
+    public double getResistance(){return resistance;}
+    public double getVoltage(){return voltage;}
+    public double getCurrent(){return current;}
+    public void setCurrent(double current){this.current = current;}
+
 
     @Override
     public String toString(){
