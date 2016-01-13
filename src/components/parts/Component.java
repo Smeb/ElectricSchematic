@@ -7,6 +7,9 @@ import javafx.scene.paint.Color;
 import java.util.LinkedList;
 
 public abstract class Component {
+    public static final double width = 0.0;
+    public static final double height = 0.0;
+
     public static final Color OUTLINE = Color.BLACK;
     public static final double OFFSET = 30.0;
 
