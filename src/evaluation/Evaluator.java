@@ -32,6 +32,10 @@ public class Evaluator {
         HashSet<Integer> visitedComponents = new HashSet<>();
         double rTotal = 0.0;
         double vTotal = 0.0;
+        if(c.getConnectedComponents().size() != 2){
+            // Immediate failure, found battery is not connected
+            return;
+        }
 
         // Iterate once and find the resistance
         while((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) != null){
