@@ -119,9 +119,4 @@ public class ComponentGroupFactory {
             }
         });
     }
-
-    private static final class DragContext {
-        public double deltaX;
-        public double deltaY;
-    }
 }
