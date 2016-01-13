@@ -1,17 +1,10 @@
 package application;
 
-import IO.Loader;
-import IO.Reader;
 import components.infrastructure.ComponentViewFactory;
-import components.infrastructure.ComponentRegistry;
 import components.parts.Battery;
 import components.parts.Component;
 import components.parts.ComponentFactory;
 import components.parts.Lamp;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import mainUI.*;
 import controllers.WireController;
 import evaluation.Evaluator;
 import javafx.application.Application;
@@ -24,10 +17,7 @@ import javafx.stage.Stage;
 import mainUI.TopMenu;
 import palette.Palette;
 
-import java.net.URL;
 import java.util.ArrayList;
-
-import org.json.JSONObject;
 
 public class Main extends Application {
     public static void main(String[] args) {
