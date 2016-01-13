@@ -1,5 +1,6 @@
 package mainUI;
 
+import components.infrastructure.ComponentRegistry;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -33,21 +34,22 @@ public class TopMenu {
         newLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.print("Pretty pegasus");
+                System.out.println("Pretty pegasus");
+                ComponentRegistry.getInstance().deleteAll();
             }
         });
 
         openLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.print("Powerful platypus");
+                System.out.println("Powerful platypus");
             }
         });
 
         saveLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.print("Partying portico");
+                System.out.println("Partying portico");
             }
         });
 

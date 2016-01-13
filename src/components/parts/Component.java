@@ -40,5 +40,7 @@ public abstract class Component {
 
     public LinkedList<Component> getNextNodes(){return componentsNext;}
     public LinkedList<Component> getPrevNodes(){return componentsPrev;}
+    public void removeNextNode() { componentsNext.pop(); }
+    public void removePrevNode() { componentsPrev.pop(); }
 
 }

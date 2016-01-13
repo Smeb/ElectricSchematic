@@ -4,6 +4,7 @@ import components.parts.Component;
 import javafx.scene.Group;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ComponentRegistry {
     private ArrayList<Component> components;
@@ -32,10 +33,24 @@ public class ComponentRegistry {
             if (c.thisId == thisId) {
                 Group workspace = c.getGroup();
                 workspace.getChildren().clear();
+                /*if (c.getNextNodes() != null) {
+                    c.getNextNodes().getFirst().removePrevNode();
+                }
+                if (c.getPrevNodes() != null) {
+                    c.getPrevNodes().getFirst().removeNextNode();
+                }*/
                 components.remove(c);
-                //c = null;
                 break;
             }
         }
+    }
+    public void deleteAll() {
+        for (Iterator<Component> it = components.iterator(); it.hasNext();) {
+            Component next = it.next();
+            Group workspace = next.getGroup();
+            workspace.getChildren().clear();
+            it.remove();
+        }
+        System.out.println("Cleared");
     }
 }
