@@ -15,13 +15,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import palette.PaletteIcon;
 
-public class ComponentGroupFactory {
+public class ComponentViewFactory {
 
-    private static final ComponentGroupFactory instance = new ComponentGroupFactory();
+    private static final ComponentViewFactory instance = new ComponentViewFactory();
     private static Group workspace;
     private static boolean schematicIcons = true;
 
-    public static ComponentGroupFactory getInstance() {
+    public static ComponentViewFactory getInstance() {
         return instance;
     }
 
@@ -31,30 +31,30 @@ public class ComponentGroupFactory {
 
     public static void changeIcons() { schematicIcons = !schematicIcons; }
 
-    public ComponentGroup buildComponentGroup(Component component) {
-        ComponentGroup componentGroup = new ComponentGroup();
-        componentGroup.setParentComponent(component);
+    public ComponentView buildComponentGroup(Component component) {
+        ComponentView componentView = new ComponentView();
+        componentView.setParentComponent(component);
         if (component instanceof Lamp) {
-            componentGroup.getChildren().add(buildLamp());
+            componentView.getChildren().add(buildLamp());
         } else if (component instanceof Battery) {
-            componentGroup.getChildren().add(buildBattery());
+            componentView.getChildren().add(buildBattery());
         } else {
             return null;
         }
-       return componentGroup;
+       return componentView;
 
         /* Fail condition, currently returning null
         TODO: Add enum to limit possible group types
         */
     }
 
-    public void buildInteractions(ComponentGroup componentGroup, double posX, double posY){
-        enableDrag(componentGroup);
-        enableRightClick(componentGroup);
-        addAnchors(componentGroup, Orientation.LEFT, Orientation.RIGHT);
-        componentGroup.setLayoutX(posX);
-        componentGroup.setLayoutY(posY + PaletteIcon.size / 2);
-        workspace.getChildren().add(componentGroup);
+    public void buildInteractions(ComponentView componentView, double posX, double posY){
+        enableDrag(componentView);
+        enableRightClick(componentView);
+        addAnchors(componentView, Orientation.LEFT, Orientation.RIGHT);
+        componentView.setLayoutX(posX);
+        componentView.setLayoutY(posY + PaletteIcon.size / 2);
+        workspace.getChildren().add(componentView);
     }
 
     private Rectangle buildLamp(){
@@ -81,7 +81,7 @@ public class ComponentGroupFactory {
 
 
 
-    private void addAnchors(ComponentGroup group, Orientation... orientations){
+    private void addAnchors(ComponentView group, Orientation... orientations){
         AnchorFactory factory = AnchorFactory.getInstance();
         Bounds bounds = group.getBoundsInParent();
         for(Orientation o : orientations) {
@@ -89,7 +89,7 @@ public class ComponentGroupFactory {
         }
     }
 
-    private void enableDrag(ComponentGroup group){
+    private void enableDrag(ComponentView group){
         final CoordinatePair dragContext = new CoordinatePair();
 
         group.setOnMousePressed((event)->{
@@ -123,7 +123,7 @@ public class ComponentGroupFactory {
         group.setOnMouseExited((event) -> group.setCursor(Cursor.DEFAULT));
     }
 
-    private void enableRightClick(ComponentGroup group) {
+    private void enableRightClick(ComponentView group) {
         group.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton() == MouseButton.SECONDARY) {
                 group.setCursor(Cursor.HAND);
