@@ -1,5 +1,6 @@
 package application;
 
+import IO.Loader;
 import IO.Reader;
 import components.infrastructure.ComponentGroupFactory;
 import components.parts.Battery;
@@ -65,7 +66,8 @@ public class Main extends Application {
         URL url = getClass().getResource("test.txt");
         System.out.println(url.getPath());
         JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));
-        System.out.println(object.getJSONArray("components").getJSONObject(0).get("id"));
+        JSONObject test = object.getJSONArray("components").getJSONObject(0);
+        Loader.getInstance().loadComponents(object.getJSONArray("components"));
     }
 
 }
