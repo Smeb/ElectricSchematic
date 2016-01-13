@@ -17,11 +17,20 @@ public class Wire extends Line
     }
 
     public Anchor getParentAnchor(){return start;}
+
+    public void setParentAnchor(Anchor start){
+        this.start = start;
+    }
+
     public Anchor getEndAnchor(){return end;}
+
+    public void setEndAnchor(Anchor end){
+        this.end = end;
+    }
 
     public void update(Anchor anchor)
     {
-        if(anchor.getDirection() == Anchor.Direction.parent){
+        if(anchor.getDirection() == Anchor.Direction.start){
             this.setStartX(anchor.getPosition().getX());
             this.setStartY(anchor.getPosition().getY());
         } else if (anchor.getDirection() == Anchor.Direction.end) {
@@ -29,17 +38,10 @@ public class Wire extends Line
             this.setEndY(anchor.getPosition().getY());
         } this.toFront();
     }
+
     public Anchor getOtherEnd(Anchor a) {
         if (this.end == a) { return start; }
         else { return end; }
-    }
-
-    public void setParentAnchor(Anchor start){
-        this.start = start;
-    }
-
-    public void setEndAnchor(Anchor end){
-        this.end = end;
     }
 
 }
