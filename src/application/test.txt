@@ -3,7 +3,7 @@
     "id":123,
     "type":"Lamp",
     "xPos":100,
-    "ypos":50,
+    "yPos":50,
     "orientation":"vertical",
     "connections":[
       124
@@ -12,8 +12,8 @@
   {
     "id":124,
     "type":"Battery",
-    "xPos":100,
-    "yPos":50,
+    "xPos":200.0,
+    "yPos":100.0,
     "orientation":"horizontal",
     "connections":[
       123
