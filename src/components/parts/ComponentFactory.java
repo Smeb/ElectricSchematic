@@ -20,7 +20,7 @@ public class ComponentFactory {
     }
 
     public Component newComponent(Class componentClass, double posX, double posY, boolean composite){
-        Component component = null;
+        Component component;
         if (Lamp.class.isAssignableFrom(componentClass)) {
             component = new Lamp(composite);
         }
@@ -45,14 +45,18 @@ public class ComponentFactory {
         ComponentView currentGroup;
         Vector<Component> components = new Vector<Component>();
         Vector<ComponentView> componentViews = new Vector<>();
-        for (final Class c : classType) {
-            if (!c.isAssignableFrom(Component.class)) {
+        int i = 0;
+        for (Class c : classType) {
+            if (!Component.class.isAssignableFrom(c)) {
                 return null;
             }
             current = newComponent(c, 0.0, 0.0, true);
             components.add(current);
             currentGroup = viewFactory.buildComponentGroup(current);
+            currentGroup.setLayoutX(20.0);
+            currentGroup.setLayoutY(i + ParallelComponent.OFFSET);
             componentViews.add(currentGroup);
+            i++;
         }
         ParallelComponentView componentView = new ParallelComponentView(componentViews);
         ParallelComponent parallelComponent = new ParallelComponent(components, componentView, false);

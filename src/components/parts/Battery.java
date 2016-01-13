@@ -1,14 +1,10 @@
 package components.parts;
 
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
+import datastructures.ComponentValueMap;
+import datastructures.DefaultComponentValues;
 
 public class Battery extends Component {
-    public static final double width = 80.0;
-    public static final double height = 50.0;
-    public static final ImagePattern iconColor = new ImagePattern(new Image("file:img/battery-colour.png"));
-    public static final ImagePattern schematic = new ImagePattern(new Image("file:img/battery-icon.png"));
-    public static final String name = "Battery";
+    private static final DefaultComponentValues componentDefaults = ComponentValueMap.getInstance().get(Battery.class);
 
     public Battery(){
 

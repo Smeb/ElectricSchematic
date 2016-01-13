@@ -1,10 +1,10 @@
 package components.infrastructure;
 
 import components.controls.RightClickMenuFactory;
-import components.parts.Battery;
 import components.parts.Component;
-import components.parts.Lamp;
+import datastructures.ComponentValueMap;
 import datastructures.CoordinatePair;
+import datastructures.DefaultComponentValues;
 import datastructures.Orientation;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
@@ -18,6 +18,7 @@ import palette.PaletteIcon;
 public class ComponentViewFactory {
 
     private static final ComponentViewFactory instance = new ComponentViewFactory();
+    private static final ComponentValueMap valueMap = ComponentValueMap.getInstance();
     private static Group workspace;
 
     public static ComponentViewFactory getInstance() {
@@ -31,14 +32,11 @@ public class ComponentViewFactory {
     public ComponentView buildComponentGroup(Component component) {
         ComponentView componentView = new ComponentView();
         componentView.setParentComponent(component);
-        if (component instanceof Lamp) {
-            buildLamp(component, componentView);
-        } else if (component instanceof Battery) {
-            buildBattery(component, componentView);
-        } else {
-            return null;
+        if(valueMap.get(component.getClass()) == null){
+            System.out.println("Component not loaded into DefaultValueMap");
         }
-       return componentView;
+        buildSingleComponent(component, componentView);
+        return componentView;
 
         /* Fail condition, currently returning null
         TODO: Add enum to limit possible group types
@@ -54,17 +52,9 @@ public class ComponentViewFactory {
         workspace.getChildren().add(componentView);
     }
 
-    private Rectangle buildLamp(Component component, ComponentView componentView){
-        Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
-        rectangle.setStroke(Component.OUTLINE);
-        componentView.getChildren().add(rectangle);
-        component.setIcon(rectangle);
-        component.fill();
-        return rectangle;
-    }
-
-    private Rectangle buildBattery(Component component, ComponentView componentView){
-        Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
+    private Rectangle buildSingleComponent(Component component, ComponentView componentView){
+        DefaultComponentValues values = valueMap.get(component.getClass());
+        Rectangle rectangle = new Rectangle(values.getWidth(), values.getHeight());
         rectangle.setStroke(Component.OUTLINE);
         componentView.getChildren().add(rectangle);
         component.setIcon(rectangle);
