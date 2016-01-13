@@ -56,8 +56,6 @@ public class WireController {
             parent.addWire(wire, Anchor.Direction.parent);
             end.addWire(wire, Anchor.Direction.end);
         }
-        System.out.print("Parent anchor id = " + parent.id + "\t");
-        System.out.println("End anchor id = " + end.id);
     }
 
     public void setInteractions(Wire wire){}

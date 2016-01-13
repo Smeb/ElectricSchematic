@@ -1,6 +1,5 @@
 package components.infrastructure;
 
-import datastructures.ComponentGroup;
 import datastructures.CoordinatePair;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -9,11 +8,7 @@ import tools.Wire;
 public class Anchor extends Circle {
     private static final double ANCHOR_SIZE = 5.0;
     private Direction direction = Direction.unset;
-    public enum Direction {parent, end, unset}
     private Wire wire;
-
-
-
     public Anchor(double posX, double posY){
         super(ANCHOR_SIZE);
         this.setCenterX(posX);
@@ -35,9 +30,7 @@ public class Anchor extends Circle {
     }
 
     public void addWire(Wire wire, Direction direction){
-        ComponentGroup group = (ComponentGroup)this.getParent();
         this.wire = wire;
-        group.addWire(wire);
         this.direction = direction;
     }
 
@@ -54,4 +47,6 @@ public class Anchor extends Circle {
     }
 
     public Direction getDirection(){return direction;}
+
+    public enum Direction {parent, end, unset}
 }
