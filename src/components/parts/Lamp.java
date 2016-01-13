@@ -11,7 +11,7 @@ public class Lamp extends Component {
     public static final ImagePattern schematic = new ImagePattern(new Image("file:img/lamp-icon.png"));
 
 
-    protected Lamp() {
+    public Lamp() {
         this.name = "Lamp";
     }
     public void changeIcon(boolean schematic) {

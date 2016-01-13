@@ -44,7 +44,6 @@ public class ComponentRegistry {
                     for (Component neighboursNeighbour : neighbourConnections) {
                         if (neighboursNeighbour == c) {
                             neighbourConnections.remove(neighboursNeighbour);
-                            System.out.println("Removed connection from " + c.thisId + " to " + neighbour.thisId);
                             break;
                         }
                     }

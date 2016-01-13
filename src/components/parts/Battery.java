@@ -10,7 +10,7 @@ public class Battery extends Component {
     public static final Color iconColor = Color.GREEN;
     public static final ImagePattern schematic = new ImagePattern(new Image("file:img/battery-icon.png"));
 
-    protected Battery() {
+    public Battery() {
         this.name = "Battery";
         this.voltage = 9.0;
     }

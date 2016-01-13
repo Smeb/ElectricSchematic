@@ -1,5 +1,6 @@
 package components.infrastructure;
 
+import application.Globals;
 import components.controls.RightClickMenuFactory;
 import components.parts.Battery;
 import components.parts.Component;
@@ -19,7 +20,6 @@ public class ComponentGroupFactory {
 
     private static final ComponentGroupFactory instance = new ComponentGroupFactory();
     private static Group workspace;
-    private static boolean schematicIcons = true;
 
     public static ComponentGroupFactory getInstance() {
         return instance;
@@ -34,7 +34,7 @@ public class ComponentGroupFactory {
         componentGroup.setParentComponent(component);
         if (component instanceof Lamp) {
             Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
-            if (schematicIcons) {
+            if (Globals.schematicIcons) {
                 rectangle.setFill(Lamp.schematic);
             } else {
                 rectangle.setFill(Lamp.iconColor);
@@ -45,7 +45,7 @@ public class ComponentGroupFactory {
 
         } else if (component instanceof Battery) {
             Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
-            if (schematicIcons) {
+            if (Globals.schematicIcons) {
                 rectangle.setFill(Battery.schematic);
             } else {
                 rectangle.setFill(Battery.iconColor);

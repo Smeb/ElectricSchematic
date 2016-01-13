@@ -5,6 +5,7 @@ import IO.Reader;
 import components.infrastructure.ComponentGroupFactory;
 import components.infrastructure.ComponentRegistry;
 import components.parts.Battery;
+import components.parts.Component;
 import components.parts.ComponentFactory;
 import components.parts.Lamp;
 import javafx.scene.control.MenuBar;
@@ -33,9 +34,9 @@ public class Main extends Application {
     }
 
     private Palette createPalette() {
-        ArrayList<Class> tools = new ArrayList<>();
-        tools.add(Lamp.class);
-        tools.add(Battery.class);
+        ArrayList<Component> tools = new ArrayList<>();
+        tools.add(new Lamp());
+        tools.add(new Battery());
         int toolsPerRow = 3;
         int iconSize = 50;
         return new Palette(30,50,iconSize,toolsPerRow,tools);
@@ -59,10 +60,9 @@ public class Main extends Application {
         Button pictures = new Button("Pictures");
         pictures.setLayoutX(100);
         pictures.setOnAction(event -> {
-            Globals.schematicIcons = !Globals.schematicIcons;
             if (Globals.schematicIcons) { pictures.setText("Pictures"); }
             else { pictures.setText("Schematic"); }
-            ComponentRegistry.getInstance().changeIcons();
+            new Controller().changePictures(pal);
         });
         workspace.getChildren().addAll(pal,button,pictures);
         outerFrame.getChildren().addAll(menuBar,workspace);
