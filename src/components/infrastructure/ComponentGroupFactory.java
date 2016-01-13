@@ -3,7 +3,6 @@ package components.infrastructure;
 import components.parts.Battery;
 import components.parts.Component;
 import components.parts.Lamp;
-import datastructures.ComponentGroup;
 import datastructures.CoordinatePair;
 import datastructures.Orientation;
 import javafx.geometry.Bounds;

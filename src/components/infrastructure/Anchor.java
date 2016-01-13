@@ -9,13 +9,13 @@ import tools.Wire;
 public class Anchor extends Circle {
     private static final double ANCHOR_SIZE = 5.0;
     private Direction direction = Direction.unset;
-    public int id;
     public enum Direction {parent, end, unset}
     private Wire wire;
 
-    public Anchor(int id, double posX, double posY){
+
+
+    public Anchor(double posX, double posY){
         super(ANCHOR_SIZE);
-        this.id = id;
         this.setCenterX(posX);
         this.setCenterY(posY);
         this.setFill(Color.BLACK);
@@ -35,7 +35,9 @@ public class Anchor extends Circle {
     }
 
     public void addWire(Wire wire, Direction direction){
+        ComponentGroup group = (ComponentGroup)this.getParent();
         this.wire = wire;
+        group.addWire(wire);
         this.direction = direction;
     }
 

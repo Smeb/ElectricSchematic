@@ -50,8 +50,8 @@ public class AnchorFactory {
             if(!wireController.active()){
                 wireController.setActive();
                 wireController.setParent(anchor);
+                anchor.startFullDrag();
             }
-            anchor.startFullDrag();
         });
 
         anchor.setOnMouseDragged(Event::consume);

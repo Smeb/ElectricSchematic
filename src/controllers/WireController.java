@@ -34,11 +34,11 @@ public class WireController {
     }
 
     public Anchor getParentAnchor(){return parent;}
+
     public boolean active(){return active;}
     public void setActive(){active = true;}
     public void setDormant(){active = false;}
     public void setParent(Anchor start){this.parent = start;}
-
     public void completeWire(Anchor end){
 //        System.out.println("Drawing wire: " + parent.getPosition().toString() + ", " + end.getPosition().toString());
         Wire wire;
@@ -60,5 +60,5 @@ public class WireController {
         System.out.println("End anchor id = " + end.id);
     }
 
-    public void setInteractions(Wire wire){ }
+    public void setInteractions(Wire wire){}
 }
