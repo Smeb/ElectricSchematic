@@ -17,7 +17,7 @@ public class ComponentFactory {
         workspace = group;
     }
 
-    public Component newComponent(final Class componentClass, double posX, double posY, boolean composite){
+    public Component newComponent(Class componentClass, double posX, double posY, boolean composite){
         Component component = null;
         if (Lamp.class.isAssignableFrom(componentClass)) {
             component = new Lamp(composite);

@@ -1,5 +1,6 @@
 package components.infrastructure;
 
+import application.Globals;
 import components.controls.RightClickMenuFactory;
 import components.parts.Battery;
 import components.parts.Component;
@@ -19,7 +20,6 @@ public class ComponentViewFactory {
 
     private static final ComponentViewFactory instance = new ComponentViewFactory();
     private static Group workspace;
-    private static boolean schematicIcons = true;
 
     public static ComponentViewFactory getInstance() {
         return instance;
@@ -29,15 +29,13 @@ public class ComponentViewFactory {
         workspace = group;
     }
 
-    public static void changeIcons() { schematicIcons = !schematicIcons; }
-
     public ComponentView buildComponentGroup(Component component) {
         ComponentView componentView = new ComponentView();
         componentView.setParentComponent(component);
         if (component instanceof Lamp) {
-            componentView.getChildren().add(buildLamp());
+            buildLamp(component, componentView);
         } else if (component instanceof Battery) {
-            componentView.getChildren().add(buildBattery());
+            buildBattery(component, componentView);
         } else {
             return null;
         }
@@ -57,29 +55,23 @@ public class ComponentViewFactory {
         workspace.getChildren().add(componentView);
     }
 
-    private Rectangle buildLamp(){
+    private Rectangle buildLamp(Component component, ComponentView componentView){
         Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
-        if (schematicIcons) {
-            System.out.println("Schematic is on");
-            rectangle.setFill(Lamp.schematic);
-        } else {
-            rectangle.setFill(Lamp.iconColor);
-        }
         rectangle.setStroke(Component.OUTLINE);
+        componentView.getChildren().add(rectangle);
+        component.setIcon(rectangle);
+        component.fill();
         return rectangle;
     }
 
-    private Rectangle buildBattery(){
+    private Rectangle buildBattery(Component component, ComponentView componentView){
         Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
-        if (schematicIcons) {
-            rectangle.setFill(Battery.schematic);
-        } else {
-            rectangle.setFill(Battery.iconColor);
-        }            rectangle.setStroke(Component.OUTLINE);
+        rectangle.setStroke(Component.OUTLINE);
+        componentView.getChildren().add(rectangle);
+        component.setIcon(rectangle);
+        component.fill();
         return rectangle;
     }
-
-
 
     private void addAnchors(ComponentView group, Orientation... orientations){
         AnchorFactory factory = AnchorFactory.getInstance();

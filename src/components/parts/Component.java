@@ -1,8 +1,12 @@
 package components.parts;
 
+import application.Globals;
 import components.infrastructure.ComponentView;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 
 import java.util.LinkedList;
 
@@ -19,9 +23,16 @@ public abstract class Component {
     protected double voltage = 0.0;
     protected double resistance;
     protected double current = 0.0;
+
     protected String name;
+    protected Rectangle icon;
     private ComponentView componentView;
     private LinkedList<Component> connectedComponents;
+
+    public Component(){
+        thisId = -1;
+        composite = true;
+    }
 
     protected Component(boolean composite){
         thisId = id++;
@@ -49,5 +60,34 @@ public abstract class Component {
     @Override
     public String toString(){
         return name + ": " + thisId;
+    }
+
+    public void setIcon(Rectangle icon) { this.icon = icon; }
+
+    private ImagePattern getSchematic() {
+        if (Lamp.class.isAssignableFrom(this.getClass())) {
+            return Lamp.schematic;
+        }
+        if (Battery.class.isAssignableFrom(this.getClass())) {
+            return Battery.schematic;
+        }
+        return null;
+    }
+    private Paint getColor() {
+        if (Lamp.class.isAssignableFrom(this.getClass())) {
+            return Lamp.iconColor;
+        }
+        if (Battery.class.isAssignableFrom(this.getClass())) {
+            return Battery.iconColor;
+        }
+        return null;
+    }
+    public void fill() {
+        if (Globals.schematicIcons) {
+            icon.setFill(getSchematic());
+        }
+        else {
+            icon.setFill(getColor());
+        }
     }
 }

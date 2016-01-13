@@ -1,18 +1,23 @@
 package palette;
 
-import application.ComponentColorMap;
+import components.parts.Component;
 import components.parts.ComponentFactory;
 import javafx.scene.shape.Rectangle;
 
 public class PaletteIcon extends Rectangle {
     public static final double size = 30.0;
-    private Class componentType;
+    private Component componentType;
 
-    public PaletteIcon(Class componentType) {
+    public PaletteIcon(Component componentType) {
         this.componentType = componentType;
-        this.setFill(ComponentColorMap.getInstance().getColor(componentType));
+        componentType.setIcon(this);
+        componentType.fill();
         this.setWidth(size);
         this.setHeight(size);
-        this.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(componentType, this.getLayoutX()+size/2, this.getLayoutY()+size/2, false));
+        this.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(componentType.getClass(), this.getLayoutX()+size/2, this.getLayoutY()+size/2, false));
+    }
+
+    public Component getComponentType() {
+        return componentType;
     }
 }
