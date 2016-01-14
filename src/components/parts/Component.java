@@ -71,6 +71,9 @@ public abstract class Component {
         if (Battery.class.isAssignableFrom(this.getClass())) {
             return Battery.schematic;
         }
+        if (Resistor.class.isAssignableFrom(this.getClass())) {
+            return Resistor.schematic;
+        }
         return null;
     }
     private Paint getColor() {
@@ -79,6 +82,9 @@ public abstract class Component {
         }
         if (Battery.class.isAssignableFrom(this.getClass())) {
             return Battery.iconColor;
+        }
+        if (Resistor.class.isAssignableFrom(this.getClass())) {
+            return Resistor.iconColor;
         }
         return null;
     }

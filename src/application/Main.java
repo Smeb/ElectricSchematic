@@ -1,10 +1,7 @@
 package application;
 
 import components.infrastructure.ComponentViewFactory;
-import components.parts.Battery;
-import components.parts.Component;
-import components.parts.ComponentFactory;
-import components.parts.Lamp;
+import components.parts.*;
 import controllers.WireController;
 import evaluation.Evaluator;
 import javafx.application.Application;
@@ -28,6 +25,7 @@ public class Main extends Application {
         ArrayList<Component> tools = new ArrayList<>();
         tools.add(new Lamp());
         tools.add(new Battery());
+        tools.add(new Resistor());
         int toolsPerRow = 3;
         int iconSize = 50;
         return new Palette(30,50,iconSize,toolsPerRow,tools);

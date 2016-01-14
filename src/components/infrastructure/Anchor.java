@@ -49,7 +49,6 @@ public class Anchor extends Circle {
     }
 
     public void removeWire(){
-        System.out.println("Removing wire...");
         this.wire = null;
         this.direction = Anchor.Direction.unset;
     }

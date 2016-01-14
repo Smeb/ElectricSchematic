@@ -4,6 +4,7 @@ import components.controls.RightClickMenuFactory;
 import components.parts.Battery;
 import components.parts.Component;
 import components.parts.Lamp;
+import components.parts.Resistor;
 import datastructures.CoordinatePair;
 import datastructures.Orientation;
 import javafx.geometry.Bounds;
@@ -35,6 +36,8 @@ public class ComponentViewFactory {
             buildLamp(component, componentView);
         } else if (component instanceof Battery) {
             buildBattery(component, componentView);
+        } else if (component instanceof Resistor) {
+            buildResistor(component, componentView);
         } else {
             return null;
         }
@@ -65,6 +68,15 @@ public class ComponentViewFactory {
 
     private Rectangle buildBattery(Component component, ComponentView componentView){
         Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
+        rectangle.setStroke(Component.OUTLINE);
+        componentView.getChildren().add(rectangle);
+        component.setIcon(rectangle);
+        component.fill();
+        return rectangle;
+    }
+
+    private Rectangle buildResistor(Component component, ComponentView componentView){
+        Rectangle rectangle = new Rectangle(Resistor.width, Resistor.height);
         rectangle.setStroke(Component.OUTLINE);
         componentView.getChildren().add(rectangle);
         component.setIcon(rectangle);

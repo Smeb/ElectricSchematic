@@ -21,7 +21,7 @@ public class Wire extends Line
 
     public void update(Anchor anchor)
     {
-        if(anchor.getDirection() == Anchor.Direction.parent){
+        if(anchor.getDirection() == Anchor.Direction.start){
             this.setStartX(anchor.getPosition().getX());
             this.setStartY(anchor.getPosition().getY());
         } else if (anchor.getDirection() == Anchor.Direction.end) {

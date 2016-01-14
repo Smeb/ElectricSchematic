@@ -25,6 +25,9 @@ public class ComponentFactory {
         else if (Battery.class.isAssignableFrom(componentClass)){
             component = new Battery(composite);
         }
+        else if (Resistor.class.isAssignableFrom(componentClass)) {
+            component = new Resistor(composite);
+        }
         else {
             return null;
         }
