@@ -1,10 +1,11 @@
 package components.controls;
 
 import components.infrastructure.ComponentRegistry;
+import components.parts.Battery;
 import components.parts.Component;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 
 import java.util.ArrayList;
 
@@ -13,33 +14,34 @@ import java.util.ArrayList;
  */
 public class RightClickMenu extends ContextMenu {
     Component clickedComponent;
-    ArrayList<Menu> options;
+    ArrayList<EditMenuItem> options;
 
     public RightClickMenu(Component clicked) {
         clickedComponent = clicked;
         addOptions();
     }
     private void addOptions() {
-        MenuItem item1 = new MenuItem("Edit");
-        item1.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                System.out.println("Edit");
-            }
+        options = new ArrayList<>();
+        Menu edit = new Menu("Edit");
+
+        if (clickedComponent instanceof Battery) {
+            options.add(new EditMenuItem("Voltage",0,20,5));
+        }
+        else {
+            options.add(new EditMenuItem("Resistance", 0, 100, 40));
+        }
+
+        for (EditMenuItem em : options) {
+            em.setHideOnClick(false);
+        }
+
+        edit.setOnAction(event -> {
+            edit.getItems().addAll(options);
+            edit.show();
         });
-        MenuItem item2 = new MenuItem("Delete");
-        item2.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                System.out.println("Delete " + clickedComponent.thisId);
-                ComponentRegistry.getInstance().deleteComponent(clickedComponent.thisId);
-            }
-        });
 
-
-        /*final TextField textField = new TextField("Type Something");
-        textField.setContextMenu(this);*/
-        this.getItems().addAll(item1,item2);
-
-        //TODO: custom options
-        // addMenus(clicked.getParentComponent().customOptions);
+        MenuItem delete = new MenuItem("Delete");
+        delete.setOnAction(event -> ComponentRegistry.getInstance().deleteComponent(clickedComponent.thisId));
+        this.getItems().addAll(edit,delete);
     }
 }

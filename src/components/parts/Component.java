@@ -70,9 +70,11 @@ public abstract class Component {
     public void fill() {
         if (Globals.schematicIcons) {
             icon.setFill(ComponentValueMap.getInstance().get(this.getClass()).getSchematic());
+            icon.setStroke(Color.TRANSPARENT);
         }
         else {
             icon.setFill(ComponentValueMap.getInstance().get(this.getClass()).getIconImage());
+            icon.setStroke(Color.BLACK);
         }
     }
 }
