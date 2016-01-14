@@ -15,12 +15,12 @@ public class Anchor extends Circle {
     private Component parentComponent;
     private int thisId;
 
-    protected Anchor(Component component, double posX, double posY){
+    protected Anchor(Component component, CoordinatePair pair){
         super(ANCHOR_SIZE);
         thisId = id++;
         parentComponent = component;
-        this.setCenterX(posX);
-        this.setCenterY(posY);
+        this.setCenterX(pair.getX());
+        this.setCenterY(pair.getY());
         this.setFill(Color.BLACK);
         this.setStrokeWidth(3.0);
         this.setStroke(Color.TRANSPARENT);

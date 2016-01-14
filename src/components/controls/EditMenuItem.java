@@ -18,8 +18,9 @@ public class EditMenuItem extends CustomMenuItem {
         this.desc = new Label(desc);
         this.desc.setTextFill(Color.BLACK);
         slider = new Slider(min,max,value);
-        this.value = new Label(Double.toString(value));
+        this.value = new Label(String.format("%.1f",value));
         slider.setShowTickLabels(true);
+        slider.setSnapToTicks(true);
         slider.setMajorTickUnit((max-min)/5);
         slider.setBlockIncrement((max-min)/5);
         this.setContent(new EditMenuItemContent(this.desc,this.value,slider));
@@ -27,7 +28,7 @@ public class EditMenuItem extends CustomMenuItem {
         slider.valueProperty().addListener(event -> {
             System.out.println(slider.getValue());
             clickedComponent.setVariable(slider.getValue());
-            this.value.setText(Integer.toString((int)slider.getValue()));
+            this.value.setText(String.format("%.1f",slider.getValue()));
         });
 
     }

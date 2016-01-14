@@ -1,15 +1,10 @@
 package components.infrastructure;
 
 import components.controls.RightClickMenuFactory;
-import components.parts.Battery;
 import components.parts.Component;
-import components.parts.Lamp;
-import components.parts.Resistor;
 import datastructures.ComponentValueMap;
 import datastructures.CoordinatePair;
 import datastructures.DefaultComponentValues;
-import datastructures.Orientation;
-import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -49,7 +44,7 @@ public class ComponentViewFactory {
     public void buildInteractions(ComponentView componentView, double posX, double posY){
         enableDrag(componentView);
         enableRightClick(componentView);
-        addAnchors(componentView, Orientation.LEFT, Orientation.RIGHT);
+        addAnchors(componentView);
         componentView.setLayoutX(posX);
         componentView.setLayoutY(posY + PaletteIcon.size / 2);
         workspace.getChildren().add(componentView);
@@ -65,12 +60,9 @@ public class ComponentViewFactory {
         return rectangle;
     }
 
-    private void addAnchors(ComponentView group, Orientation... orientations){
+    private void addAnchors(ComponentView group){
         AnchorFactory factory = AnchorFactory.getInstance();
-        Bounds bounds = group.getBoundsInParent();
-        for(Orientation o : orientations) {
-            factory.addAnchor(group, o, bounds.getMaxX(), bounds.getMaxY(), bounds.getMinX());
-        }
+        factory.addAnchors(group);
     }
 
     private void enableDrag(ComponentView group){

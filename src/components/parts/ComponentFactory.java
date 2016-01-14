@@ -3,10 +3,7 @@ package components.parts;
 import components.infrastructure.ComponentRegistry;
 import components.infrastructure.ComponentView;
 import components.infrastructure.ComponentViewFactory;
-import datastructures.ComponentValueMap;
 import javafx.scene.Group;
-
-import java.util.Vector;
 
 public class ComponentFactory {
     private static final ComponentFactory instance = new ComponentFactory();
@@ -43,36 +40,6 @@ public class ComponentFactory {
         return component;
     }
 
-    public ParallelComponent newParallelComponent(Class... classType){
-        ComponentViewFactory viewFactory = ComponentViewFactory.getInstance();
-        Component current;
-        ComponentView currentGroup;
-        Vector<Component> components = new Vector<>();
-        Vector<ComponentView> componentViews = new Vector<>();
-        int i = 0;
-        double heightOffset = 0.0;
-        for (Class c : classType) {
-            if (!Component.class.isAssignableFrom(c)) {
-                return null;
-            }
-            current = newComponent(c, 0.0, 0.0, true);
-            components.add(current);
-            currentGroup = viewFactory.buildComponentGroup(current);
-            currentGroup.setLayoutX(20.0);
-            currentGroup.setLayoutY(heightOffset);
-            heightOffset += ComponentValueMap.getInstance().get(c).getHeight() + ParallelComponent.PARALLELOFFSET;
-            componentViews.add(currentGroup);
-            i++;
-        }
-        ParallelComponentView componentView = new ParallelComponentView(componentViews);
-        ParallelComponent parallelComponent = new ParallelComponent(components, componentView, false);
-        componentView.setParentComponent(parallelComponent);
-        viewFactory.buildInteractions(componentView, 20.0, 20.0);
-        //TODO: Arrangement of ComponentViews within ParallelComponentView
-        //TODO: Arrangement of wires connecting components
-        //TODO: Attachment of anchors to ParallelComponentView
-        //TODO: Registration of interaction events on child views
-        return parallelComponent;
-    }
+
 
 }

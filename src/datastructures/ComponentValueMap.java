@@ -1,8 +1,8 @@
 package datastructures;
 
+import components.infrastructure.ParallelComponent;
 import components.parts.Battery;
 import components.parts.Lamp;
-import components.parts.ParallelComponent;
 import components.parts.Resistor;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;

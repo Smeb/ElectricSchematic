@@ -23,10 +23,10 @@ public class RightClickMenu extends ContextMenu {
     private void addOptions() {
         options = new ArrayList<>();
         if (clickedComponent instanceof Battery) {
-            options.add(new EditMenuItem(this.clickedComponent,"Voltage",0,20,5));
+            options.add(new EditMenuItem(clickedComponent,"Voltage",0,20,clickedComponent.getVoltage()));
         }
         else {
-            options.add(new EditMenuItem(this.clickedComponent,"Resistance", 0, 100, 40));
+            options.add(new EditMenuItem(clickedComponent,"Resistance", 0, 100, clickedComponent.getResistance()));
         }
         if (options.size() > 0) {
             Menu edit = new Menu("Edit");
