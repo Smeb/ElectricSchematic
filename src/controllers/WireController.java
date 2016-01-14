@@ -40,15 +40,22 @@ public class WireController {
     public void setDormant(){active = false;}
     public void setParent(Anchor start){this.parent = start;}
     public void completeWire(Anchor end){
-//        System.out.println("Drawing wire: " + parent.getPosition().toString() + ", " + end.getPosition().toString());
+
         Wire wire;
-        if(parent.getWire() != null){
+        if(parent.getWire() != null) {
             // Then we update the original wire
             wire = parent.getWire();
+
+            Anchor oldParentAnchor = wire.getParentAnchor();
+            oldParentAnchor.removeWire();
             Anchor oldEndAnchor = wire.getEndAnchor();
             oldEndAnchor.removeWire();
+            wire.setParentAnchor(parent);
+            parent.addWire(wire, Anchor.Direction.parent);
             wire.setEndAnchor(end);
             end.addWire(wire, Anchor.Direction.end);
+            parent.updateDirection(Anchor.Direction.parent);
+            wire.update(parent);
             wire.update(end);
         } else {
             // Otherwise we create a new wire
