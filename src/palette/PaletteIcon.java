@@ -1,10 +1,7 @@
 package palette;
 
 import components.infrastructure.ParallelComponent;
-import components.parts.Battery;
-import components.parts.Component;
-import components.parts.ComponentFactory;
-import components.parts.Lamp;
+import components.parts.*;
 import javafx.scene.shape.Rectangle;
 
 public class PaletteIcon extends Rectangle {
@@ -19,7 +16,7 @@ public class PaletteIcon extends Rectangle {
         this.setHeight(size);
         if (componentType instanceof ParallelComponent) {
             this.setOnMouseClicked(event -> {
-                ComponentFactory.getInstance().newParallelComponent(Lamp.class, Lamp.class, Battery.class, Battery.class);
+                ParallelComponentViewFactory.getInstance().newParallelComponent(Lamp.class, Lamp.class, Battery.class, Battery.class);
             System.out.println("Created new parallel component");
             });
         } else {

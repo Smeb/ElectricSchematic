@@ -93,6 +93,7 @@ public abstract class Component {
                 pairs[i++] = ((Anchor) n).getPosition();
             }
         }
+        System.out.println(i);
 
         // Attempting to get anchors from component with no anchors
         if(i != 2){
@@ -100,10 +101,9 @@ public abstract class Component {
         }
 
         if(ids[0] < ids[1]){
-            return new Pair<CoordinatePair, CoordinatePair>(pairs[0], pairs[1]);
+            return new Pair<>(pairs[0], pairs[1]);
         } else {
-            return new Pair<CoordinatePair, CoordinatePair>(pairs[1], pairs[2]);
+            return new Pair<>(pairs[1], pairs[2]);
         }
-
     }
 }

@@ -23,4 +23,6 @@ public class ParallelComponent extends Component {
         this.components = components;
         this.componentView = componentView;
     }
+
+
 }
