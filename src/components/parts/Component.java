@@ -1,43 +1,53 @@
 package components.parts;
 
 import application.Globals;
-import components.infrastructure.ComponentGroup;
+import components.infrastructure.ComponentView;
+import datastructures.ComponentValueMap;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.LinkedList;
 
 public abstract class Component {
+
     public static final Color OUTLINE = Color.BLACK;
+    public static final double PARALLELOFFSET = 15.0;
     public static final double OFFSET = 30.0;
 
     private static int id = 0;
     public final int thisId;
-
+    public final boolean composite;
     protected double voltage = 0.0;
     protected double resistance;
     protected double current = 0.0;
 
     protected String name;
     protected Rectangle icon;
-
-    private ComponentGroup componentGroup;
+    protected ComponentView componentView;
     private LinkedList<Component> connectedComponents;
 
-    protected Component(){
+    public Component(){
+        thisId = -1;
+        composite = true;
+    }
+
+    public static void resetIDs()
+    {
+        id =0;
+    }
+
+    protected Component(boolean composite){
         thisId = id++;
         connectedComponents = new LinkedList<>();
+        this.composite = composite;
     }
-
 
     public Group getGroup(){
-        return componentGroup;
+        return componentView;
     }
-    public void setComponentGroup(final ComponentGroup group){
-        this.componentGroup = group;
+    public void setComponentView(final ComponentView group){
+        this.componentView = group;
     }
     public void addConnectedComponent(Component component){
         connectedComponents.add(component);
@@ -52,36 +62,17 @@ public abstract class Component {
 
     @Override
     public String toString(){
-        return name + ": " + thisId;
+        return ComponentValueMap.getInstance().get(this.getClass()).getName() + ": " + thisId;
     }
 
     public void setIcon(Rectangle icon) { this.icon = icon; }
 
-    private void fillWithSchematic() {
-        if (Lamp.class.isAssignableFrom(this.getClass())) {
-            icon.setFill(Lamp.schematic);
-
-        }
-        if (Battery.class.isAssignableFrom(this.getClass())) {
-            icon.setFill(Battery.schematic);
-        }
-        icon.setStroke(Color.TRANSPARENT);
-    }
-    private void fillWithColor() {
-        if (Lamp.class.isAssignableFrom(this.getClass())) {
-            icon.setFill(Lamp.iconColor);
-        }
-        if (Battery.class.isAssignableFrom(this.getClass())) {
-            icon.setFill(Battery.iconColor);
-        }
-        icon.setStroke(Color.BLACK);
-    }
     public void fill() {
         if (Globals.schematicIcons) {
-            fillWithSchematic();
+            icon.setFill(ComponentValueMap.getInstance().get(this.getClass()).getSchematic());
         }
         else {
-            fillWithColor();
+            icon.setFill(ComponentValueMap.getInstance().get(this.getClass()).getIconImage());
         }
     }
 }

@@ -1,22 +1,22 @@
 package components.parts;
 
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
+import datastructures.ComponentValueMap;
+import datastructures.DefaultComponentValues;
 
 public class Lamp extends Component {
-    public static final double width = 80.0;
-    public static final double height = 80.0;
-    public static final ImagePattern iconColor = new ImagePattern(new Image("file:img/lamp-colour.png"));
-    public static final ImagePattern schematic = new ImagePattern(new Image("file:img/lamp-icon.png"));
-    public static final String name = "Lamp";
+    private static final DefaultComponentValues componentDefaults = ComponentValueMap.getInstance().get(Lamp.class);
 
-    public Lamp() {
-        voltage = 0.0;
-        resistance = 1.0;
+    public Lamp(){
     }
 
-    protected Lamp(double voltage, double resistance){
+    protected Lamp(boolean composite) {
+        super(composite);
+        this.voltage = 0.0;
+        this.resistance = 1.1;
+    }
+
+    protected Lamp(double voltage, double resistance, boolean composite){
+        super(composite);
         this.voltage = voltage;
         this.resistance = resistance;
     }

@@ -49,7 +49,6 @@ public class Anchor extends Circle {
     }
 
     public void removeWire(){
-        System.out.println("Removing wire...");
         this.wire = null;
         this.direction = Anchor.Direction.unset;
     }
@@ -58,6 +57,10 @@ public class Anchor extends Circle {
         if(wire != null){
             wire.update(this);
         }
+    }
+
+    public void updateDirection(Direction direction) {
+        this.direction = direction;
     }
 
     public void clearWire() {
@@ -74,5 +77,5 @@ public class Anchor extends Circle {
 
     public Direction getDirection(){return direction;}
 
-    public enum Direction {parent, end, unset}
+    public enum Direction {start, end, unset}
 }

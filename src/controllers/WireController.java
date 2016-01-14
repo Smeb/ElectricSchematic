@@ -41,26 +41,34 @@ public class WireController {
     public void setDormant(){active = false;}
     public void setStart(Anchor start){this.start = start;}
     public void completeWire(Anchor end){
-//        System.out.println("Drawing wire: " + parent.getPosition().toString() + ", " + end.getPosition().toString());
         Wire wire;
-        if(start.getWire() != null){
+        if(start.getWire() != null) {
             // Then we update the original wire
             wire = start.getWire();
+
+            //Remove old anchors
+            Anchor oldParentAnchor = wire.getParentAnchor();
+            oldParentAnchor.removeWire();
             Anchor oldEndAnchor = wire.getEndAnchor();
             oldEndAnchor.removeWire();
+            wire.setParentAnchor(start);
+            start.addWire(wire, Anchor.Direction.start);
             wire.setEndAnchor(end);
             end.addWire(wire, Anchor.Direction.end);
+            start.updateDirection(Anchor.Direction.start);
+            wire.update(start);
             wire.update(end);
         } else {
             // Otherwise we create a new wire
             wire = makeWire(start, end);
-            start.addWire(wire, Anchor.Direction.parent);
+            start.addWire(wire, Anchor.Direction.start);
             end.addWire(wire, Anchor.Direction.end);
             connectComponents(start.getParentComponent(), end.getParentComponent());
         }
     }
 
     private void connectComponents(Component componentA, Component componentB){
+        System.out.println("Connecting " + componentA.toString() + " to " + componentB.toString());
         componentA.addConnectedComponent(componentB);
         componentB.addConnectedComponent(componentA);
     }
