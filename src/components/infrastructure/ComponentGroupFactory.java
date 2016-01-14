@@ -34,27 +34,17 @@ public class ComponentGroupFactory {
         componentGroup.setParentComponent(component);
         if (component instanceof Lamp) {
             Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
-            if (Globals.schematicIcons) {
-                rectangle.setFill(Lamp.schematic);
-            } else {
-                rectangle.setFill(Lamp.iconColor);
-            }
             rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
-            //component.fill();
             component.setIcon(rectangle);
+            component.fill();
 
         } else if (component instanceof Battery) {
             Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
-            if (Globals.schematicIcons) {
-                rectangle.setFill(Battery.schematic);
-            } else {
-                rectangle.setFill(Battery.iconColor);
-            }
             rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
-            //component.fill();
             component.setIcon(rectangle);
+            component.fill();
         } else {
             return null;
         }
