@@ -1,5 +1,6 @@
 package components.infrastructure;
 
+import application.Globals;
 import components.controls.RightClickMenuFactory;
 import components.parts.Battery;
 import components.parts.Component;
@@ -19,7 +20,6 @@ public class ComponentGroupFactory {
 
     private static final ComponentGroupFactory instance = new ComponentGroupFactory();
     private static Group workspace;
-    private static boolean schematicIcons = true;
 
     public static ComponentGroupFactory getInstance() {
         return instance;
@@ -29,30 +29,22 @@ public class ComponentGroupFactory {
         workspace = group;
     }
 
-    public static void changeIcons() { schematicIcons = !schematicIcons; }
-
     public ComponentGroup buildComponentGroup(Component component, double posX, double posY) {
         ComponentGroup componentGroup = new ComponentGroup();
         componentGroup.setParentComponent(component);
         if (component instanceof Lamp) {
             Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
-            if (schematicIcons) {
-                System.out.println("Schematic is on");
-                rectangle.setFill(Lamp.schematic);
-            } else {
-                rectangle.setFill(Lamp.iconColor);
-            }
             rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
+            component.setIcon(rectangle);
+            component.fill();
 
         } else if (component instanceof Battery) {
             Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
-            if (schematicIcons) {
-                rectangle.setFill(Battery.schematic);
-            } else {
-                rectangle.setFill(Battery.iconColor);
-            }            rectangle.setStroke(Component.OUTLINE);
+            rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
+            component.setIcon(rectangle);
+            component.fill();
         } else {
             return null;
         }
