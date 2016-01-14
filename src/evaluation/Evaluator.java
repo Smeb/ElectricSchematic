@@ -64,7 +64,7 @@ public class Evaluator {
     private Component getUnvisitedComponent(Component component, HashSet<Integer> visitedComponents){
         if(component instanceof Battery){
             Component c = ((Battery) component).getPositiveConnection();
-            if(!visitedComponents.contains(c)){
+            if(!visitedComponents.contains(c.thisId)){
                 visitedComponents.add(c.thisId);
                 return c;
             }
