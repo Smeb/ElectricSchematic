@@ -99,7 +99,7 @@ public class ComponentViewFactory {
         group.setOnMouseExited((event) -> group.setCursor(Cursor.DEFAULT));
     }
 
-    private void enableRightClick(ComponentView group) {
+    public void enableRightClick(ComponentView group) {
         group.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton() == MouseButton.SECONDARY) {
                 group.setCursor(Cursor.HAND);

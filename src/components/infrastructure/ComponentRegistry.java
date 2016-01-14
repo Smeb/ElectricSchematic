@@ -30,31 +30,34 @@ public class ComponentRegistry {
     }
 
     public void deleteComponent(int thisId) {
+        System.out.println("Deleting");
+        Component target = null;
         for (Component c : components) {
             if (c.thisId == thisId) {
-                Group workspace = c.getGroup();
-
-                // Remove references to c from neighbours
-                for (Component neighbour : c.getConnectedComponents()) {
-                    LinkedList<Component> neighbourConnections = neighbour.getConnectedComponents();
-                    for (Component neighboursNeighbour : neighbourConnections) {
-                        if (neighboursNeighbour == c) {
-                            neighbourConnections.remove(neighboursNeighbour);
-                            break;
-                        }
-                    }
-                }
-                for(Node n : c.getGroup().getChildren()){
-                    if(n.getClass() == Anchor.class){
-                        Anchor a = (Anchor)n;
-                        a.clearWire();
-                    }
-                }
-                workspace.getChildren().clear();
-                components.remove(c);
-                break;
+                target = c;
+                System.out.println(c.toString());
             }
         }
+        System.out.println("Scan over");
+        Group componentView = target.getGroup();
+        // Remove references to c from neighbours
+        for (Component neighbour : target.getConnectedComponents()) {
+            LinkedList<Component> neighbourConnections = neighbour.getConnectedComponents();
+            for (Component neighboursNeighbour : neighbourConnections) {
+                if (neighboursNeighbour == target) {
+                    neighbourConnections.remove(neighboursNeighbour);
+                    break;
+                }
+            }
+        }
+        for(Node n : target.getGroup().getChildren()){
+            if(n.getClass() == Anchor.class){
+                Anchor a = (Anchor)n;
+                a.clearWire();
+            }
+        }
+        componentView.getChildren().clear();
+        components.remove(target);
     }
     public void deleteAll() {
         for (Iterator<Component> it = components.iterator(); it.hasNext();) {

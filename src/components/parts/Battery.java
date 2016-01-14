@@ -7,8 +7,8 @@ import javafx.util.Pair;
 
 public class Battery extends Component {
     private static final DefaultComponentValues componentDefaults = ComponentValueMap.getInstance().get(Battery.class);
-    Component negative;
-    Component positive;
+    private Component negative;
+    private Component positive;
 
     public Battery(){
 
