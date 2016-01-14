@@ -5,7 +5,6 @@ import components.parts.Battery;
 import components.parts.Component;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Evaluator {
@@ -42,7 +41,7 @@ public class Evaluator {
         }
 
         // Iterate once and find the resistance
-        while((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) != null){
+        while((current = getUnvisitedComponent(current, visitedComponents)) != null){
             r.remove(current);
             rTotal += current.getResistance();
             vTotal += current.getVoltage();
@@ -56,17 +55,25 @@ public class Evaluator {
         double aTotal = vTotal / rTotal;
 
         // Iterate a second time and set the current of all components
-        while((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) != null){
+        while((current = getUnvisitedComponent(current, visitedComponents)) != null){
             current.setCurrent(aTotal);
         }
         System.out.println("V: " + vTotal + " R: " + rTotal + " A: " + aTotal);
     }
 
-    private Component getUnvisitedComponent(LinkedList<Component> connectedComponents, HashSet<Integer> visitedComponents){
-        for(Component c : connectedComponents){
-            if(!visitedComponents.contains(c.thisId)){
+    private Component getUnvisitedComponent(Component component, HashSet<Integer> visitedComponents){
+        if(component instanceof Battery){
+            Component c = ((Battery) component).getPositiveConnection();
+            if(!visitedComponents.contains(c)){
                 visitedComponents.add(c.thisId);
                 return c;
+            }
+        } else {
+            for(Component c : component.getConnectedComponents()){
+                if(!visitedComponents.contains(c.thisId)){
+                    visitedComponents.add(c.thisId);
+                    return c;
+                }
             }
         }
         return null;

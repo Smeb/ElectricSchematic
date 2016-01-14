@@ -29,7 +29,7 @@ public abstract class Component {
     protected String name;
     protected Rectangle icon;
     protected ComponentView componentView;
-    private LinkedList<Component> connectedComponents;
+    protected LinkedList<Component> connectedComponents;
 
     public Component(){
         thisId = -1;
@@ -83,6 +83,26 @@ public abstract class Component {
     }
 
     //
+    public Pair<Anchor, Anchor> getLeftRightAnchors(){
+        int[] ids = new int[2];
+        ids[0] = -1;
+        ids[1] = -1;
+        Anchor[] pairs = new Anchor[2];
+        int i = 0;
+        for(Node n : this.componentView.getChildren()){
+            if(n instanceof Anchor){
+                ids[i] = ((Anchor) n).getAnchorId();
+                pairs[i++] = (Anchor) n;
+            }
+        }
+        // Attempting to get anchors from component with no anchors
+        if(ids[0] < ids[1]){
+            return new Pair<>(pairs[0], pairs[1]);
+        } else {
+            return new Pair<>(pairs[1], pairs[2]);
+        }
+    }
+
     public Pair<CoordinatePair, CoordinatePair> getAnchorPositions(){
         int[] ids = new int[2];
         CoordinatePair[] pairs = new CoordinatePair[2];
@@ -93,8 +113,6 @@ public abstract class Component {
                 pairs[i++] = ((Anchor) n).getPosition();
             }
         }
-        System.out.println(i);
-
         // Attempting to get anchors from component with no anchors
         if(i != 2){
             return null;

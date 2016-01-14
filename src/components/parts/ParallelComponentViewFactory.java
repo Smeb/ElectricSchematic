@@ -77,8 +77,7 @@ public class ParallelComponentViewFactory {
                 if(n instanceof Anchor){
                     nodes.add(n);
                 }
-            }
-            cv.getChildren().removeAll(nodes);
+            }           cv.getChildren().removeAll(nodes);
             nodes.removeAll(nodes);
         }
     }

@@ -24,7 +24,6 @@ public class AnchorFactory {
         CoordinatePair pair1 = new CoordinatePair(bounds.getMinX() - Component.OFFSET, bounds.getMaxY() / 2);
         // Right Anchor wire
         CoordinatePair pair2 = new CoordinatePair(bounds.getMaxX() + Component.OFFSET, bounds.getMaxY() / 2);
-        System.out.println("Anchor x, y pair :" + pair1.toString() + " " + pair2.toString());
         Line line1 = new Line(bounds.getMinX(), bounds.getMaxY() / 2, bounds.getMinX() - Component.OFFSET, bounds.getMaxY() / 2);
         Line line2 = new Line(bounds.getMaxX(), bounds.getMaxY() / 2, bounds.getMaxX() + Component.OFFSET, bounds.getMaxY() / 2);
         componentView.getChildren().addAll(line1, line2);
