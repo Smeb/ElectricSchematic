@@ -9,16 +9,15 @@ public class Lamp extends Component {
     public static final double height = 80.0;
     public static final Color iconColor = Color.YELLOW;
     public static final ImagePattern schematic = new ImagePattern(new Image("file:img/lamp-icon.png"));
-
+    public static final String name = "Lamp";
 
     public Lamp() {
-        this.name = "Lamp";
+        voltage = 0.0;
+        resistance = 1.0;
     }
-    /*public void changeIcon(boolean schematic) {
-        if (schematic) {
-            this.icon.setFill(this.schematic);
-        } else {
-            this.icon.setFill(this.iconColor);
-        }
-    }*/
+
+    protected Lamp(double voltage, double resistance){
+        this.voltage = voltage;
+        this.resistance = resistance;
+    }
 }

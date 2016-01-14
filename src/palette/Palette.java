@@ -1,16 +1,12 @@
 package palette;
 
-import application.ComponentColorMap;
-import application.Globals;
 import components.parts.Component;
 import javafx.geometry.Insets;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 
 import java.util.ArrayList;
 

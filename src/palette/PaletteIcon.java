@@ -1,11 +1,7 @@
 package palette;
 
-import application.ComponentColorMap;
-import application.Globals;
 import components.parts.Component;
 import components.parts.ComponentFactory;
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 public class PaletteIcon extends Rectangle {
