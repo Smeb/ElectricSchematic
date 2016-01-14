@@ -1,6 +1,6 @@
 {"components":[
   {
-    "id":123,
+    "id":2,
     "type":"Lamp",
     "xPos":100.0,
     "yPos":50.0,

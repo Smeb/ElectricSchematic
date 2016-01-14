@@ -10,6 +10,7 @@ import components.parts.ComponentFactory;
 import components.parts.Lamp;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import mainUI.*;
 import controllers.WireController;
 import evaluation.Evaluator;
@@ -83,7 +84,6 @@ public class Main extends Application {
         JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));
         JSONObject test = object.getJSONArray("components").getJSONObject(0);
         Loader.getInstance().load(object.getJSONArray("components"));
-
 
     }
 

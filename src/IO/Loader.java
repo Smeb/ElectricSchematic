@@ -78,9 +78,10 @@ public class Loader
     private Component getLoadedComponentById(int id)
     {
         ArrayList<Component> loadedComponents = ComponentRegistry.getInstance().getComponents();
-
+        System.out.println(id);
         for(Component component: loadedComponents)
         {
+            System.out.println(component.thisId);
             if(component.thisId == id)
                 return component;
         }
