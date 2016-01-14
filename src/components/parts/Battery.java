@@ -56,4 +56,5 @@ public class Battery extends Component {
     public void setVoltage(double voltage){
         this.voltage = voltage;
     }
+    public void setVariable(double voltage) { this.setVoltage(voltage);}
 }

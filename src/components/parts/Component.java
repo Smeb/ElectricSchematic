@@ -60,6 +60,12 @@ public abstract class Component {
 
     public double getResistance(){return resistance;}
     public double getVoltage(){return voltage;}
+    public void setVariable(double newValue) {
+        if(this instanceof Battery) {
+            voltage = newValue;
+        }
+        resistance = newValue;
+    }
     public double getCurrent(){return current;}
     public void setCurrent(double current){this.current = current;}
 
