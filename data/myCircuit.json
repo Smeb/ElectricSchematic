@@ -1,0 +1,1 @@
+{"components":[{"layout":"vertical","yPos":70,"id":0,"xPos":421,"type":"class components.parts.Lamp","connections":[1,1]},{"layout":"vertical","yPos":226,"id":1,"xPos":420,"type":"class components.parts.Battery","connections":[0,0]}]}

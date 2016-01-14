@@ -33,7 +33,7 @@ public abstract class Component {
 
     public static void resetIDs()
     {
-        id =0;
+        id =1;
     }
 
     protected Component(boolean composite){
