@@ -1,1 +1,1 @@
-{"components":[{"layout":"vertical","yPos":220,"id":1,"xPos":213,"type":"Lamp","connections":[2,2]},{"layout":"vertical","yPos":314,"id":2,"xPos":388,"type":"Battery","connections":[]}]}
+{"components":[{"layout":"vertical","yPos":34.5,"id":0,"xPos":488.5,"type":"Lamp","connections":[]},{"layout":"vertical","yPos":296.5,"id":1,"xPos":483.5,"type":"Battery","connections":[]}]}

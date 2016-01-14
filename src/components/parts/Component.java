@@ -29,7 +29,7 @@ public abstract class Component {
     protected String name;
     protected Rectangle icon;
     protected ComponentView componentView;
-    private LinkedList<Component> connectedComponents;
+    protected LinkedList<Component> connectedComponents;
 
     public Component(){
         thisId = -1;

@@ -54,12 +54,16 @@ public class TopMenu {
             public void handle(MouseEvent event) {
                 System.out.println("Powerful platypus");
                 File file = fileChooser.showOpenDialog(primaryStage);
-                System.out.println(file.toString());
-                ComponentRegistry.getInstance().deleteAll();
-                Component.resetIDs();
-                JSONObject object = Reader.getInstance().read(file.toString());
-                try{Loader.getInstance().load(object.getJSONArray("components"));}
-                catch(JSONException e){System.err.println(e);}
+                if(file.toString() != null) {
+                    ComponentRegistry.getInstance().deleteAll();
+                    Component.resetIDs();
+                    JSONObject object = Reader.getInstance().read(file.toString());
+                    try {
+                        Loader.getInstance().load(object.getJSONArray("components"));
+                    } catch (JSONException e) {
+                        System.err.println(e);
+                    }
+                }
             }
         });
 
