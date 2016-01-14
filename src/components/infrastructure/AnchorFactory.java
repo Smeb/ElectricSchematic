@@ -2,10 +2,12 @@ package components.infrastructure;
 
 import components.parts.Component;
 import controllers.WireController;
-import datastructures.Orientation;
+import datastructures.CoordinatePair;
 import javafx.event.Event;
+import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.util.Pair;
 
 public class AnchorFactory {
     private static AnchorFactory instance = null;
@@ -16,25 +18,27 @@ public class AnchorFactory {
         return instance;
     }
 
-    public void addAnchor(ComponentView componentView, Orientation orientation, double maxX, double maxY, double minX){
-        double anchorX, anchorY;
-        double componentEdgeX, componentEdgeY;
-        if (orientation == Orientation.RIGHT) {
-            componentEdgeX = maxX;
-            componentEdgeY = maxY / 2;
-            anchorX = componentEdgeX + Component.OFFSET;
-            anchorY = componentEdgeY;
+    public Pair<CoordinatePair, CoordinatePair> addAnchorLines(ComponentView componentView){
+        Bounds bounds = componentView.getBoundsInParent();
+        // Left Anchor wire
+        CoordinatePair pair1 = new CoordinatePair(bounds.getMinX() - Component.OFFSET, bounds.getMaxY() / 2);
+        // Right Anchor wire
+        CoordinatePair pair2 = new CoordinatePair(bounds.getMaxX() + Component.OFFSET, bounds.getMaxY() / 2);
+        Line line1 = new Line(bounds.getMinX(), bounds.getMaxY() / 2, bounds.getMinX() - Component.OFFSET, bounds.getMaxY() / 2);
+        Line line2 = new Line(bounds.getMaxX(), bounds.getMaxY() / 2, bounds.getMaxX() + Component.OFFSET, bounds.getMaxY() / 2);
+        componentView.getChildren().addAll(line1, line2);
+        return new Pair(pair1, pair2);
+    }
 
-        } else {
-            componentEdgeX = minX;
-            componentEdgeY = maxY / 2;
-            anchorX = componentEdgeX - Component.OFFSET;
-            anchorY = componentEdgeY;
-        }
-        Anchor anchor = new Anchor(componentView.getParentComponent(), anchorX, anchorY);
-        Line line = new Line(componentEdgeX, componentEdgeY, anchorX, anchorY);
-        setInteractions(anchor);
-        componentView.getChildren().addAll(anchor, line);
+    public void addAnchors(ComponentView componentView){
+        Pair<CoordinatePair, CoordinatePair> pairedCoordinates = addAnchorLines(componentView);
+        // Left Anchor
+        Anchor anchor1 = new Anchor(componentView.getParentComponent(), pairedCoordinates.getKey());
+        // Right Anchor
+        Anchor anchor2 = new Anchor(componentView.getParentComponent(), pairedCoordinates.getValue());
+        setInteractions(anchor1);
+        setInteractions(anchor2);
+        componentView.getChildren().addAll(anchor1, anchor2);
     }
 
     private void setInteractions(Anchor anchor){

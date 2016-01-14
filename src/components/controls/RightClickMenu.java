@@ -1,10 +1,11 @@
 package components.controls;
 
 import components.infrastructure.ComponentRegistry;
+import components.parts.Battery;
 import components.parts.Component;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 
 import java.util.ArrayList;
 
@@ -13,33 +14,34 @@ import java.util.ArrayList;
  */
 public class RightClickMenu extends ContextMenu {
     Component clickedComponent;
-    ArrayList<Menu> options;
+    ArrayList<EditMenuItem> options;
 
     public RightClickMenu(Component clicked) {
         clickedComponent = clicked;
         addOptions();
     }
     private void addOptions() {
-        MenuItem item1 = new MenuItem("Edit");
-        item1.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                System.out.println("Edit");
+        options = new ArrayList<>();
+        if (clickedComponent instanceof Battery) {
+            options.add(new EditMenuItem(clickedComponent,"Voltage",0,20,clickedComponent.getVoltage()));
+        }
+        else {
+            options.add(new EditMenuItem(clickedComponent,"Resistance", 0, 100, clickedComponent.getResistance()));
+        }
+        if (options.size() > 0) {
+            Menu edit = new Menu("Edit");
+            for (EditMenuItem em : options) {
+                em.setHideOnClick(false);
             }
-        });
-        MenuItem item2 = new MenuItem("Delete");
-        item2.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                System.out.println("Delete " + clickedComponent.thisId);
-                ComponentRegistry.getInstance().deleteComponent(clickedComponent.thisId);
-            }
-        });
+            edit.setOnAction(event -> {
+                edit.getItems().addAll(options);
+                edit.show();
+            });
+            this.getItems().add(edit);
+        }
 
-
-        /*final TextField textField = new TextField("Type Something");
-        textField.setContextMenu(this);*/
-        this.getItems().addAll(item1,item2);
-
-        //TODO: custom options
-        // addMenus(clicked.getParentComponent().customOptions);
+        MenuItem delete = new MenuItem("Delete");
+        delete.setOnAction(event -> ComponentRegistry.getInstance().deleteComponent(clickedComponent.thisId));
+        this.getItems().add(delete);
     }
 }
