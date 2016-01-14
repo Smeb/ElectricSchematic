@@ -46,6 +46,7 @@ public class ParallelComponentViewFactory {
 
             currentView.setLayoutY(heightOffset);
             heightOffset += ComponentValueMap.getInstance().get(c).getHeight() + ParallelComponent.PARALLELOFFSET;
+            // ComponentViewFactory.getInstance().enableRightClick(currentView);
             componentViews.add(currentView);
             i++;
         }
@@ -67,6 +68,7 @@ public class ParallelComponentViewFactory {
 
         viewFactory.buildInteractions(componentView, 20.0, 20.0);
         //TODO: Registration of interaction events on child views
+        ComponentRegistry.getInstance().addComponent(parallelComponent);
         return parallelComponent;
     }
 
