@@ -2,15 +2,13 @@ package IO;
 
 import components.infrastructure.Anchor;
 import components.infrastructure.ComponentRegistry;
-import components.parts.Battery;
-import components.parts.Component;
-import components.parts.ComponentFactory;
-import components.parts.Lamp;
+import components.parts.*;
 import controllers.WireController;
 import datastructures.ComponentConnections;
 import javafx.scene.Node;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import tools.Wire;
 
 import java.util.ArrayList;
 
@@ -35,6 +33,8 @@ public class Loader
                 return Lamp.class;
             case "Battery":
                 return Battery.class;
+            case "Resistor":
+                return Resistor.class;
             default:
                 return null;
         }
@@ -44,10 +44,16 @@ public class Loader
         String connectionsString = connections.toString();
         connectionsString = connectionsString.replace("[","");
         connectionsString = connectionsString.replace("]","");
+        if(connectionsString.isEmpty())
+            return null;
         String[] connectionsStringList = connectionsString.split(",");
         ArrayList<Integer> a = new ArrayList<>();
-        for(String s:connectionsStringList)
+        for(String s:connectionsStringList) {
+            System.out.println("adding:" + s);
             a.add(Integer.parseInt(s));
+        }
+        if(a == null)
+            System.out.println("Null pointer returned");
         return a;
     }
 
@@ -70,17 +76,17 @@ public class Loader
         }
         catch(Exception e)
         {
-            System.err.print(e);
+            e.printStackTrace();
         }
     }
 
     private Component getLoadedComponentById(int id)
     {
+        System.out.println("Trying to find component: " + id);
         ArrayList<Component> loadedComponents = ComponentRegistry.getInstance().getComponents();
-        System.out.println(id);
+
         for(Component component: loadedComponents)
         {
-            System.out.println(component.thisId);
             if(component.thisId == id)
                 return component;
         }
@@ -90,7 +96,7 @@ public class Loader
 
     private Anchor getComponentAnchor(Component c)
     {
-        for(Node n :c.getGroup().getChildren()){
+        for(Node n : c.getGroup().getChildren()){
             if(n instanceof Anchor){
                 if(((Anchor) n).getWire() == null)
                     return (Anchor)n;
@@ -103,13 +109,17 @@ public class Loader
     private void loadWire(ComponentConnections c)
     {
         Component componentObject = getLoadedComponentById(c.getID());
+        System.out.println("Loading wires for "+c.getID());
+        if(c.getConnectedComponents() == null)
+            return;
         Component currentConnection;
-        Anchor start = getComponentAnchor(componentObject);
+        Anchor start;
         Anchor end;
         WireController wireController = WireController.getInstance();
-        wireController.setStart(start);
         for(int id: c.getConnectedComponents())
         {
+            start = getComponentAnchor(componentObject);
+            wireController.setStart(start);
             currentConnection = getLoadedComponentById(id);
             end = getComponentAnchor(currentConnection);
             wireController.completeWire(end);
@@ -117,7 +127,6 @@ public class Loader
     }
     public void loadAllWires()
     {
-        ArrayList<Component> loadedComponents = ComponentRegistry.getInstance().getComponents();
         for(ComponentConnections c: allConnections)
         {
             loadWire(c);

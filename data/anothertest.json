@@ -1,0 +1,1 @@
+{"components":[{"layout":"vertical","yPos":344,"id":0,"xPos":490,"type":"Battery","connections":[2,1]},{"layout":"vertical","yPos":354,"id":1,"xPos":701,"type":"Battery","connections":[3,0]},{"layout":"vertical","yPos":203,"id":2,"xPos":498,"type":"Lamp","connections":[3,0]},{"layout":"vertical","yPos":204,"id":3,"xPos":707,"type":"Lamp","connections":[2,1]}]}

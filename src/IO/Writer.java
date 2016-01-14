@@ -57,6 +57,7 @@ public class Writer
         for(Anchor anchor:startAnchors)
         {
             int id = anchor.getWire().getEndAnchor().getParentComponent().thisId;
+            System.out.println(id);
             connections.put(id);
         }
 
