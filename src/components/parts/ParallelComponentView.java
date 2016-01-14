@@ -9,5 +9,9 @@ public class ParallelComponentView extends ComponentView {
     Vector<ComponentView> componentViews;
     ParallelComponentView(Vector<ComponentView> componentViews){
         this.componentViews = componentViews;
+        for(ComponentView v : componentViews){
+            this.getChildren().add(v);
+        }
+
     }
 }
