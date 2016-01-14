@@ -24,5 +24,25 @@ public class ParallelComponent extends Component {
         this.componentView = componentView;
     }
 
+    @Override
+    public double getVoltage(){
+        // Check first component only; you can't have a combination of things on the same branch
+        return components.get(0).getVoltage();
+    }
+
+    @Override
+    public double getResistance(){
+        double resistance = 0.0;
+        for(Component c : components){
+            resistance += c.getResistance();
+        }
+        return resistance;
+    }
+
+    @Override
+    public void setCurrent(double current){
+
+    }
+
 
 }
