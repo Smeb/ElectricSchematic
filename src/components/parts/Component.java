@@ -34,6 +34,11 @@ public abstract class Component {
         composite = true;
     }
 
+    public static void resetIDs()
+    {
+        id =0;
+    }
+
     protected Component(boolean composite){
         thisId = id++;
         connectedComponents = new LinkedList<>();
