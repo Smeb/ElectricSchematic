@@ -57,30 +57,31 @@ public abstract class Component {
 
     public void setIcon(Rectangle icon) { this.icon = icon; }
 
-    private ImagePattern getSchematic() {
+    private void fillWithSchematic() {
         if (Lamp.class.isAssignableFrom(this.getClass())) {
-            return Lamp.schematic;
+            icon.setFill(Lamp.schematic);
+
         }
         if (Battery.class.isAssignableFrom(this.getClass())) {
-            return Battery.schematic;
+            icon.setFill(Battery.schematic);
         }
-        return null;
+        icon.setStroke(Color.TRANSPARENT);
     }
-    private Paint getColor() {
+    private void fillWithColor() {
         if (Lamp.class.isAssignableFrom(this.getClass())) {
-            return Lamp.iconColor;
+            icon.setFill(Lamp.iconColor);
         }
         if (Battery.class.isAssignableFrom(this.getClass())) {
-            return Battery.iconColor;
+            icon.setFill(Battery.iconColor);
         }
-        return null;
+        icon.setStroke(Color.BLACK);
     }
     public void fill() {
         if (Globals.schematicIcons) {
-            icon.setFill(getSchematic());
+            fillWithSchematic();
         }
         else {
-            icon.setFill(getColor());
+            fillWithColor();
         }
     }
 }
