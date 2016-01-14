@@ -68,6 +68,7 @@ public class WireController {
     }
 
     private void connectComponents(Component componentA, Component componentB){
+        System.out.println("Connecting " + componentA.toString() + " to " + componentB.toString());
         componentA.addConnectedComponent(componentB);
         componentB.addConnectedComponent(componentA);
     }
