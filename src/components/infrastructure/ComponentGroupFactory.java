@@ -1,5 +1,6 @@
 package components.infrastructure;
 
+import application.Globals;
 import components.controls.RightClickMenuFactory;
 import components.parts.Battery;
 import components.parts.Component;
@@ -28,38 +29,39 @@ public class ComponentGroupFactory {
         workspace = group;
     }
 
-    public ComponentGroup buildComponentGroup(Class classType, double posX, double posY){
-        ComponentGroup componentGroup;
-        if(Component.class.isAssignableFrom(classType)) {
-            componentGroup = new ComponentGroup();
-            if (classType == Lamp.class) {
-                Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
-                rectangle.setFill(Lamp.iconColor);
-                rectangle.setStroke(Component.OUTLINE);
-                componentGroup.getChildren().add(rectangle);
+    public ComponentGroup buildComponentGroup(Component component, double posX, double posY) {
+        ComponentGroup componentGroup = new ComponentGroup();
+        componentGroup.setParentComponent(component);
+        if (component instanceof Lamp) {
+            Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
+            rectangle.setStroke(Component.OUTLINE);
+            componentGroup.getChildren().add(rectangle);
+            component.setIcon(rectangle);
+            component.fill();
 
-            } else if (classType == Battery.class) {
-                Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
-                rectangle.setFill(Battery.iconColor);
-                rectangle.setStroke(Component.OUTLINE);
-                componentGroup.getChildren().add(rectangle);
-            }
-            enableDrag(componentGroup);
-            enableRightClick(componentGroup);
-            addAnchors(componentGroup, Orientation.LEFT, Orientation.RIGHT);
-            componentGroup.setLayoutX(posX);
-            componentGroup.setLayoutY(posY + PaletteIcon.size / 2);
-            workspace.getChildren().add(componentGroup);
-            return componentGroup;
+        } else if (component instanceof Battery) {
+            Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
+            rectangle.setStroke(Component.OUTLINE);
+            componentGroup.getChildren().add(rectangle);
+            component.setIcon(rectangle);
+            component.fill();
+        } else {
+            return null;
         }
+        enableDrag(componentGroup);
+        enableRightClick(componentGroup);
+        addAnchors(componentGroup, Orientation.LEFT, Orientation.RIGHT);
+        componentGroup.setLayoutX(posX);
+        componentGroup.setLayoutY(posY + PaletteIcon.size / 2);
+        workspace.getChildren().add(componentGroup);
+        return componentGroup;
+
         /* Fail condition, currently returning null
         TODO: Add enum to limit possible group types
         */
-
-        return null;
     }
 
-    private void addAnchors(Group group, Orientation... orientations){
+    private void addAnchors(ComponentGroup group, Orientation... orientations){
         AnchorFactory factory = AnchorFactory.getInstance();
         Bounds bounds = group.getBoundsInParent();
         for(Orientation o : orientations) {

@@ -1,5 +1,6 @@
 package palette;
 
+import components.parts.Component;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -13,14 +14,13 @@ public class Palette extends FlowPane {
     private ArrayList<PaletteIcon> contents;
     private int iconSize;
 
-    public Palette(double x, double y, int iconSize, int iconsPerRow, ArrayList<Class> tools) {
+    public Palette(double x, double y, int iconSize, int iconsPerRow, ArrayList<Component> tools) {
         int hgap = 5;
         this.iconSize = iconSize;
         this.setLayoutX(x);
         this.setLayoutY(y);
         this.setWidth(iconsPerRow*(iconSize+hgap));
         this.setPrefWrapLength(100);
-        //this.setPrefWrapLength(iconsPerRow*(iconSize+hgap));
         this.setPadding(new Insets(20, 30, 20, 30));
         this.setVgap(8);
         this.setHgap(hgap);
@@ -28,7 +28,7 @@ public class Palette extends FlowPane {
 
         //this.setStroke(Color.BLACK);
         this.contents = new ArrayList<>();
-        for (Class comp: tools) {
+        for (Component comp: tools) {
             contents.add(new PaletteIcon(comp));
         }
         arrangeTools();
@@ -40,5 +40,9 @@ public class Palette extends FlowPane {
             this.getChildren().add(icon);
         }
     }
-
+    public void changeIcons() {
+        for (PaletteIcon tool : contents) {
+            tool.getComponentType().fill();
+        }
+    }
 }

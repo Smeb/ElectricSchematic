@@ -5,10 +5,12 @@ import IO.Reader;
 import components.infrastructure.ComponentGroupFactory;
 import components.infrastructure.ComponentRegistry;
 import components.parts.Battery;
+import components.parts.Component;
 import components.parts.ComponentFactory;
 import components.parts.Lamp;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import mainUI.*;
 import controllers.WireController;
 import evaluation.Evaluator;
@@ -33,9 +35,9 @@ public class Main extends Application {
     }
 
     private Palette createPalette() {
-        ArrayList<Class> tools = new ArrayList<>();
-        tools.add(Lamp.class);
-        tools.add(Battery.class);
+        ArrayList<Component> tools = new ArrayList<>();
+        tools.add(new Lamp());
+        tools.add(new Battery());
         int toolsPerRow = 3;
         int iconSize = 50;
         return new Palette(30,50,iconSize,toolsPerRow,tools);
@@ -51,10 +53,19 @@ public class Main extends Application {
         WireController.setWorkspace(workspace);
 
         Palette pal = createPalette();
-        MenuBar menuBar = new TopMenu().makeMenu();
+        MenuBar menuBar = new TopMenu().makeMenu(primaryStage);
         Button button = new Button("Evaluate");
+
         button.setOnAction(event -> new Evaluator().evaluate());
-        workspace.getChildren().addAll(pal, button);
+
+        Button pictures = new Button("Pictures");
+        pictures.setLayoutX(100);
+        pictures.setOnAction(event -> {
+            if (Globals.schematicIcons) { pictures.setText("Pictures"); }
+            else { pictures.setText("Schematic"); }
+            new Controller().changePictures(pal);
+        });
+        workspace.getChildren().addAll(pal,button,pictures);
         outerFrame.getChildren().addAll(menuBar,workspace);
         Scene programScene = new Scene(outerFrame, 1000, 700);
         programScene.setOnMouseDragExited(event -> {
@@ -66,16 +77,6 @@ public class Main extends Application {
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(programScene);
         primaryStage.show();
-
-        /*URL url = getClass().getResource("test.txt");
-        System.out.println(url.getPath());
-
-        JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));
-        System.out.println(object.getJSONArray("components"));
-        JSONObject test = object.getJSONArray("components").getJSONObject(0);
-        Loader.getInstance().loadComponents(object.getJSONArray("components"));
-        */
-
     }
 
 }

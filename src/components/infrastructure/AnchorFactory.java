@@ -4,7 +4,6 @@ import components.parts.Component;
 import controllers.WireController;
 import datastructures.Orientation;
 import javafx.event.Event;
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -17,7 +16,7 @@ public class AnchorFactory {
         return instance;
     }
 
-    public void addAnchor(Group root, Orientation orientation, double maxX, double maxY, double minX){
+    public void addAnchor(ComponentGroup componentGroup, Orientation orientation, double maxX, double maxY, double minX){
         double anchorX, anchorY;
         double componentEdgeX, componentEdgeY;
         if (orientation == Orientation.RIGHT) {
@@ -32,10 +31,10 @@ public class AnchorFactory {
             anchorX = componentEdgeX - Component.OFFSET;
             anchorY = componentEdgeY;
         }
-        Anchor anchor = new Anchor(anchorX, anchorY);
+        Anchor anchor = new Anchor(componentGroup.getParentComponent(), anchorX, anchorY);
         Line line = new Line(componentEdgeX, componentEdgeY, anchorX, anchorY);
         setInteractions(anchor);
-        root.getChildren().addAll(anchor, line);
+        componentGroup.getChildren().addAll(anchor, line);
     }
 
     private void setInteractions(Anchor anchor){
@@ -48,7 +47,7 @@ public class AnchorFactory {
             WireController wireController = WireController.getInstance();
             if(!wireController.active()){
                 wireController.setActive();
-                wireController.setParent(anchor);
+                wireController.setStart(anchor);
                 anchor.startFullDrag();
             }
         });
@@ -58,7 +57,7 @@ public class AnchorFactory {
         anchor.setOnMouseDragReleased((event) -> {
             WireController wireController = WireController.getInstance();
             if(wireController.active() &&
-                    wireController.getParentAnchor().getParent() != anchor.getParent() &&
+                    wireController.getStartAnchor().getParent() != anchor.getParent() &&
                     anchor.getDirection() == Anchor.Direction.unset) {
                 wireController.completeWire(anchor);
                 wireController.setDormant();

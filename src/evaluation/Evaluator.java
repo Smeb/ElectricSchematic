@@ -3,55 +3,67 @@ package evaluation;
 import components.infrastructure.ComponentRegistry;
 import components.parts.Battery;
 import components.parts.Component;
-import javafx.scene.Node;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**
- * Created by archie on 12/01/16.
- */
 public class Evaluator {
-    ComponentRegistry registry;
+    ConcurrentLinkedQueue<Component> registryCopy = new ConcurrentLinkedQueue<>();
+    private ComponentRegistry registry;
+
     public Evaluator(){
         registry = ComponentRegistry.getInstance();
     }
 
     public void evaluate(){
-        ArrayList<Component> registryCopy = new ArrayList<>();
         for(Component c : registry.getComponents()){
             registryCopy.add(c);
         }
+
         for(Component c : registryCopy){
             if(c instanceof Battery){
-                evaluateGraph(c);
+                evaluateGraph(c, registryCopy);
+            }
+            if(registryCopy.isEmpty()){
+                break;
             }
         }
     }
 
-    public void evaluateGraph(Component c){
-        Component root = c;
+    public void evaluateGraph(Component c, ConcurrentLinkedQueue<Component> r){
+        Component current = c;
         HashSet<Integer> visitedComponents = new HashSet<>();
-        visitedComponents.add(c.thisId);
-        int i = 0;
-        if(c.getConnectedComponents() != null){
-            Component current = getUnvisitedComponent(c.getConnectedComponents(), visitedComponents);
-            while(true){
-                System.out.println(current.thisId);
-                for(Node n : c.getGroup().getChildren()) {
-                    ;
-                }
-                if((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) == null){
-                    break;
-                }
-            }
-            System.out.println("Search completed");
+        double rTotal = 0.0;
+        double vTotal = 0.0;
+        if(c.getConnectedComponents().size() != 2){
+            // Immediate failure, found battery is not connected
+            return;
         }
+
+        // Iterate once and find the resistance
+        while((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) != null){
+            r.remove(current);
+            rTotal += current.getResistance();
+            vTotal += current.getVoltage();
+            if(current.getConnectedComponents().size() != 2) {
+                // For components in series all components should have two connected components
+                return;
+            }
+        }
+        current = c;
+        visitedComponents = new HashSet<>();
+        double aTotal = vTotal / rTotal;
+
+        // Iterate a second time and set the current of all components
+        while((current = getUnvisitedComponent(current.getConnectedComponents(), visitedComponents)) != null){
+            current.setCurrent(aTotal);
+        }
+        System.out.println("V: " + vTotal + " R: " + rTotal + " A: " + aTotal);
     }
 
-    private Component getUnvisitedComponent(LinkedList<Component> connectedComponent, HashSet<Integer> visitedComponents){
-        for(Component c : connectedComponent){
+    private Component getUnvisitedComponent(LinkedList<Component> connectedComponents, HashSet<Integer> visitedComponents){
+        for(Component c : connectedComponents){
             if(!visitedComponents.contains(c.thisId)){
                 visitedComponents.add(c.thisId);
                 return c;

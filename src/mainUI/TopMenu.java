@@ -1,5 +1,7 @@
 package mainUI;
 
+import IO.Loader;
+import IO.Reader;
 import components.infrastructure.ComponentRegistry;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -7,16 +9,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 
 /**
  * Created by carlahyenne on 12/01/2016.
  */
 public class TopMenu {
 
-    public MenuBar makeMenu() {
+    public MenuBar makeMenu(Stage primaryStage) {
 
         //MENU MenuBar > Menus > MenuItems
-
+        final FileChooser fileChooser = new FileChooser();
         MenuBar menuBar = new MenuBar();
 
         Label newLabel = new Label("New");
@@ -43,6 +51,11 @@ public class TopMenu {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Powerful platypus");
+                File file = fileChooser.showOpenDialog(primaryStage);
+                System.out.println(file.toString());
+                JSONObject object = Reader.getInstance().read(file.toString());
+                try{Loader.getInstance().load(object.getJSONArray("components"));}
+                catch(JSONException e){System.err.println(e);}
             }
         });
 
