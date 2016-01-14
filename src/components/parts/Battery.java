@@ -27,6 +27,16 @@ public class Battery extends Component {
     }
 
     @Override
+    public void removeConnectedComponent(Component component){
+        if(positive == component){
+            positive = null;
+        } else {
+            negative = null;
+        }
+        connectedComponents.removeFirstOccurrence(component);
+    }
+
+    @Override
     public void addConnectedComponent(Component component){
         connectedComponents.add(component);
         Pair<Anchor, Anchor> anchors = getLeftRightAnchors();

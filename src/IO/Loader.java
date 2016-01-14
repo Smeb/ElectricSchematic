@@ -8,8 +8,6 @@ import datastructures.ComponentConnections;
 import javafx.scene.Node;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import tools.Wire;
-
 import java.util.ArrayList;
 
 
