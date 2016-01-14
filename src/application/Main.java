@@ -53,7 +53,7 @@ public class Main extends Application {
         WireController.setWorkspace(workspace);
 
         Palette pal = createPalette();
-        MenuBar menuBar = new TopMenu().makeMenu();
+        MenuBar menuBar = new TopMenu().makeMenu(primaryStage);
         Button button = new Button("Evaluate");
 
         button.setOnAction(event -> new Evaluator().evaluate());
@@ -77,14 +77,6 @@ public class Main extends Application {
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(programScene);
         primaryStage.show();
-
-        URL url = getClass().getResource("test.txt");
-        System.out.println(url.getPath());
-
-        JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));
-        JSONObject test = object.getJSONArray("components").getJSONObject(0);
-        Loader.getInstance().load(object.getJSONArray("components"));
-
     }
 
 }
