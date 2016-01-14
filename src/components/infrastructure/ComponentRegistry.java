@@ -1,6 +1,9 @@
 package components.infrastructure;
 
+import application.Globals;
+import components.parts.Battery;
 import components.parts.Component;
+import components.parts.Lamp;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
@@ -41,7 +44,6 @@ public class ComponentRegistry {
                     for (Component neighboursNeighbour : neighbourConnections) {
                         if (neighboursNeighbour == c) {
                             neighbourConnections.remove(neighboursNeighbour);
-                            System.out.println("Removed connection from " + c.thisId + " to " + neighbour.thisId);
                             break;
                         }
                     }
@@ -70,6 +72,11 @@ public class ComponentRegistry {
             }
             group.getChildren().clear();
             it.remove();
+        }
+    }
+    public void changeIcons() {
+        for (Component c : components) {
+            c.fill();
         }
     }
 }

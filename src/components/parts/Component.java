@@ -1,8 +1,12 @@
 package components.parts;
 
+import application.Globals;
 import components.infrastructure.ComponentGroup;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 
 import java.util.LinkedList;
 
@@ -18,6 +22,8 @@ public abstract class Component {
     protected double current = 0.0;
 
     protected String name;
+    protected Rectangle icon;
+
     private ComponentGroup componentGroup;
     private LinkedList<Component> connectedComponents;
 
@@ -25,6 +31,7 @@ public abstract class Component {
         thisId = id++;
         connectedComponents = new LinkedList<>();
     }
+
 
     public Group getGroup(){
         return componentGroup;
@@ -46,5 +53,34 @@ public abstract class Component {
     @Override
     public String toString(){
         return name + ": " + thisId;
+    }
+
+    public void setIcon(Rectangle icon) { this.icon = icon; }
+
+    private ImagePattern getSchematic() {
+        if (Lamp.class.isAssignableFrom(this.getClass())) {
+            return Lamp.schematic;
+        }
+        if (Battery.class.isAssignableFrom(this.getClass())) {
+            return Battery.schematic;
+        }
+        return null;
+    }
+    private Paint getColor() {
+        if (Lamp.class.isAssignableFrom(this.getClass())) {
+            return Lamp.iconColor;
+        }
+        if (Battery.class.isAssignableFrom(this.getClass())) {
+            return Battery.iconColor;
+        }
+        return null;
+    }
+    public void fill() {
+        if (Globals.schematicIcons) {
+            icon.setFill(getSchematic());
+        }
+        else {
+            icon.setFill(getColor());
+        }
     }
 }
