@@ -17,7 +17,16 @@ public class Wire extends Line
     }
 
     public Anchor getParentAnchor(){return start;}
+
+    public void setParentAnchor(Anchor start){
+        this.start = start;
+    }
+
     public Anchor getEndAnchor(){return end;}
+
+    public void setEndAnchor(Anchor end){
+        this.end = end;
+    }
 
     public void update(Anchor anchor)
     {
@@ -29,17 +38,10 @@ public class Wire extends Line
             this.setEndY(anchor.getPosition().getY());
         } this.toFront();
     }
+
     public Anchor getOtherEnd(Anchor a) {
         if (this.end == a) { return start; }
         else { return end; }
-    }
-
-    public void setParentAnchor(Anchor start){
-        this.start = start;
-    }
-
-    public void setEndAnchor(Anchor end){
-        this.end = end;
     }
 
 }

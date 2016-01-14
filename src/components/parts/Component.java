@@ -2,17 +2,14 @@ package components.parts;
 
 import application.Globals;
 import components.infrastructure.ComponentView;
+import datastructures.ComponentValueMap;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.LinkedList;
 
 public abstract class Component {
-    public static final double width = 0.0;
-    public static final double height = 0.0;
 
     public static final Color OUTLINE = Color.BLACK;
     public static final double OFFSET = 30.0;
@@ -26,12 +23,17 @@ public abstract class Component {
 
     protected String name;
     protected Rectangle icon;
-    private ComponentView componentView;
+    protected ComponentView componentView;
     private LinkedList<Component> connectedComponents;
 
     public Component(){
         thisId = -1;
         composite = true;
+    }
+
+    public static void resetIDs()
+    {
+        id =0;
     }
 
     protected Component(boolean composite){
@@ -64,36 +66,12 @@ public abstract class Component {
 
     public void setIcon(Rectangle icon) { this.icon = icon; }
 
-    private ImagePattern getSchematic() {
-        if (Lamp.class.isAssignableFrom(this.getClass())) {
-            return Lamp.schematic;
-        }
-        if (Battery.class.isAssignableFrom(this.getClass())) {
-            return Battery.schematic;
-        }
-        if (Resistor.class.isAssignableFrom(this.getClass())) {
-            return Resistor.schematic;
-        }
-        return null;
-    }
-    private Paint getColor() {
-        if (Lamp.class.isAssignableFrom(this.getClass())) {
-            return Lamp.iconColor;
-        }
-        if (Battery.class.isAssignableFrom(this.getClass())) {
-            return Battery.iconColor;
-        }
-        if (Resistor.class.isAssignableFrom(this.getClass())) {
-            return Resistor.iconColor;
-        }
-        return null;
-    }
     public void fill() {
         if (Globals.schematicIcons) {
-            icon.setFill(getSchematic());
+            icon.setFill(ComponentValueMap.getInstance().get(this.getClass()).getSchematic());
         }
         else {
-            icon.setFill(getColor());
+            icon.setFill(ComponentValueMap.getInstance().get(this.getClass()).getIconImage());
         }
     }
 }

@@ -2,7 +2,9 @@ package mainUI;
 
 import IO.Loader;
 import IO.Reader;
+import IO.Writer;
 import components.infrastructure.ComponentRegistry;
+import components.parts.Component;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -43,6 +45,7 @@ public class TopMenu {
             public void handle(MouseEvent event) {
                 System.out.println("Pretty pegasus");
                 ComponentRegistry.getInstance().deleteAll();
+                Component.resetIDs();
             }
         });
 
@@ -52,6 +55,8 @@ public class TopMenu {
                 System.out.println("Powerful platypus");
                 File file = fileChooser.showOpenDialog(primaryStage);
                 System.out.println(file.toString());
+                ComponentRegistry.getInstance().deleteAll();
+                Component.resetIDs();
                 JSONObject object = Reader.getInstance().read(file.toString());
                 try{Loader.getInstance().load(object.getJSONArray("components"));}
                 catch(JSONException e){System.err.println(e);}
@@ -62,6 +67,9 @@ public class TopMenu {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Partying portico");
+                File file = fileChooser.showSaveDialog(primaryStage);
+                try{Writer.getInstance().save(file.getPath());}
+                catch(Exception e){}
             }
         });
 

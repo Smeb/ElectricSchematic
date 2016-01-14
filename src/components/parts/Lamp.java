@@ -1,14 +1,10 @@
 package components.parts;
 
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
+import datastructures.ComponentValueMap;
+import datastructures.DefaultComponentValues;
 
 public class Lamp extends Component {
-    public static final double width = 80.0;
-    public static final double height = 80.0;
-    public static final ImagePattern iconColor = new ImagePattern(new Image("file:img/lamp-colour.png"));
-    public static final ImagePattern schematic = new ImagePattern(new Image("file:img/lamp-icon.png"));
-    public static final String name = "Lamp";
+    private static final DefaultComponentValues componentDefaults = ComponentValueMap.getInstance().get(Lamp.class);
 
     public Lamp(){
     }

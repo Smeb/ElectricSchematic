@@ -4,6 +4,7 @@ import components.infrastructure.Anchor;
 import components.infrastructure.ComponentRegistry;
 import components.parts.Battery;
 import components.parts.Component;
+import components.parts.ComponentFactory;
 import components.parts.Lamp;
 import controllers.WireController;
 import datastructures.ComponentConnections;
@@ -65,7 +66,7 @@ public class Loader
             id = Integer.parseInt(component.get("id").toString());
             allConnections.add(new ComponentConnections(id, connections));
             Class componentClass = parseClass(type);
-            //ComponentFactory.getInstance().newComponent(componentClass, x, y);
+            ComponentFactory.getInstance().newComponent(componentClass, x, y, false);
         }
         catch(Exception e)
         {

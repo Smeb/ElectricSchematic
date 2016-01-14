@@ -26,6 +26,7 @@ public class Main extends Application {
         tools.add(new Lamp());
         tools.add(new Battery());
         tools.add(new Resistor());
+        tools.add(new ParallelComponent());
         int toolsPerRow = 3;
         int iconSize = 50;
         return new Palette(30,50,iconSize,toolsPerRow,tools);
