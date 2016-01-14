@@ -1,6 +1,5 @@
 package components.infrastructure;
 
-import application.Globals;
 import components.controls.RightClickMenuFactory;
 import components.parts.Battery;
 import components.parts.Component;
@@ -16,12 +15,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import palette.PaletteIcon;
 
-public class ComponentGroupFactory {
+public class ComponentViewFactory {
 
-    private static final ComponentGroupFactory instance = new ComponentGroupFactory();
+    private static final ComponentViewFactory instance = new ComponentViewFactory();
     private static Group workspace;
 
-    public static ComponentGroupFactory getInstance() {
+    public static ComponentViewFactory getInstance() {
         return instance;
     }
 
@@ -29,39 +28,51 @@ public class ComponentGroupFactory {
         workspace = group;
     }
 
-    public ComponentGroup buildComponentGroup(Component component, double posX, double posY) {
-        ComponentGroup componentGroup = new ComponentGroup();
-        componentGroup.setParentComponent(component);
+    public ComponentView buildComponentGroup(Component component) {
+        ComponentView componentView = new ComponentView();
+        componentView.setParentComponent(component);
         if (component instanceof Lamp) {
-            Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
-            rectangle.setStroke(Component.OUTLINE);
-            componentGroup.getChildren().add(rectangle);
-            component.setIcon(rectangle);
-            component.fill();
-
+            buildLamp(component, componentView);
         } else if (component instanceof Battery) {
-            Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
-            rectangle.setStroke(Component.OUTLINE);
-            componentGroup.getChildren().add(rectangle);
-            component.setIcon(rectangle);
-            component.fill();
+            buildBattery(component, componentView);
         } else {
             return null;
         }
-        enableDrag(componentGroup);
-        enableRightClick(componentGroup);
-        addAnchors(componentGroup, Orientation.LEFT, Orientation.RIGHT);
-        componentGroup.setLayoutX(posX);
-        componentGroup.setLayoutY(posY + PaletteIcon.size / 2);
-        workspace.getChildren().add(componentGroup);
-        return componentGroup;
+       return componentView;
 
         /* Fail condition, currently returning null
         TODO: Add enum to limit possible group types
         */
     }
 
-    private void addAnchors(ComponentGroup group, Orientation... orientations){
+    public void buildInteractions(ComponentView componentView, double posX, double posY){
+        enableDrag(componentView);
+        enableRightClick(componentView);
+        addAnchors(componentView, Orientation.LEFT, Orientation.RIGHT);
+        componentView.setLayoutX(posX);
+        componentView.setLayoutY(posY + PaletteIcon.size / 2);
+        workspace.getChildren().add(componentView);
+    }
+
+    private Rectangle buildLamp(Component component, ComponentView componentView){
+        Rectangle rectangle = new Rectangle(Lamp.width, Lamp.height);
+        rectangle.setStroke(Component.OUTLINE);
+        componentView.getChildren().add(rectangle);
+        component.setIcon(rectangle);
+        component.fill();
+        return rectangle;
+    }
+
+    private Rectangle buildBattery(Component component, ComponentView componentView){
+        Rectangle rectangle = new Rectangle(Battery.width, Battery.height);
+        rectangle.setStroke(Component.OUTLINE);
+        componentView.getChildren().add(rectangle);
+        component.setIcon(rectangle);
+        component.fill();
+        return rectangle;
+    }
+
+    private void addAnchors(ComponentView group, Orientation... orientations){
         AnchorFactory factory = AnchorFactory.getInstance();
         Bounds bounds = group.getBoundsInParent();
         for(Orientation o : orientations) {
@@ -69,7 +80,7 @@ public class ComponentGroupFactory {
         }
     }
 
-    private void enableDrag(ComponentGroup group){
+    private void enableDrag(ComponentView group){
         final CoordinatePair dragContext = new CoordinatePair();
 
         group.setOnMousePressed((event)->{
@@ -103,17 +114,12 @@ public class ComponentGroupFactory {
         group.setOnMouseExited((event) -> group.setCursor(Cursor.DEFAULT));
     }
 
-    private void enableRightClick(ComponentGroup group) {
+    private void enableRightClick(ComponentView group) {
         group.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton() == MouseButton.SECONDARY) {
                 group.setCursor(Cursor.HAND);
                 RightClickMenuFactory.getInstance().buildRightClickMenu(group,event);
             }
         });
-    }
-
-    private static final class DragContext {
-        public double deltaX;
-        public double deltaY;
     }
 }

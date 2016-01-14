@@ -10,12 +10,18 @@ public class Battery extends Component {
     public static final ImagePattern schematic = new ImagePattern(new Image("file:img/battery-icon.png"));
     public static final String name = "Battery";
 
-    public Battery() {
+    public Battery(){
+
+    }
+
+    protected Battery(boolean composite) {
+        super(composite);
         this.voltage = 9.0;
         this.resistance = 0.001;
     }
 
-    protected Battery(double voltage, double resistance){
+    protected Battery(double voltage, double resistance, boolean composite){
+        super(composite);
         this.voltage = voltage;
         this.resistance = resistance;
     }

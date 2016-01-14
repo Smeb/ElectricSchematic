@@ -1,7 +1,8 @@
 package components.parts;
 
-import components.infrastructure.ComponentGroupFactory;
 import components.infrastructure.ComponentRegistry;
+import components.infrastructure.ComponentView;
+import components.infrastructure.ComponentViewFactory;
 import javafx.scene.Group;
 
 public class ComponentFactory {
@@ -16,16 +17,22 @@ public class ComponentFactory {
         workspace = group;
     }
 
-    public Component newComponent(Class componentClass, double posX, double posY){
+    public Component newComponent(Class componentClass, double posX, double posY, boolean composite){
         Component component = null;
         if (Lamp.class.isAssignableFrom(componentClass)) {
-            component = new Lamp();
+            component = new Lamp(composite);
         }
         else if (Battery.class.isAssignableFrom(componentClass)){
-            component = new Battery();
+            component = new Battery(composite);
         }
-        component.setComponentGroup(ComponentGroupFactory.getInstance().buildComponentGroup(component, posX, posY));
-
+        else {
+            return null;
+        }
+        if(!composite) {
+            ComponentView componentView = ComponentViewFactory.getInstance().buildComponentGroup(component);
+            ComponentViewFactory.getInstance().buildInteractions(componentView, posX, posY);
+            component.setComponentView(componentView);
+        }
         ComponentRegistry.getInstance().addComponent(component);
         return component;
     }

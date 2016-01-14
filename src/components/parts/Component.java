@@ -1,7 +1,7 @@
 package components.parts;
 
 import application.Globals;
-import components.infrastructure.ComponentGroup;
+import components.infrastructure.ComponentView;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -11,33 +11,40 @@ import javafx.scene.shape.Rectangle;
 import java.util.LinkedList;
 
 public abstract class Component {
+    public static final double width = 0.0;
+    public static final double height = 0.0;
+
     public static final Color OUTLINE = Color.BLACK;
     public static final double OFFSET = 30.0;
 
     private static int id = 0;
     public final int thisId;
-
+    public final boolean composite;
     protected double voltage = 0.0;
     protected double resistance;
     protected double current = 0.0;
 
     protected String name;
     protected Rectangle icon;
-
-    private ComponentGroup componentGroup;
+    private ComponentView componentView;
     private LinkedList<Component> connectedComponents;
 
-    protected Component(){
+    public Component(){
+        thisId = -1;
+        composite = true;
+    }
+
+    protected Component(boolean composite){
         thisId = id++;
         connectedComponents = new LinkedList<>();
+        this.composite = composite;
     }
-
 
     public Group getGroup(){
-        return componentGroup;
+        return componentView;
     }
-    public void setComponentGroup(final ComponentGroup group){
-        this.componentGroup = group;
+    public void setComponentView(final ComponentView group){
+        this.componentView = group;
     }
     public void addConnectedComponent(Component component){
         connectedComponents.add(component);
