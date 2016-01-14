@@ -1,6 +1,7 @@
 package application;
 
 import components.infrastructure.ComponentViewFactory;
+import components.infrastructure.ParallelComponent;
 import components.parts.*;
 import controllers.WireController;
 import evaluation.Evaluator;

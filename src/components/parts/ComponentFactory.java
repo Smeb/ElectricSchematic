@@ -1,10 +1,10 @@
 package components.parts;
 
-import components.infrastructure.ComponentRegistry;
-import components.infrastructure.ComponentView;
-import components.infrastructure.ComponentViewFactory;
+import components.infrastructure.*;
 import datastructures.ComponentValueMap;
+import datastructures.CoordinatePair;
 import javafx.scene.Group;
+import javafx.util.Pair;
 
 import java.util.Vector;
 
@@ -44,27 +44,36 @@ public class ComponentFactory {
     }
 
     public ParallelComponent newParallelComponent(Class... classType){
+        if(classType.length < ParallelComponent.MINCOMPONENTS || classType.length > ParallelComponent.MAXCOMPONENTS){
+            System.out.println("Invalid number of arguments");
+            return null;
+        }
         ComponentViewFactory viewFactory = ComponentViewFactory.getInstance();
         Component current;
-        ComponentView currentGroup;
+        ComponentView currentView;
         Vector<Component> components = new Vector<>();
         Vector<ComponentView> componentViews = new Vector<>();
         int i = 0;
         double heightOffset = 0.0;
+
         for (Class c : classType) {
             if (!Component.class.isAssignableFrom(c)) {
                 return null;
             }
             current = newComponent(c, 0.0, 0.0, true);
             components.add(current);
-            currentGroup = viewFactory.buildComponentGroup(current);
-            currentGroup.setLayoutX(20.0);
-            currentGroup.setLayoutY(heightOffset);
+            currentView = viewFactory.buildComponentGroup(current);
+            AnchorFactory.getInstance().addAnchorLines(currentView);
+            currentView.setLayoutY(heightOffset);
             heightOffset += ComponentValueMap.getInstance().get(c).getHeight() + ParallelComponent.PARALLELOFFSET;
-            componentViews.add(currentGroup);
+            componentViews.add(currentView);
             i++;
         }
         ParallelComponentView componentView = new ParallelComponentView(componentViews);
+        Pair<CoordinatePair, CoordinatePair> topAnchorPositions;
+        currentView = componentViews.get(0);
+        Pair<CoordinatePair, CoordinatePair> bottomAnchorPositions;
+        currentView = componentViews.get(componentViews.size() - 1);
         ParallelComponent parallelComponent = new ParallelComponent(components, componentView, false);
         componentView.setParentComponent(parallelComponent);
         viewFactory.buildInteractions(componentView, 20.0, 20.0);

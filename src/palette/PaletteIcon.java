@@ -1,6 +1,10 @@
 package palette;
 
-import components.parts.*;
+import components.infrastructure.ParallelComponent;
+import components.parts.Battery;
+import components.parts.Component;
+import components.parts.ComponentFactory;
+import components.parts.Lamp;
 import javafx.scene.shape.Rectangle;
 
 public class PaletteIcon extends Rectangle {
