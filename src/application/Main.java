@@ -67,14 +67,13 @@ public class Main extends Application {
         primaryStage.setScene(programScene);
         primaryStage.show();
 
-        /*URL url = getClass().getResource("test.txt");
+        URL url = getClass().getResource("test.txt");
         System.out.println(url.getPath());
 
         JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));
-        System.out.println(object.getJSONArray("components"));
         JSONObject test = object.getJSONArray("components").getJSONObject(0);
-        Loader.getInstance().loadComponents(object.getJSONArray("components"));
-        */
+        Loader.getInstance().load(object.getJSONArray("components"));
+
 
     }
 
