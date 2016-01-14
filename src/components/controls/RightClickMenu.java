@@ -22,26 +22,26 @@ public class RightClickMenu extends ContextMenu {
     }
     private void addOptions() {
         options = new ArrayList<>();
-        Menu edit = new Menu("Edit");
-
         if (clickedComponent instanceof Battery) {
-            options.add(new EditMenuItem("Voltage",0,20,5));
+            options.add(new EditMenuItem(clickedComponent,"Voltage",0,20,clickedComponent.getVoltage()));
         }
         else {
-            options.add(new EditMenuItem("Resistance", 0, 100, 40));
+            options.add(new EditMenuItem(clickedComponent,"Resistance", 0, 100, clickedComponent.getResistance()));
         }
-
-        for (EditMenuItem em : options) {
-            em.setHideOnClick(false);
+        if (options.size() > 0) {
+            Menu edit = new Menu("Edit");
+            for (EditMenuItem em : options) {
+                em.setHideOnClick(false);
+            }
+            edit.setOnAction(event -> {
+                edit.getItems().addAll(options);
+                edit.show();
+            });
+            this.getItems().add(edit);
         }
-
-        edit.setOnAction(event -> {
-            edit.getItems().addAll(options);
-            edit.show();
-        });
 
         MenuItem delete = new MenuItem("Delete");
         delete.setOnAction(event -> ComponentRegistry.getInstance().deleteComponent(clickedComponent.thisId));
-        this.getItems().addAll(edit,delete);
+        this.getItems().add(delete);
     }
 }
