@@ -1,17 +1,10 @@
 package application;
 
-import IO.Loader;
-import IO.Reader;
-import components.infrastructure.ComponentGroupFactory;
-import components.infrastructure.ComponentRegistry;
+import components.infrastructure.ComponentViewFactory;
 import components.parts.Battery;
 import components.parts.Component;
 import components.parts.ComponentFactory;
 import components.parts.Lamp;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import mainUI.*;
 import controllers.WireController;
 import evaluation.Evaluator;
 import javafx.application.Application;
@@ -24,10 +17,7 @@ import javafx.stage.Stage;
 import mainUI.TopMenu;
 import palette.Palette;
 
-import java.net.URL;
 import java.util.ArrayList;
-
-import org.json.JSONObject;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -48,7 +38,7 @@ public class Main extends Application {
 
         Group workspace = new Group();
         VBox outerFrame = new VBox();
-        ComponentGroupFactory.setWorkspace(workspace);
+        ComponentViewFactory.setWorkspace(workspace);
         ComponentFactory.setWorkspace(workspace);
         WireController.setWorkspace(workspace);
 
@@ -77,6 +67,16 @@ public class Main extends Application {
         primaryStage.setTitle("Electric Schematic");
         primaryStage.setScene(programScene);
         primaryStage.show();
+
+        /*
+        URL url = getClass().getResource("test.txt");
+        System.out.println(url.getPath());
+
+        JSONObject object = Reader.getInstance().read(url.getPath().replace("%20", " "));
+        JSONObject test = object.getJSONArray("components").getJSONObject(0);
+        Loader.getInstance().load(object.getJSONArray("components"));
+        */
+
     }
 
 }

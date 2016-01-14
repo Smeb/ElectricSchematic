@@ -4,7 +4,6 @@ import IO.Loader;
 import IO.Reader;
 import components.infrastructure.ComponentRegistry;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;

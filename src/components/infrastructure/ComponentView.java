@@ -3,9 +3,9 @@ package components.infrastructure;
 import components.parts.Component;
 import javafx.scene.Group;
 
-public class ComponentGroup extends Group {
+public class ComponentView extends Group {
         private Component parent;
-        protected ComponentGroup(){
+        protected ComponentView(){
         }
 
         public Component getParentComponent(){return parent;}

@@ -1,13 +1,8 @@
 package components.controls;
 
-import components.infrastructure.ComponentGroup;
-import javafx.scene.Group;
-import javafx.scene.Node;
+import components.infrastructure.ComponentView;
 import javafx.scene.input.MouseEvent;
 
-/**
- * Created by minttu on 13/01/2016.
- */
 public class RightClickMenuFactory {
     private static RightClickMenuFactory instance = new RightClickMenuFactory();
     //private static Group workspace;
@@ -19,7 +14,7 @@ public class RightClickMenuFactory {
         workspace = group;
     }*/
 
-    public RightClickMenu buildRightClickMenu(ComponentGroup group, MouseEvent event) {
+    public RightClickMenu buildRightClickMenu(ComponentView group, MouseEvent event) {
         RightClickMenu rcMenu = new RightClickMenu(group.getParentComponent());
         rcMenu.show(group,event.getScreenX(),event.getScreenY());
         return rcMenu;

@@ -16,7 +16,7 @@ public class AnchorFactory {
         return instance;
     }
 
-    public void addAnchor(ComponentGroup componentGroup, Orientation orientation, double maxX, double maxY, double minX){
+    public void addAnchor(ComponentView componentView, Orientation orientation, double maxX, double maxY, double minX){
         double anchorX, anchorY;
         double componentEdgeX, componentEdgeY;
         if (orientation == Orientation.RIGHT) {
@@ -31,10 +31,10 @@ public class AnchorFactory {
             anchorX = componentEdgeX - Component.OFFSET;
             anchorY = componentEdgeY;
         }
-        Anchor anchor = new Anchor(componentGroup.getParentComponent(), anchorX, anchorY);
+        Anchor anchor = new Anchor(componentView.getParentComponent(), anchorX, anchorY);
         Line line = new Line(componentEdgeX, componentEdgeY, anchorX, anchorY);
         setInteractions(anchor);
-        componentGroup.getChildren().addAll(anchor, line);
+        componentView.getChildren().addAll(anchor, line);
     }
 
     private void setInteractions(Anchor anchor){
