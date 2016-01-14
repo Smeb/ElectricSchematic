@@ -46,11 +46,7 @@ public class Palette extends FlowPane {
     }
     public void changeIcons() {
         for (PaletteIcon tool : contents) {
-            if (Globals.schematicIcons) {
-                tool.setFill(new ImagePattern(new Image("file:img/lamp-icon.png")));
-            } else {
-                tool.setFill(ComponentColorMap.getInstance().getColor(tool.getComponentType().getClass()));
-            }
+            tool.getComponentType().fill();
         }
     }
 }

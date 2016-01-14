@@ -1,5 +1,6 @@
 package components.parts;
 
+import application.Globals;
 import components.infrastructure.ComponentGroup;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -23,8 +24,6 @@ public abstract class Component {
 
     private ComponentGroup componentGroup;
     private LinkedList<Component> connectedComponents;
-    protected static Color iconColor;
-    protected static ImagePattern schematic;
 
     protected Component(){
         thisId = id++;
@@ -52,4 +51,31 @@ public abstract class Component {
     }
 
     public void setIcon(Rectangle icon) { this.icon = icon; }
+
+    private ImagePattern getSchematic() {
+        if (Lamp.class.isAssignableFrom(this.getClass())) {
+            return Lamp.schematic;
+        }
+        if (Battery.class.isAssignableFrom(this.getClass())) {
+            return Battery.schematic;
+        }
+        return null;
+    }
+    private Color getColor() {
+        if (Lamp.class.isAssignableFrom(this.getClass())) {
+            return Lamp.iconColor;
+        }
+        if (Battery.class.isAssignableFrom(this.getClass())) {
+            return Battery.iconColor;
+        }
+        return null;
+    }
+    public void fill() {
+        if (Globals.schematicIcons) {
+            icon.setFill(getSchematic());
+        }
+        else {
+            icon.setFill(getColor());
+        }
+    }
 }

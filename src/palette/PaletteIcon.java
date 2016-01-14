@@ -14,11 +14,8 @@ public class PaletteIcon extends Rectangle {
 
     public PaletteIcon(Component componentType) {
         this.componentType = componentType;
-        if (Globals.schematicIcons) {
-            this.setFill(new ImagePattern(new Image("file:img/lamp-icon.png")));
-        } else {
-            this.setFill(ComponentColorMap.getInstance().getColor(componentType.getClass()));
-        }
+        componentType.setIcon(this);
+        componentType.fill();
         this.setWidth(size);
         this.setHeight(size);
         this.setOnMouseClicked((event) -> ComponentFactory.getInstance().newComponent(componentType.getClass(), this.getLayoutX()+size/2, this.getLayoutY()+size/2));

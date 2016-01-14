@@ -18,11 +18,11 @@ public class Battery extends Component {
     public void setVoltage(double voltage){
         this.voltage = voltage;
     }
-    public void changeIcon(boolean schematic) {
+    /*public void changeIcon(boolean schematic) {
         if (schematic) {
             this.icon.setFill(this.schematic);
         } else {
             this.icon.setFill(this.iconColor);
         }
-    }
+    }*/
 }

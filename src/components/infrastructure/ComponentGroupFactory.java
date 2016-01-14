@@ -41,6 +41,7 @@ public class ComponentGroupFactory {
             }
             rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
+            //component.fill();
             component.setIcon(rectangle);
 
         } else if (component instanceof Battery) {
@@ -49,8 +50,10 @@ public class ComponentGroupFactory {
                 rectangle.setFill(Battery.schematic);
             } else {
                 rectangle.setFill(Battery.iconColor);
-            }            rectangle.setStroke(Component.OUTLINE);
+            }
+            rectangle.setStroke(Component.OUTLINE);
             componentGroup.getChildren().add(rectangle);
+            //component.fill();
             component.setIcon(rectangle);
         } else {
             return null;

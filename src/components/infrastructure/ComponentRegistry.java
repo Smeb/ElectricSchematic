@@ -76,12 +76,7 @@ public class ComponentRegistry {
     }
     public void changeIcons() {
         for (Component c : components) {
-            if (c instanceof Battery) {
-                ((Battery)c).changeIcon(Globals.schematicIcons);
-            }
-            else if (c instanceof Lamp) {
-                ((Lamp)c).changeIcon(Globals.schematicIcons);
-            }
+            c.fill();
         }
     }
 }

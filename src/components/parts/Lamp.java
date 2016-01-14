@@ -14,11 +14,11 @@ public class Lamp extends Component {
     public Lamp() {
         this.name = "Lamp";
     }
-    public void changeIcon(boolean schematic) {
+    /*public void changeIcon(boolean schematic) {
         if (schematic) {
             this.icon.setFill(this.schematic);
         } else {
             this.icon.setFill(this.iconColor);
         }
-    }
+    }*/
 }
