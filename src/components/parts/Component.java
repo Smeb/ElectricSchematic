@@ -5,6 +5,7 @@ import components.infrastructure.ComponentGroup;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.LinkedList;
@@ -65,7 +66,7 @@ public abstract class Component {
         }
         return null;
     }
-    private Color getColor() {
+    private Paint getColor() {
         if (Lamp.class.isAssignableFrom(this.getClass())) {
             return Lamp.iconColor;
         }
