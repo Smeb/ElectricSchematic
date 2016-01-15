@@ -32,9 +32,9 @@ public class ParallelComponent extends Component {
     public double getResistance(){
         double resistance = 0.0;
         for(Component c : components){
-            resistance += c.getResistance();
+            resistance += Math.pow(c.getResistance(), -1);
         }
-        return resistance;
+        return Math.pow(resistance, -1);
     }
 
     @Override

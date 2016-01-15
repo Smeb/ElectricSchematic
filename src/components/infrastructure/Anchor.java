@@ -1,17 +1,21 @@
 package components.infrastructure;
 
 import components.parts.Component;
-import controllers.WireController;
+import components.wires.ToolWire;
+import components.wires.WireController;
 import datastructures.CoordinatePair;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import tools.Wire;
+import components.wires.Wire;
+
+import java.util.LinkedList;
 
 public class Anchor extends Circle {
     private static final double ANCHOR_SIZE = 5.0;
     private static int id = 0;
     private Direction direction = Direction.unset;
     private Wire wire;
+    private LinkedList<ToolWire> toolWires;
     private Component parentComponent;
     private int thisId;
 
@@ -24,6 +28,7 @@ public class Anchor extends Circle {
         this.setFill(Color.BLACK);
         this.setStrokeWidth(3.0);
         this.setStroke(Color.TRANSPARENT);
+        toolWires = new LinkedList<>();
     }
 
     public int getAnchorId(){return thisId;}
@@ -43,9 +48,9 @@ public class Anchor extends Circle {
         return this.wire;
     }
 
-    public void addWire(Wire wire, Direction direction){
+    public void addWire(Wire wire){
         this.wire = wire;
-        this.direction = direction;
+        this.direction = Direction.set;
     }
 
     public void removeWire(){
@@ -53,9 +58,20 @@ public class Anchor extends Circle {
         this.direction = Anchor.Direction.unset;
     }
 
-    public void updateWire(){
+    public void addToolWire(ToolWire wire){
+        toolWires.add(wire);
+    }
+
+    public void removeToolWire(ToolWire wire){
+        toolWires.remove(wire);
+    }
+
+    public void updateWires(){
         if(wire != null){
             wire.update(this);
+        }
+        for(ToolWire w : toolWires){
+            w.update(this);
         }
     }
 
@@ -77,5 +93,5 @@ public class Anchor extends Circle {
 
     public Direction getDirection(){return direction;}
 
-    public enum Direction {start, end, unset}
+    public enum Direction {set, unset}
 }

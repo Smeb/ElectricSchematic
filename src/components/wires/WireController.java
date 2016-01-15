@@ -1,9 +1,9 @@
-package controllers;
+package components.wires;
 
 import components.infrastructure.Anchor;
 import components.parts.Component;
+import components.parts.Voltmeter;
 import javafx.scene.Group;
-import tools.Wire;
 
 public class WireController {
 
@@ -29,8 +29,6 @@ public class WireController {
     public Wire makeWire(Anchor start, Anchor end)
     {
         Wire wire = new Wire(start, end);
-        workspace.getChildren().add(wire);
-        setInteractions(wire);
         return wire;
     }
 
@@ -42,13 +40,25 @@ public class WireController {
     public void setStart(Anchor start){this.start = start;}
     public void completeWire(Anchor end){
         Wire wire;
+        if(end.getParentComponent() instanceof Voltmeter){
+            return;
+        }
+
         if(start.getWire() != null) {
             deleteWire(start.getWire());
         }
-        wire = makeWire(start, end);
-        start.addWire(wire, Anchor.Direction.start);
-        end.addWire(wire, Anchor.Direction.end);
-        connectComponents(start.getParentComponent(), end.getParentComponent());
+        if(start.getParentComponent() instanceof Voltmeter){
+            wire = new ToolWire(start, end);
+            start.addWire((ToolWire)wire);
+            end.addToolWire((ToolWire)wire);
+        } else {
+            wire = new Wire(start, end);
+            connectComponents(start.getParentComponent(), end.getParentComponent());
+            start.addWire(wire);
+            end.addWire(wire);
+        }
+        workspace.getChildren().add(wire);
+
 
     }
 
@@ -72,8 +82,6 @@ public class WireController {
         wire.getEndAnchor().removeWire();
         eraseWire(wire);
     }
-
-    private void setInteractions(Wire wire){}
 
     public void eraseWire(Wire wire) {
         workspace.getChildren().remove(wire);

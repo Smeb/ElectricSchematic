@@ -1,4 +1,4 @@
-package tools;
+package components.wires;
 
 /**
  * Created by ben on 13/01/16.

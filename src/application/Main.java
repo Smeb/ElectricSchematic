@@ -3,7 +3,7 @@ package application;
 import components.infrastructure.ComponentViewFactory;
 import components.infrastructure.ParallelComponent;
 import components.parts.*;
-import controllers.WireController;
+import components.wires.WireController;
 import evaluation.Evaluator;
 import javafx.application.Application;
 import javafx.scene.Group;

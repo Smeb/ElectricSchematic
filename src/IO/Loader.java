@@ -3,7 +3,7 @@ package IO;
 import components.infrastructure.Anchor;
 import components.infrastructure.ComponentRegistry;
 import components.parts.*;
-import controllers.WireController;
+import components.wires.WireController;
 import datastructures.ComponentConnections;
 import javafx.scene.Node;
 import org.json.JSONArray;

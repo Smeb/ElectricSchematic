@@ -86,7 +86,7 @@ public class ComponentViewFactory {
             for(Node n : group.getChildren()){
                 if(n instanceof Anchor){
                     Anchor a = (Anchor)n;
-                    a.updateWire();
+                    a.updateWires();
                 }
             }
             dragContext.setXY(group.getLayoutX() - event.getSceneX(),
@@ -101,7 +101,7 @@ public class ComponentViewFactory {
             for(Node n : group.getChildren()){
                 if(n.getClass() == Anchor.class){
                     Anchor a = (Anchor)n;
-                    a.updateWire();
+                    a.updateWires();
                 }
             }
         });

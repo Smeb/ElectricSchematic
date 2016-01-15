@@ -1,7 +1,8 @@
 package components.infrastructure;
 
 import components.parts.Component;
-import controllers.WireController;
+import components.parts.Voltmeter;
+import components.wires.WireController;
 import datastructures.CoordinatePair;
 import javafx.event.Event;
 import javafx.geometry.Bounds;
@@ -62,7 +63,9 @@ public class AnchorFactory {
             WireController wireController = WireController.getInstance();
             if(wireController.active() &&
                     wireController.getStartAnchor().getParent() != anchor.getParent() &&
-                    anchor.getDirection() == Anchor.Direction.unset) {
+                    (anchor.getDirection() == Anchor.Direction.unset ||
+                            (wireController.getStartAnchor().getParentComponent() instanceof Voltmeter ||
+                            anchor.getParentComponent() instanceof Voltmeter))) {
                 wireController.completeWire(anchor);
                 wireController.setDormant();
             }

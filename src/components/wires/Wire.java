@@ -1,12 +1,12 @@
-package tools;
+package components.wires;
 
 import components.infrastructure.Anchor;
 import javafx.scene.shape.Line;
 
 public class Wire extends Line
 {
-    private Anchor start;
-    private Anchor end;
+    protected Anchor start;
+    protected Anchor end;
 
     public Wire(Anchor start, Anchor end)
     {
@@ -17,23 +17,14 @@ public class Wire extends Line
     }
 
     public Anchor getParentAnchor(){return start;}
-
-    public void setParentAnchor(Anchor start){
-        this.start = start;
-    }
-
     public Anchor getEndAnchor(){return end;}
-
-    public void setEndAnchor(Anchor end){
-        this.end = end;
-    }
 
     public void update(Anchor anchor)
     {
-        if(anchor.getDirection() == Anchor.Direction.start){
+        if(anchor == this.start){
             this.setStartX(anchor.getPosition().getX());
             this.setStartY(anchor.getPosition().getY());
-        } else if (anchor.getDirection() == Anchor.Direction.end) {
+        } else {
             this.setEndX(anchor.getPosition().getX());
             this.setEndY(anchor.getPosition().getY());
         } this.toFront();
