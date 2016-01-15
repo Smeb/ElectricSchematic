@@ -12,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public abstract class Component {
@@ -31,7 +30,8 @@ public abstract class Component {
     protected ComponentView componentView;
     protected LinkedList<Component> connectedComponents;
     protected Component nextComponent;
-    private HashMap<Anchor, Integer> anchorPolarities = new HashMap<>();
+    private Anchor positiveAnchor;
+    private Anchor negativeAnchor;
 
     public Component(){
         thisId = -1;
@@ -49,8 +49,20 @@ public abstract class Component {
         id =0;
     }
 
-    public void setAnchorPolarity(Anchor anchor, int polarity){
-        anchorPolarities.put(anchor, polarity);
+    public void setAnchorPolarity(Anchor anchor, boolean isPositive){
+        if(isPositive){
+            positiveAnchor = anchor;
+        } else {
+            negativeAnchor = anchor;
+        }
+    }
+
+    public boolean getAnchorPolarity(Anchor a){
+        if(positiveAnchor == a){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Group getGroup(){

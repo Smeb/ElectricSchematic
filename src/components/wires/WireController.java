@@ -40,19 +40,22 @@ public class WireController {
     public void setStart(Anchor start){this.start = start;}
     public void completeWire(Anchor end){
         Wire wire;
+        if(start.getWire() != null) {
+            if(start.getWire() instanceof ToolWire){
+                deleteToolWire((ToolWire)start.getWire());
+            } else {
+                deleteWire(start.getWire());
+            }
+        }
         if(end.getParentComponent() instanceof Voltmeter){
             return;
         }
-        if(start.getWire() != null) {
-            deleteWire(start.getWire());
-        } else if (end.getWire() != null){
-            deleteWire(end.getWire());
-        }
         if(start.getParentComponent() instanceof Voltmeter){
             wire = new ToolWire(start, end);
-            start.addWire((ToolWire)wire);
+            start.addWire(wire);
             end.addToolWire((ToolWire)wire);
         } else {
+
             wire = new Wire(start, end);
             connectComponents(start.getParentComponent(), end.getParentComponent());
             start.addWire(wire);
@@ -71,6 +74,12 @@ public class WireController {
     private void decoupleComponents(Component componentA, Component componentB){
         componentA.removeConnectedComponent(componentB);
         componentB.removeConnectedComponent(componentA);
+    }
+
+    public void deleteToolWire(ToolWire wire){
+        wire.getParentAnchor().removeWire();
+        wire.getEndAnchor().removeToolWire(wire);
+        eraseWire(wire);
     }
 
     public void deleteWire(Wire wire){
