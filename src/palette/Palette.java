@@ -26,7 +26,7 @@ public class Palette extends FlowPane {
         this.setLayoutX(x);
         this.setLayoutY(y);
         this.setWidth(iconsPerRow*(iconSize+hgap));
-        this.setPrefWrapLength(100);
+        this.setPrefWrapLength(120);
         this.setPadding(new Insets(20, 30, 20, 30));
         this.setVgap(8);
         this.setHgap(hgap);
@@ -57,12 +57,18 @@ public class Palette extends FlowPane {
                         if (Globals.schematicIcons) {
                             switch(i) {
                                 case 0: tool.setFill(new ImagePattern(new Image("file:img/2x-lamp-icon.png"))); break;
+                                case 1: tool.setFill(new ImagePattern(new Image("file:img/lamp-resistor-icon.png"))); break;
+                                case 2: tool.setFill(new ImagePattern(new Image("file:img/2x-resistor-icon.png"))); break;
+                                case 3: tool.setFill(new ImagePattern(new Image("file:img/3x-lamp-icon.png"))); break;
                             }
                             tool.setStroke(Color.TRANSPARENT);
                         } else {
 
                             switch (i) {
                                 case 0: tool.setFill(new ImagePattern(new Image("file:img/2x-lamp-colour.png"))); break;
+                                case 1: tool.setFill(new ImagePattern(new Image("file:img/lamp-resistor-colour.png"))); break;
+                                case 2: tool.setFill(new ImagePattern(new Image("file:img/2x-resistor-colour.png"))); break;
+                                case 3: tool.setFill(new ImagePattern(new Image("file:img/3x-lamp-colour.png"))); break;
                             }
                             tool.setStroke(Color.BLACK);
                         }
