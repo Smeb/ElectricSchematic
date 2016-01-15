@@ -8,3 +8,4 @@ The circuit can then be analysed with the ammeter and voltmeter tool to get the 
 ##Usage
 
 Simply git clone the repoiroty then import this project into your favourite IDE and run the Application/main. 
+Schematics are saved and loaded as JSON. You can find some example files in the data folder.
