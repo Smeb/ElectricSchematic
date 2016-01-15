@@ -16,6 +16,7 @@ public class Evaluator {
     }
 
     public void evaluate(){
+        ComponentRegistry.getInstance().setAllNextComponentsNull();
         for(Component c : registry.getComponents()){
             registryCopy.add(c);
         }
@@ -31,6 +32,7 @@ public class Evaluator {
     }
 
     public void evaluateGraph(Component c, ConcurrentLinkedQueue<Component> r){
+
         Component current = c;
         HashSet<Integer> visitedComponents = new HashSet<>();
         double rTotal = 0.0;
@@ -40,7 +42,7 @@ public class Evaluator {
             return;
         }
         // Iterate once and find the resistance
-        while((current = getNextComponent(current, visitedComponents)) != null){
+        while((current.getNextComponent()) == null && (current = findNextComponent(current)) != null){
             r.remove(current);
             rTotal += current.getResistance();
             vTotal += current.getVoltage();
@@ -50,31 +52,31 @@ public class Evaluator {
             }
         }
 
-        current = c;
-        visitedComponents = new HashSet<>();
         double aTotal = vTotal / rTotal;
 
+        System.out.println("Second iteration");
         // Iterate a second time and set the current of all components
         Component origin = c;
-        while(c.getNextComponent() != origin){
+        System.out.println(origin.toString());
+        while((c = c.getNextComponent()) != origin){
             System.out.println(c.toString());
         }
         System.out.println("V: " + vTotal + " R: " + rTotal + " A: " + aTotal);
     }
 
-    private Component getNextComponent(Component component, HashSet<Integer> visitedComponents){
+    private Component findNextComponent(Component component){
+        System.out.print("Given a : " + component.toString());
         if(component instanceof Battery){
             Component c = ((Battery) component).getPositiveConnection();
-            if(!visitedComponents.contains(c.thisId)){
-                visitedComponents.add(c.thisId);
-                component.setNextComponent(c);
-                return c;
-            }
+            component.setNextComponent(c);
+            System.out.println("found a : " + c.toString());
+            return c;
+
         } else {
             for(Component c : component.getConnectedComponents()){
-                if(!visitedComponents.contains(c.thisId)){
-                    visitedComponents.add(c.thisId);
+                if(c.getNextComponent() != component){
                     component.setNextComponent(c);
+                    System.out.println("found a : " + c.toString());
                     return c;
                 }
             }
