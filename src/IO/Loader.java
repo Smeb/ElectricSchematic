@@ -33,6 +33,10 @@ public class Loader
                 return Battery.class;
             case "Resistor":
                 return Resistor.class;
+            case "Ammeter":
+                return Ammeter.class;
+            case "Voltmeter":
+                return Voltmeter.class;
             default:
                 return null;
         }

@@ -1,14 +1,20 @@
 package palette;
 
+import application.Globals;
+import components.infrastructure.ParallelComponent;
 import components.parts.Component;
+import components.parts.Lamp;
 import javafx.geometry.Insets;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Palette extends FlowPane {
     private ArrayList<PaletteIcon> contents;
@@ -20,7 +26,7 @@ public class Palette extends FlowPane {
         this.setLayoutX(x);
         this.setLayoutY(y);
         this.setWidth(iconsPerRow*(iconSize+hgap));
-        this.setPrefWrapLength(100);
+        this.setPrefWrapLength(120);
         this.setPadding(new Insets(20, 30, 20, 30));
         this.setVgap(8);
         this.setHgap(hgap);
@@ -41,8 +47,39 @@ public class Palette extends FlowPane {
         }
     }
     public void changeIcons() {
+        int i = 0;
         for (PaletteIcon tool : contents) {
-            tool.getComponentType().fill();
+
+            if (tool.getComponentType() instanceof ParallelComponent) {
+
+                //if (((ParallelComponent) tool.getComponentType()).getComponents().size() > 1) {
+                    //if (((ParallelComponent) tool.getComponentType()).getComponents().get(0) instanceof Lamp) {
+                        if (Globals.schematicIcons) {
+                            switch(i) {
+                                case 0: tool.setFill(new ImagePattern(new Image("file:img/2x-lamp-icon.png"))); break;
+                                case 1: tool.setFill(new ImagePattern(new Image("file:img/lamp-resistor-icon.png"))); break;
+                                case 2: tool.setFill(new ImagePattern(new Image("file:img/2x-resistor-icon.png"))); break;
+                                case 3: tool.setFill(new ImagePattern(new Image("file:img/3x-lamp-icon.png"))); break;
+                            }
+                            tool.setStroke(Color.TRANSPARENT);
+                        } else {
+
+                            switch (i) {
+                                case 0: tool.setFill(new ImagePattern(new Image("file:img/2x-lamp-colour.png"))); break;
+                                case 1: tool.setFill(new ImagePattern(new Image("file:img/lamp-resistor-colour.png"))); break;
+                                case 2: tool.setFill(new ImagePattern(new Image("file:img/2x-resistor-colour.png"))); break;
+                                case 3: tool.setFill(new ImagePattern(new Image("file:img/3x-lamp-colour.png"))); break;
+                            }
+                            tool.setStroke(Color.BLACK);
+                        }
+
+                    //}
+                //}
+                i++;
+            }
+            else {
+                tool.getComponentType().fill();
+            }
         }
     }
 }

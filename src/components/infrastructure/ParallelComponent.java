@@ -41,6 +41,8 @@ public class ParallelComponent extends Component {
     public void setCurrent(double current){
 
     }
-
+    public Vector<Component> getComponents() {
+        return components;
+    }
 
 }
