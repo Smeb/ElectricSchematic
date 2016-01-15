@@ -4,6 +4,7 @@ import application.Globals;
 import components.parts.Battery;
 import components.parts.Lamp;
 import components.parts.Resistor;
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +40,11 @@ public class EvaluatorTest {
         resistor.addConnectedComponent(resistor);
         new Evaluator().evaluate();
         assertEquals("Battery and Lamp voltage should match", resistor.getCurrent(), lamp.getCurrent());
+    }
+    @Test
+    public void defaultParametersAreEqual() {
+        Battery battery2 = new Battery();
+        assertEquals(battery2.getVoltage(),battery.getVoltage());
     }
 
     @After

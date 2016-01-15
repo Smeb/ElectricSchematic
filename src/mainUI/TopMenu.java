@@ -80,5 +80,4 @@ public class TopMenu {
         menuBar.getMenus().addAll(menuNew, menuOpen, menuSave);
         return menuBar;
     }
-
 }
