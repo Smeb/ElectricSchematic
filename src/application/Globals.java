@@ -5,4 +5,5 @@ package application;
  */
 public class Globals {
     public static boolean schematicIcons = true;
+    public static boolean testMode = false;
 }

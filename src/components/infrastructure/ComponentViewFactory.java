@@ -1,5 +1,6 @@
 package components.infrastructure;
 
+import application.Globals;
 import components.controls.RightClickMenuFactory;
 import components.parts.Component;
 import datastructures.ComponentValueMap;
@@ -47,7 +48,9 @@ public class ComponentViewFactory {
         addAnchors(componentView);
         componentView.setLayoutX(posX);
         componentView.setLayoutY(posY + PaletteIcon.size / 2);
-        workspace.getChildren().add(componentView);
+        if(!Globals.testMode){
+            workspace.getChildren().add(componentView);
+        }
     }
 
     private Rectangle buildSingleComponent(Component component, ComponentView componentView){

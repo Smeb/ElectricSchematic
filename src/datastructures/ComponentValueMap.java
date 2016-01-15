@@ -1,5 +1,6 @@
 package datastructures;
 
+import application.Globals;
 import components.infrastructure.ParallelComponent;
 import components.parts.Battery;
 import components.parts.Lamp;
@@ -15,37 +16,39 @@ public class ComponentValueMap {
 
     private ComponentValueMap(){
         valueMap = new HashMap<>();
-        valueMap.put(Lamp.class, new DefaultComponentValues(
-                80.0,
-                80.0,
-                new ImagePattern(new Image("file:img/lamp-colour.png")),
-                new ImagePattern(new Image("file:img/lamp-icon.png")),
-                "Lamp"
-        ));
+        if(!Globals.testMode) {
+            valueMap.put(Lamp.class, new DefaultComponentValues(
+                    80.0,
+                    80.0,
+                    new ImagePattern(new Image("file:img/lamp-colour.png")),
+                    new ImagePattern(new Image("file:img/lamp-icon.png")),
+                    "Lamp"
+            ));
 
-        valueMap.put(Battery.class, new DefaultComponentValues(
-                50.0,
-                80.0,
-                new ImagePattern(new Image("file:img/battery-colour.png")),
-                new ImagePattern(new Image("file:img/battery-icon.png")),
-                "Battery"
-        ));
+            valueMap.put(Battery.class, new DefaultComponentValues(
+                    50.0,
+                    80.0,
+                    new ImagePattern(new Image("file:img/battery-colour.png")),
+                    new ImagePattern(new Image("file:img/battery-icon.png")),
+                    "Battery"
+            ));
 
-        valueMap.put(Resistor.class, new DefaultComponentValues(
-                50.0,
-                80.0,
-                new ImagePattern(new Image("file:img/resistor-colour.png")),
-                new ImagePattern(new Image("file:img/resistor-icon.png")),
-                "Resistor"
-        ));
+            valueMap.put(Resistor.class, new DefaultComponentValues(
+                    50.0,
+                    80.0,
+                    new ImagePattern(new Image("file:img/resistor-colour.png")),
+                    new ImagePattern(new Image("file:img/resistor-icon.png")),
+                    "Resistor"
+            ));
 
-        valueMap.put(ParallelComponent.class, new DefaultComponentValues(
-                0.0,
-                0.0,
-                new ImagePattern(new Image("file:img/battery-colour.png")),
-                new ImagePattern(new Image("file:img/battery-icon.png")),
-                "ParallelComponent"
-        ));
+            valueMap.put(ParallelComponent.class, new DefaultComponentValues(
+                    0.0,
+                    0.0,
+                    new ImagePattern(new Image("file:img/battery-colour.png")),
+                    new ImagePattern(new Image("file:img/battery-icon.png")),
+                    "ParallelComponent"
+            ));
+        }
     }
 
     public static ComponentValueMap getInstance(){

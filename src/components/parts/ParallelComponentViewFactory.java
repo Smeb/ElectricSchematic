@@ -1,5 +1,6 @@
 package components.parts;
 
+import application.Globals;
 import components.infrastructure.*;
 import datastructures.ComponentValueMap;
 import datastructures.CoordinatePair;
@@ -37,7 +38,6 @@ public class ParallelComponentViewFactory {
             }
             current = ComponentFactory.getInstance().newComponent(c, 0.0, 0.0, true);
             components.add(current);
-
             currentView = viewFactory.buildComponentGroup(current);
             current.setComponentView(currentView);
 
