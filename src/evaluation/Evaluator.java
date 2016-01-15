@@ -59,7 +59,7 @@ public class Evaluator {
         Component origin = c;
         System.out.println(origin.toString());
         while((c = c.getNextComponent()) != origin){
-            System.out.println(c.toString());
+            c.setCurrent(aTotal);
         }
         System.out.println("V: " + vTotal + " R: " + rTotal + " A: " + aTotal);
     }
