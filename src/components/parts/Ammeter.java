@@ -25,7 +25,7 @@ public class Ammeter extends HasDisplay {
     public void setCurrent(double current){
         this.current = current;
         this.currentString = String.valueOf(Math.round(current * 100) / 100.0);
-        display.setText(currentString);
+        display.setText(currentString + " A");
     }
 
     protected Ammeter(double voltage, double resistance, boolean composite){

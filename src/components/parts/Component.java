@@ -45,7 +45,6 @@ public abstract class Component {
 
     protected Component(boolean composite){
         thisId = id++;
-        System.out.println(this.toString() + " set an id of : " + this.thisId);
         connectedComponents = new LinkedList<>();
         this.composite = composite;
     }

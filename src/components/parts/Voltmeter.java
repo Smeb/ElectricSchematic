@@ -1,9 +1,16 @@
 package components.parts;
 
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
+
+import java.awt.*;
+
 /**
  * Created by minttu on 14/01/2016.
  */
-public class Voltmeter extends Component {
+public class Voltmeter extends HasDisplay {
+    String voltString;
+
     public Voltmeter(){
     }
 
@@ -17,5 +24,14 @@ public class Voltmeter extends Component {
         super(composite);
         this.voltage = voltage;
         this.resistance = resistance;
+    }
+
+    public void setVoltDisplay(double v){
+        voltString = String.valueOf(Math.round((v * 100) / 100.0));
+        display.setText(voltString + " V");
+    }
+
+    public void setDisplayNode(Label label){
+        this.display = label;
     }
 }

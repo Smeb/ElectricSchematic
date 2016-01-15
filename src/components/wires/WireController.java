@@ -43,9 +43,10 @@ public class WireController {
         if(end.getParentComponent() instanceof Voltmeter){
             return;
         }
-
         if(start.getWire() != null) {
             deleteWire(start.getWire());
+        } else if (end.getWire() != null){
+            deleteWire(end.getWire());
         }
         if(start.getParentComponent() instanceof Voltmeter){
             wire = new ToolWire(start, end);
