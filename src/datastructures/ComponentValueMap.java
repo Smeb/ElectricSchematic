@@ -34,7 +34,7 @@ public class ComponentValueMap {
         valueMap.put(Resistor.class, new DefaultComponentValues(
                 30.0,
                 80.0,
-                new ImagePattern(new Image("file:img/resistor-colour.png")),
+                new ImagePattern(new Image("file:img/resistor-colou r.png")),
                 new ImagePattern(new Image("file:img/resistor-icon.png")),
                 "Resistor"
         ));

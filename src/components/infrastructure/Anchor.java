@@ -2,11 +2,11 @@ package components.infrastructure;
 
 import components.parts.Component;
 import components.wires.ToolWire;
+import components.wires.Wire;
 import components.wires.WireController;
 import datastructures.CoordinatePair;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import components.wires.Wire;
 
 import java.util.LinkedList;
 
@@ -18,7 +18,6 @@ public class Anchor extends Circle {
     private LinkedList<ToolWire> toolWires;
     private Component parentComponent;
     private int thisId;
-
     protected Anchor(Component component, CoordinatePair pair){
         super(ANCHOR_SIZE);
         thisId = id++;
