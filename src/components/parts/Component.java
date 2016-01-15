@@ -3,6 +3,7 @@ package components.parts;
 import application.Globals;
 import components.infrastructure.Anchor;
 import components.infrastructure.ComponentView;
+import components.infrastructure.ParallelComponent;
 import datastructures.ComponentValueMap;
 import datastructures.CoordinatePair;
 import javafx.scene.Group;
@@ -30,6 +31,7 @@ public abstract class Component {
     protected Rectangle icon;
     protected ComponentView componentView;
     protected LinkedList<Component> connectedComponents;
+    protected Component nextComponent;
 
     public Component(){
         thisId = -1;
@@ -72,6 +74,9 @@ public abstract class Component {
     public double getCurrent(){return current;}
     public void setCurrent(double current){this.current = current;}
 
+    public void setNextComponent(Component component){nextComponent = component;}
+    public Component getNextComponent(){return nextComponent;}
+
 
     @Override
     public String toString(){
@@ -81,13 +86,14 @@ public abstract class Component {
     public void setIcon(Rectangle icon) { this.icon = icon; }
 
     public void fill() {
-        if (Globals.schematicIcons) {
-            icon.setFill(ComponentValueMap.getInstance().get(this.getClass()).getSchematic());
-            icon.setStroke(Color.TRANSPARENT);
-        }
-        else {
-            icon.setFill(ComponentValueMap.getInstance().get(this.getClass()).getIconImage());
-            icon.setStroke(Color.BLACK);
+        if(!(this instanceof ParallelComponent)) {
+            if (Globals.schematicIcons) {
+                icon.setFill(ComponentValueMap.getInstance().get(this.getClass()).getSchematic());
+                icon.setStroke(Color.TRANSPARENT);
+            } else {
+                icon.setFill(ComponentValueMap.getInstance().get(this.getClass()).getIconImage());
+                icon.setStroke(Color.BLACK);
+            }
         }
     }
 

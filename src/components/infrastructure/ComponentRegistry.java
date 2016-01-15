@@ -29,6 +29,12 @@ public class ComponentRegistry {
         return (ArrayList<Component>)components.clone();
     }
 
+    public void setAllNextComponentsNull(){
+        for(Component c : components){
+            c.setNextComponent(null);
+        }
+    }
+
     public void deleteComponent(int thisId) {
         System.out.println("Deleting");
         Component target = null;

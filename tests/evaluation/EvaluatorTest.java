@@ -19,6 +19,7 @@ public class EvaluatorTest {
     private Resistor resistor;
     @Before
     public void before(){
+        Globals.testMode = true;
         battery = new Battery();
         lamp = new Lamp();
         resistor = new Resistor();
@@ -26,7 +27,6 @@ public class EvaluatorTest {
 
     @Test
     public void testConnectedBatteryToLamp() {
-        Globals.testMode = true;
         battery.addPositiveComponent(lamp);
         lamp.addConnectedComponent(battery);
         new Evaluator().evaluate();
@@ -35,7 +35,6 @@ public class EvaluatorTest {
 
     @Test
     public void testConnectedBatteryToResistor() {
-        Globals.testMode = true;
         battery.addPositiveComponent(lamp);
         resistor.addConnectedComponent(resistor);
         new Evaluator().evaluate();
