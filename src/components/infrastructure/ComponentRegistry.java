@@ -29,6 +29,13 @@ public class ComponentRegistry {
         return (ArrayList<Component>)components.clone();
     }
 
+    public void setAllPolaritiesNull(){
+        for(Component c : components){
+            c.setAnchorPolarity(null, true);
+            c.setAnchorPolarity(null, false);
+        }
+    }
+
     public void setAllNextComponentsNull(){
         for(Component c : components){
             c.setNextComponent(null);
