@@ -3,10 +3,15 @@ package components.parts;
 import datastructures.ComponentValueMap;
 import datastructures.DefaultComponentValues;
 
+import java.util.LinkedList;
+
 public class Lamp extends Component {
     private static final DefaultComponentValues componentDefaults = ComponentValueMap.getInstance().get(Lamp.class);
 
     public Lamp(){
+        connectedComponents = new LinkedList<>();
+        this.voltage = 0.0;
+        this.resistance = 1.1;
     }
 
     protected Lamp(boolean composite) {

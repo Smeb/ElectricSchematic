@@ -56,6 +56,9 @@ public abstract class Component {
     public void addConnectedComponent(Component component){
         connectedComponents.add(component);
     }
+    public void removeConnectedComponent(Component component) {
+        connectedComponents.removeFirstOccurrence(component);
+    }
     public LinkedList<Component> getConnectedComponents(){return connectedComponents;}
 
     public double getResistance(){return resistance;}

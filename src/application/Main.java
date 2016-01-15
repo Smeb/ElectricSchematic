@@ -28,6 +28,9 @@ public class Main extends Application {
         tools.add(new Battery());
         tools.add(new Resistor());
         tools.add(new ParallelComponent());
+        tools.add(new ParallelComponent());
+        tools.add(new ParallelComponent());
+        tools.add(new ParallelComponent());
         tools.add(new Ammeter());
         tools.add(new Voltmeter());
         int toolsPerRow = 3;
@@ -35,9 +38,8 @@ public class Main extends Application {
         return new Palette(30,50,iconSize,toolsPerRow,tools);
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-
+    public Scene initScene(Stage primaryStage){
+        primaryStage.setTitle("Electric Schematic");
         Group workspace = new Group();
         VBox outerFrame = new VBox();
         ComponentViewFactory.setWorkspace(workspace);
@@ -66,9 +68,19 @@ public class Main extends Application {
                 wireController.setDormant();
             }
         });
-        primaryStage.setTitle("Electric Schematic");
-        primaryStage.setScene(programScene);
-        primaryStage.show();
+        return programScene;
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+
+
+
+        primaryStage.setScene(initScene(primaryStage));
+        if(!Globals.testMode){
+            primaryStage.show();
+        }
+
 
         /*
         URL url = getClass().getResource("test.txt");

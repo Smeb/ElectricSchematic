@@ -1,5 +1,6 @@
 package components.parts;
 
+import application.Globals;
 import components.infrastructure.*;
 import datastructures.ComponentValueMap;
 import datastructures.CoordinatePair;
@@ -37,7 +38,6 @@ public class ParallelComponentViewFactory {
             }
             current = ComponentFactory.getInstance().newComponent(c, 0.0, 0.0, true);
             components.add(current);
-
             currentView = viewFactory.buildComponentGroup(current);
             current.setComponentView(currentView);
 
@@ -46,6 +46,7 @@ public class ParallelComponentViewFactory {
 
             currentView.setLayoutY(heightOffset);
             heightOffset += ComponentValueMap.getInstance().get(c).getHeight() + ParallelComponent.PARALLELOFFSET;
+            // ComponentViewFactory.getInstance().enableRightClick(currentView);
             componentViews.add(currentView);
             i++;
         }
@@ -67,6 +68,7 @@ public class ParallelComponentViewFactory {
 
         viewFactory.buildInteractions(componentView, 20.0, 20.0);
         //TODO: Registration of interaction events on child views
+        ComponentRegistry.getInstance().addComponent(parallelComponent);
         return parallelComponent;
     }
 
