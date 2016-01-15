@@ -21,9 +21,6 @@ import java.io.File;
  * Created by carlahyenne on 12/01/2016.
  */
 public class TopMenu {
-    private Menu menuNew;
-    private Menu menuOpen;
-    private Menu menuSave;
 
     public MenuBar makeMenu(Stage primaryStage) {
 
@@ -35,9 +32,9 @@ public class TopMenu {
         Label openLabel = new Label("Open");
         Label saveLabel = new Label("Save");
 
-        menuNew = new Menu();
-        menuOpen = new Menu();
-        menuSave = new Menu();
+        Menu menuNew = new Menu();
+        Menu menuOpen = new Menu();
+        Menu menuSave = new Menu();
 
         menuNew.setGraphic(newLabel);
         menuOpen.setGraphic(openLabel);
@@ -82,8 +79,5 @@ public class TopMenu {
 
         menuBar.getMenus().addAll(menuNew, menuOpen, menuSave);
         return menuBar;
-    }
-    public Menu getMenuNew() {
-        return menuNew;
     }
 }
