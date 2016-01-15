@@ -3,7 +3,7 @@
 A simple tool for simulating electronic Circuits. Made using JavaFX. 
 
 #### Components
-It can model circuits that contain batteries, lamps and resistors.  There is also limited support for some combinations of these components in parrallel.
+The application can model circuits that contain batteries, lamps and resistors.  There is also limited support for some combinations of these components in parrallel.
 Each component can be edited by right-clicking on it and adjusting the slider value for resistance or voltage.
 
 #### Circuits
