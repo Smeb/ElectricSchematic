@@ -3,12 +3,14 @@ package components.infrastructure;
 import application.Globals;
 import components.controls.RightClickMenuFactory;
 import components.parts.Component;
+import components.parts.HasDisplay;
 import datastructures.ComponentValueMap;
 import datastructures.CoordinatePair;
 import datastructures.DefaultComponentValues;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
@@ -35,6 +37,13 @@ public class ComponentViewFactory {
             System.out.println("Component not loaded into DefaultValueMap");
         }
         buildSingleComponent(component, componentView);
+        if(component instanceof HasDisplay){
+            Label label = new Label("xx");
+            label.setLayoutY(ComponentValueMap.getInstance().get(component.getClass()).getHeight() + 3.0);
+            label.setLayoutX(ComponentValueMap.getInstance().get(component.getClass()).getWidth() / 2);
+            ((HasDisplay) component).setDisplayNode(label);
+            componentView.getChildren().add(label);
+        }
         return componentView;
 
         /* Fail condition, currently returning null
@@ -86,8 +95,6 @@ public class ComponentViewFactory {
         });
 
         group.setOnMouseEntered((event) -> group.setCursor(Cursor.HAND));
-
-        // TODO: Refactor anchor wire handling coupling
         group.setOnMouseDragged((event) -> {
             group.setLayoutX(event.getSceneX() + dragContext.getX());
             group.setLayoutY(event.getSceneY() + dragContext.getY());
