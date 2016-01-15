@@ -35,7 +35,7 @@ public class Writer
         ArrayList<Anchor> returnValues = new ArrayList<>();
         for(Node n :c.getGroup().getChildren()){
             if(n instanceof Anchor){
-                if(((Anchor) n).getDirection() == Anchor.Direction.start)
+                if(((Anchor) n).getWire().getParentAnchor() == n)
                     returnValues.add((Anchor)n);
             }
         }
