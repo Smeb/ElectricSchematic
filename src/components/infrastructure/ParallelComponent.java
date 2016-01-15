@@ -12,9 +12,7 @@ public class ParallelComponent extends Component {
     private static final DefaultComponentValues componentDefaults = ComponentValueMap.getInstance().get(ParallelComponent.class);
     private Vector<Component> components;
 
-    public ParallelComponent(){
-        super(false);
-    }
+    public ParallelComponent(){}
 
 
     // TODO : Currently public, probably shouldn't be
