@@ -2,14 +2,11 @@ package evaluation;
 
 import components.infrastructure.Anchor;
 import components.infrastructure.ComponentRegistry;
-import components.parts.Ammeter;
 import components.parts.Battery;
 import components.parts.Component;
 import components.parts.Voltmeter;
-import javafx.util.Pair;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Evaluator {
@@ -42,25 +39,31 @@ public class Evaluator {
     }
 
     public void evaluateGraph(Component c, ConcurrentLinkedQueue<Component> r){
-
+        Component originBattery = c;
         Component current = c;
         HashSet<Integer> visitedComponents = new HashSet<>();
-        double rTotal = 0.0;
-        double vTotal = 0.0;
         if(c.getConnectedComponents().size() != 2){
-            // Immediate failure, found battery is not connected
             return;
         }
-        // Iterate once and find the resistance
-        while((current.getNextComponent()) == null && (current = findNextComponent(current)) != null){
-            r.remove(current);
+
+        Anchor outGoingAnchor = c.getLeftRightAnchors().getValue();
+        Anchor originalExitAnchor = outGoingAnchor;
+        Anchor incomingAnchor = null;
+        // Mark up all anchors in the map of components to give direction
+        do {
+            incomingAnchor = outGoingAnchor.getWire().getOtherEnd(outGoingAnchor);
+            allocateTerminals(outGoingAnchor, incomingAnchor);
+            outGoingAnchor = (incomingAnchor.getParentComponent().getLeftRightAnchors().getKey() == incomingAnchor) ?
+                    incomingAnchor.getParentComponent().getLeftRightAnchors().getValue() :
+                    incomingAnchor.getParentComponent().getLeftRightAnchors().getKey();
+        } while(outGoingAnchor != originalExitAnchor);
+        /*
+        double rTotal = 0.0;
+        double vTotal = 0.0;
+        do {
             rTotal += current.getResistance();
             vTotal += current.getVoltage();
-            if(current.getConnectedComponents().size() != 2) {
-                // For components in series all components should have two connected components
-                return;
-            }
-        }
+        } while((current = current.getNextComponent()) != originBattery && current != null);
 
         double aTotal = vTotal / rTotal;
 
@@ -74,54 +77,17 @@ public class Evaluator {
             }
         }
         System.out.println("V: " + vTotal + " R: " + rTotal + " A: " + aTotal);
+        */
     }
 
     private void resolveVoltmeter(Voltmeter v){
-        Pair<Anchor, Anchor> pairedAnchors = v.getLeftRightAnchors();
-        if(!(pairedAnchors.getKey().getWire() != null && pairedAnchors.getValue().getWire() != null)){
-            return;
-        }
-        Component candidateA = pairedAnchors.getKey().getWire().getOtherEnd(pairedAnchors.getKey()).getParentComponent();
-        Component candidateB = pairedAnchors.getValue().getWire().getOtherEnd(pairedAnchors.getValue()).getParentComponent();
-        if(candidateA == candidateB){
-            v.setVoltDisplay(candidateA.getVoltage());
-            return;
-        }
-        Component c = candidateA;
-        double voltage = c.getVoltage();
-        while((c = c.getNextComponent()) != candidateB){
-            voltage += c.getVoltage();
-        }
-        v.setVoltDisplay(voltage);
+        v.setVoltDisplay(0.0);
     }
 
-    private Component findNextComponent(Component component){
-        System.out.print("Given a : " + component.toString());
-        if(component instanceof Battery){
-            Component c = ((Battery) component).getPositiveConnection();
-            component.setNextComponent(c);
-            System.out.println("found a : " + c.toString());
-            return c;
 
-        } else {
-            if(component.getConnectedComponents().get(0) == component.getConnectedComponents().get(1)){
-                Component c = component.getConnectedComponents().getFirst();
-                component.setNextComponent(c);
-                System.out.println("found a : " + c.toString());
-                return c;
-            }
-            for(Component c : component.getConnectedComponents()){
-                if(c.getNextComponent() != component){
-                    component.setNextComponent(c);
-                    System.out.println("found a : " + c.toString());
-                    return c;
-                }
-            }
-        }
-        System.out.println("Found nothing");
-        for(Component c : component.getConnectedComponents()){
-            System.out.println(c.toString());
-        }
-        return null;
+    public void allocateTerminals(Anchor from, Anchor to){
+        System.out.println("Writing polarity");
+        from.getParentComponent().setAnchorPolarity(from, 1);
+        to.getParentComponent().setAnchorPolarity(to, 0);
     }
 }

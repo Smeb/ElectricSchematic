@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public abstract class Component {
@@ -19,23 +20,28 @@ public abstract class Component {
     public static final Color OUTLINE = Color.BLACK;
     public static final double PARALLELOFFSET = 15.0;
     public static final double OFFSET = 30.0;
-
     private static int id = 0;
     public final int thisId;
     public final boolean composite;
     protected double voltage = 0.0;
     protected double resistance;
     protected double current = 0.0;
-
     protected String name;
     protected Rectangle icon;
     protected ComponentView componentView;
     protected LinkedList<Component> connectedComponents;
     protected Component nextComponent;
+    private HashMap<Anchor, Integer> anchorPolarities = new HashMap<>();
 
     public Component(){
         thisId = -1;
         composite = true;
+    }
+
+    protected Component(boolean composite){
+        thisId = id++;
+        connectedComponents = new LinkedList<>();
+        this.composite = composite;
     }
 
     public static void resetIDs()
@@ -43,10 +49,8 @@ public abstract class Component {
         id =0;
     }
 
-    protected Component(boolean composite){
-        thisId = id++;
-        connectedComponents = new LinkedList<>();
-        this.composite = composite;
+    public void setAnchorPolarity(Anchor anchor, int polarity){
+        anchorPolarities.put(anchor, polarity);
     }
 
     public Group getGroup(){
@@ -74,9 +78,9 @@ public abstract class Component {
     public double getCurrent(){return current;}
     public void setCurrent(double current){this.current = current;}
 
-    public void setNextComponent(Component component){nextComponent = component;}
     public Component getNextComponent(){return nextComponent;}
 
+    public void setNextComponent(Component component){nextComponent = component;}
 
     @Override
     public String toString(){
