@@ -28,6 +28,12 @@ public class ComponentFactory {
         else if (Resistor.class.isAssignableFrom(componentClass)) {
             component = new Resistor(composite);
         }
+        else if (Ammeter.class.isAssignableFrom(componentClass)) {
+            component = new Ammeter(composite);
+        }
+        else if (Voltmeter.class.isAssignableFrom(componentClass)) {
+            component = new Voltmeter(composite);
+        }
         else {
             return null;
         }

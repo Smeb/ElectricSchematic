@@ -28,6 +28,8 @@ public class Main extends Application {
         tools.add(new Battery());
         tools.add(new Resistor());
         tools.add(new ParallelComponent());
+        tools.add(new Ammeter());
+        tools.add(new Voltmeter());
         int toolsPerRow = 3;
         int iconSize = 50;
         return new Palette(30,50,iconSize,toolsPerRow,tools);
